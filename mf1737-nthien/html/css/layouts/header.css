@@ -1,0 +1,50 @@
+.header {
+    width: 100%;
+    height: var(--height-header);
+    display: flex;
+}
+
+.header-left {
+    width: var(--width-sidebar);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+}
+
+.header-left .m-button {
+    border: none;
+    border-radius: 50%;
+}
+
+.header-left .logo {
+    width: 100px;
+    height: 36px;
+    margin-left: 10px;
+    background-image: url(../../assets/img/Logo_Module_TiengViet_White.66947422.svg);
+    background-repeat: no-repeat;
+    background-size: 103px;
+    background-position: center;
+}
+
+.header-right {
+    width: calc(100% - var(--width-sidebar));
+    height: 100%;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-right .m-cell {
+    width: 385px;
+    height: var(--height-button);
+    border-radius: 4px;
+    background-color: #d9d9d9;
+}
+
+.header-right .avatar {
+    border: none;
+    border-radius: 50%;
+    background-color: #dddddd;
+}

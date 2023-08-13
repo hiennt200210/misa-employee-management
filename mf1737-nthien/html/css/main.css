@@ -1,0 +1,82 @@
+/* Import component styles */
+@import url(./components/heading.css);
+@import url(./components/button.css);
+@import url(./components/textfield.css);
+@import url(./components/datepicker.css);
+@import url(./components/radio.css);
+@import url(./components/checkbox.css);
+@import url(./components/table.css);
+@import url(./components/menu.css);
+@import url(./components/dropdownlist.css);
+@import url(./components/other.css);
+@import url(./components/paging.css);
+@import url(./components/icon.css);
+@import url(./components/tooltip.css);
+
+/* Fonts */
+@font-face {
+    font-family: "Google Sans Regular";
+    src: url(../assets/fonts/GoogleSans-Regular.otf);
+}
+
+@font-face {
+    font-family: "Google Sans Medium";
+    src: url(../assets/fonts/GoogleSans-Medium.otf);
+}
+
+@font-face {
+    font-family: "Google Sans Bold";
+    src: url(../assets/fonts/GoogleSans-Bold.otf);
+}
+
+/* Variables */
+:root {
+    --height-header: 56px;
+    --width-sidebar: 200px;
+    --font-size-heading-1: 24px;
+    --border-radius: 4px;
+    --border-color-button: #E6E6E6;
+    --bgcolor-button-primary: #50B83C;
+    --bgcolor-button-primary-hover: #57C841;
+    --bgcolor-button-primary-pressed: #118044;
+    --bgcolor-button-secondary: #FFFFFF;
+    --bgcolor-button-secondary-hover: #F6F6F6;
+    --bgcolor-button-secondary-pressed: #EBEBEB;
+    --bgcolor-button-icon: #FFFFFF;
+    --bgcolor-button-icon-hover: #F6F6F6;
+    --bgcolor-button-icon-pressed: #118044;
+    --opacity-button-disable: 0.56;
+    --height-button: 36px;
+    --border-color-input: #EBEBEB;
+    --border-color-input-focus: #50B83C;
+    --bgcolor-input: #FFFFFF;
+    --bgcolor-input-hover: #F6F6F6;
+    --bgcolor-input-focus: #FFFFFF;
+    --color-label: #1F1F1F;
+    --color-input-placeholder: #9E9E9E;
+    --color-error: #E61D1D;
+    --bgcolor-table-head: #F5F5F5;
+    --color-table-border: #E0E0E0;
+    --color-table-row-hover: #F2F2F2;
+    --color-table-row-checked: #F1FFEF;
+    --height-table-row: 48px;
+    --bgcolor-menu: #041434;
+    --bgcolor-menu-item-hover: #17274B;
+    --bgcolor-menu-item-pressed: #1E3155;
+    --color-menu-item: #869AB8;
+    --color-menu-item-pressed: #E0E0E0;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Google Sans Regular', sans-serif;
+    font-size: 14px;
+}
+
+.main {
+    width: 100%;
+    height: calc(100vh - var(--height-header));
+    display: flex;
+}

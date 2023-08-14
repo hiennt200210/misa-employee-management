@@ -6,8 +6,27 @@
 @import url(./layouts/sidebar.css);
 @import url(./layouts/content.css);
 
+.container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
 .main {
     width: 100%;
     height: calc(100vh - var(--height-header));
     display: flex;
+}
+
+.popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
 }

@@ -2,7 +2,7 @@
     width: calc(100% - var(--width-sidebar));
     height: 100%;
     padding: 0px 24px;
-    background-color: #EEEFF1;
+    background-color: #eeeff1;
 }
 
 .title {
@@ -19,7 +19,7 @@
     line-height: 36px;
     font-family: "Google Sans Bold", sans-serif;
     font-size: 24px;
-    color: #1F1F20;
+    color: #1f1f20;
 }
 
 .title .title-button {
@@ -43,7 +43,7 @@
     padding: 12px 16px;
     display: flex;
     justify-content: space-between;
-    background-color: #FFF;
+    background-color: #fff;
 }
 
 .toolbar-left input {
@@ -74,6 +74,10 @@
     z-index: 1;
 }
 
+abbr {
+    text-decoration: none;
+}
+
 .fix-cell {
     height: 48px;
     display: flex;
@@ -93,6 +97,6 @@
 
 .fix-cell a {
     color: #004e7e;
-    font-family: 'Google Sans Medium', sans-serif;
+    font-family: "Google Sans Medium", sans-serif;
     text-decoration: none;
 }

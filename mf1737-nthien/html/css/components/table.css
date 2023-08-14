@@ -7,7 +7,6 @@
 .m-table tr td,
 .m-table tr th {
     padding-left: 16px;
-    
 }
 
 .m-table tr th {
@@ -47,8 +46,7 @@
     background-color: var(--color-table-row-checked);
 }
 
-td input[type=checkbox]
-td input[type=checkbox] {
+td input[type="checkbox"] td input[type="checkbox"] {
     width: 16px;
     height: 16px;
     margin-top: 2px;

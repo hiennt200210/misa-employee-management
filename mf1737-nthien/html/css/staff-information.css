@@ -14,7 +14,7 @@ body {
     width: fit-content;
     height: fit-content;
     padding: 32px;
-    background-color: #FFF;
+    background-color: #fff;
     display: flex;
     flex-direction: column;
     border-radius: var(--border-radius);
@@ -155,7 +155,7 @@ body {
 
 .content-1 span.tooltip,
 .content-2 span.tooltip {
-    font-family: 'Google Sans Medium', sans-serif;
+    font-family: "Google Sans Medium", sans-serif;
 }
 
 /* Form button */

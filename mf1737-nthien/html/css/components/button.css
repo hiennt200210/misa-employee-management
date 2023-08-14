@@ -9,7 +9,7 @@
     border: none;
     padding: 0 16px;
     background-color: var(--bgcolor-button-primary);
-    color: #FFF;
+    color: #fff;
 }
 
 .m-button-primary:hover {
@@ -47,7 +47,7 @@
     height: var(--height-button);
     border: 1px solid var(--border-color-button);
     padding: 6px;
-    background-color: #FFF;
+    background-color: #fff;
 }
 
 .m-button-icon:hover {
@@ -74,5 +74,4 @@
     width: 16px;
     height: 16px;
     margin-right: 4px;
-    
 }

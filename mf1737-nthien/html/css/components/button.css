@@ -1,6 +1,8 @@
 .m-button {
     height: var(--height-button);
     border-radius: var(--border-radius);
+    font-family: "Google Sans Regular", sans-serif;
+    font-size: 14px;
 }
 
 /* Nút chính */

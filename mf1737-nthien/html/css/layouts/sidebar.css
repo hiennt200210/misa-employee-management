@@ -1,10 +1,9 @@
 .sidebar {
-    background-color: var(--bgcolor-menu);
-
-    width: var(--width-sidebar);
+    background-color: #041434;
     height: 100%;
-    padding: 0 12px;
     overflow: auto;
+    padding: 0 12px;
+    width: var(--sidebar-width);
 }
 
 .sidebar .menu {

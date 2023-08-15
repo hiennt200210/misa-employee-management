@@ -7,11 +7,19 @@
     outline: none;
     padding: 0 16px;
     color: var(--color-input-placeholder);
+    font-family: "Google Sans Regular", sans-serif;
+    font-size: 14px;
 }
 
 .m-dropdownlist select:hover {
     background-color: var(--bgcolor-button-secondary-hover);
     cursor: pointer;
+}
+
+.m-dropdownlist select:focus {
+    outline: none;
+    border: 1px solid var(--border-color-input-focus);
+    background-color: var(--bgcolor-input);
 }
 
 .m-dropdownlist select:active {

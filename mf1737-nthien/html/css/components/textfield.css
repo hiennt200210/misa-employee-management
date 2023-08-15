@@ -9,6 +9,8 @@
     border-radius: var(--border-radius);
     padding: 0 12px;
     background-color: var(--bgcolor-input);
+    font-family: "Google Sans Regular", sans-serif;
+    font-size: 14px;
 }
 
 .m-input:hover {
@@ -23,6 +25,8 @@
 
 .m-input::placeholder {
     color: var(--color-input-placeholder);
+    font-family: "Google Sans Regular", sans-serif;
+    font-size: 14px;
 }
 
 /* Textfield with icon */

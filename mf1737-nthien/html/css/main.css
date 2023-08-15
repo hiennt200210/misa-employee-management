@@ -1,17 +1,21 @@
 /* Import component styles */
 @import url(./components/heading.css);
 @import url(./components/button.css);
-@import url(./components/textfield.css);
-@import url(./components/datepicker.css);
-@import url(./components/radio.css);
 @import url(./components/checkbox.css);
-@import url(./components/table.css);
-@import url(./components/menu.css);
+@import url(./components/datepicker.css);
 @import url(./components/dropdownlist.css);
-@import url(./components/other.css);
-@import url(./components/paging.css);
 @import url(./components/icon.css);
+@import url(./components/menu.css);
+@import url(./components/paging.css);
+@import url(./components/radio.css);
+@import url(./components/table.css);
+@import url(./components/textfield.css);
 @import url(./components/tooltip.css);
+
+/* Import Layouts */
+@import url(./layouts/header.css);
+@import url(./layouts/sidebar.css);
+@import url(./layouts/content.css);
 
 /* Fonts */
 @font-face {
@@ -29,10 +33,14 @@
     src: url(../assets/fonts/GoogleSans-Bold.otf);
 }
 
-/* Variables */
 :root {
-    --height-header: 56px;
-    --width-sidebar: 200px;
+    /* Layout Variables */
+    --header-height: 56px;
+    --sidebar-width: 200px;
+
+    /* Typography Variables */
+    --h1-font-size: 24px;
+
     --font-size-heading-1: 24px;
     --border-radius: 4px;
     --border-color-button: #e6e6e6;
@@ -68,9 +76,21 @@
 }
 
 * {
-    margin: 0px;
-    padding: 0px;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
     font-family: "Google Sans Regular", sans-serif;
     font-size: 14px;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+}
+
+.main {
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+    display: flex;
 }

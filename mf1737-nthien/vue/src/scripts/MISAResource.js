@@ -11,6 +11,11 @@ const MISAResource = {
                     StoreAndAdd: "Cất và thêm",
                 },
             },
+            Form: {
+                Warning: {
+                    CannotBeEmpty: "không được để trống",
+                },
+            },
         },
         Tooltip: {
             Button: {
@@ -60,6 +65,11 @@ const MISAResource = {
                     Clone: "Duplicate",
                     Store: "Store",
                     StoreAndAdd: "Store and add",
+                },
+            },
+            Form: {
+                Warning: {
+                    CannotBeEmpty: "cannot be empty",
                 },
             },
         },

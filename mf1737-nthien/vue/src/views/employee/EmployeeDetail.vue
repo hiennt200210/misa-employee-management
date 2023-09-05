@@ -314,6 +314,7 @@ export default {
     data() {
         return {
             employee: {},
+            newEmployeeCode: "",
             showDialog: false,
             showToastMessage: false,
             dialogTitle: "",
@@ -321,8 +322,21 @@ export default {
         };
     },
 
+    created() {
+        // Tải mã nhân viên mới
+        this.$axios
+            .get("https://cukcuk.manhnv.net/api/v1/Employees/NewEmployeeCode")
+            .then((response) => {
+                this.newEmployeeCode = response.data;
+                this.employee.employeeCode = this.newEmployeeCode;
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    },
+
     mounted() {
-        this.$refs["firstInput"].setWidth();
+        this.$refs["firstInput"].setWidth("150px");
         this.$refs["firstInput"].focusInput();
     },
 };

@@ -17,7 +17,7 @@
                 :id="id"
                 :placeholder="placeHolder"
                 :value="modelValue"
-                @input="$emit('update:modelValue', $event.target.value)"
+                @input="emitValue"
                 @blur="validateInput" />
 
             <!-- Icon trên ô nhập -->
@@ -25,8 +25,10 @@
         </div>
 
         <!-- Thông báo xác thực đầu vào -->
-        <div v-if="showErrorMessage && false" class="error-message">
-            {{ $MISAResource[$languageCode].TextfieldCannotBeEmpty }}
+        <div v-if="showErrorMessage" class="error-message">
+            {{
+                `${label} ${$MISAResource[$languageCode].Component.Form.Warning.CannotBeEmpty}`
+            }}
         </div>
     </div>
 </template>
@@ -52,6 +54,7 @@ export default {
         "icon",
         "modelValue",
     ],
+
     emits: ["update:modelValue"],
 
     computed: {
@@ -94,31 +97,28 @@ export default {
          * Kiểm tra dữ liệu hợp lệ.
          * CreatedBy: hiennt200210 (24/08/2023)
          */
-        // validateInput() {
-        //     if (this.required) {
-        //         if (this.modelValue === "") {
-        //             this.showErrorMessage = true;
-        //         } else {
-        //             this.showErrorMessage = false;
-        //         }
-        //     }
-        // },
         validateInput() {
-            if (this.required) {
-                if (this.value === "" || this.value === null) {
-                    this.showErrorMessage = true;
-                } else {
-                    this.showErrorMessage = false;
-                }
-            }
+            if (this.required)
+                this.showErrorMessage = this.value === "" ? true : false;
+        },
+
+        /**
+         * Xác thực dữ liệu được nhập cho input.
+         * CreatedBy: hiennt200210 (24/08/2023)
+         */
+        emitValue(e) {
+            this.$emit("update:modelValue", e.target.value);
+
+            if (this.required)
+                this.showErrorMessage = e.target.value === "" ? true : false;
         },
 
         /**
          * Đặt kích thước cho input.
          * CreatedBy: hiennt200210 (24/08/2023)
          */
-        setWidth() {
-            this.$refs["input"].style.width = "150px";
+        setWidth(width) {
+            this.$refs["input"].style.width = width;
         },
     },
 

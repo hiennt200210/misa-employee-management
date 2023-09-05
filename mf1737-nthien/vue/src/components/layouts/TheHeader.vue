@@ -1,15 +1,15 @@
 <template>
     <div class="header">
-        <!-- Header Left -->
         <div class="header-left">
             <!-- Menu button -->
-            <MButton type="icon" icon="menu" />
+            <MButton
+                :type="$MISAEnum.Component.Button.Type.Icon"
+                icon="menu" />
 
             <!-- Logo -->
             <a class="logo"></a>
         </div>
 
-        <!-- Header Right -->
         <div class="header-right">
             <div class="m-dropdownlist">
                 <select @change="onChangeLanguage" ref="changeLanguage">
@@ -21,8 +21,7 @@
             <!-- User's Avatar -->
             <div
                 class="m-avatar m-button m-button-icon m-button-icon-small"
-                title="Nguyễn Thế Hiển"
-            ></div>
+                title="Nguyễn Thế Hiển"></div>
         </div>
     </div>
 </template>

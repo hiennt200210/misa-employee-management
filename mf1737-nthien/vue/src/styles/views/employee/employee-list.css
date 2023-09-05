@@ -1,0 +1,30 @@
+.employee {
+    height: 100%;
+    width: 100%;
+}
+
+/* Page Title */
+.page-title {
+    height: 36px;
+    width: 100%;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.page-title-right {
+    display: flex;
+    align-items: center;
+}
+
+.page-title-right > * {
+    margin-left: 12px;
+}
+
+/* Page Content */
+
+.page-content {
+    height: calc(100% - 48px);
+    width: 100%;
+}

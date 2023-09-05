@@ -1,0 +1,36 @@
+.m-form {
+    height: fit-content;
+    width: fit-content;
+    min-width: 300px;
+    padding: 32px;
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    bottom: 3%;
+}
+
+.m-form > *:not(:first-child) {
+    margin-top: 32px;
+}
+
+.m-form .form-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.m-form .form-content > *:not(:first-child) {
+    margin-top: 32px;
+}
+
+.m-form .form-action {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.m-form .form-action > *:not(:first-child) {
+    margin-left: 12px;
+}

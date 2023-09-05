@@ -8,7 +8,7 @@
     </head>
     <body>
         <div class="container">
-            <!-- Start Page Header -->
+            <!-- Start Header -->
             <div class="header">
                 <!-- Header Left -->
                 <div class="header-left">
@@ -27,10 +27,10 @@
                     ></div>
                 </div>
             </div>
-            <!-- End Page Header -->
+            <!-- End Header -->
 
             <div class="main">
-                <!-- Start Page Sidebar -->
+                <!-- Start Sidebar -->
                 <div class="sidebar">
                     <div class="menu">
                         <div class="m-menu-item">
@@ -83,13 +83,15 @@
                         </div>
                     </div>
                 </div>
-                <!-- End Page Sidebar -->
+                <!-- End Sidebar -->
 
-                <!-- Start Page Content -->
+                <!-- Start Content -->
                 <div class="content">
+                    <!-- Page Title -->
                     <div class="page-title">
                         <h1>Nhân viên</h1>
                         <div class="page-title-right">
+                            <!-- Nút Thêm mới -->
                             <button
                                 class="m-button m-button-primary m-button-with-icon"
                                 id="button-add"
@@ -106,6 +108,7 @@
                                 </svg>
                                 <div>Thêm mới</div>
                             </button>
+                            <!-- Nút Tùy chọn -->
                             <button
                                 class="m-button m-button-icon m-button-icon-small"
                             >
@@ -127,7 +130,11 @@
                             </button>
                         </div>
                     </div>
+                    <!-- End Page Title -->
+
+                    <!-- Start Page Content -->
                     <div class="page-content">
+                        <!-- Toolbar -->
                         <div class="toolbar">
                             <div class="toolbar-left">
                                 <div class="m-textfield-with-icon">
@@ -165,13 +172,15 @@
                                 </button>
                                 <button
                                     class="m-button m-button-icon m-button-icon-small"
+                                    id="button-reload"
                                 >
-                                    <div class="icon icon-setting"></div>
+                                    <div class="icon icon-reload"></div>
                                 </button>
                             </div>
                         </div>
+                        <!-- Table -->
                         <div class="table-wrapper">
-                            <table class="m-table">
+                            <table class="m-table" id="tableEmployee">
                                 <thead>
                                     <tr>
                                         <th
@@ -270,6 +279,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <!-- Cột dữ liệu tĩnh -->
                                     <tr class="m-row-selected">
                                         <td
                                             class="text-align-center sticky-column"
@@ -322,693 +332,20 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td
-                                            class="text-align-center sticky-column"
-                                        >
-                                            <input type="checkbox" />
-                                        </td>
-                                        <td class="text-align-left">NV1737</td>
-                                        <td class="text-align-left">
-                                            Nguyễn Văn A
-                                        </td>
-                                        <td class="text-align-left">Nam</td>
-                                        <td class="text-align-center">
-                                            12/05/2000
-                                        </td>
-                                        <td class="text-align-left">
-                                            125993475
-                                        </td>
-                                        <td class="text-align-center">
-                                            11/01/2016
-                                        </td>
-                                        <td class="text-align-left">Hà Nội</td>
-                                        <td class="text-align-left">
-                                            Nhân viên tiếp tân
-                                        </td>
-                                        <td class="text-align-left">DV1728</td>
-                                        <td class="text-align-left">
-                                            Đơn vị 8
-                                        </td>
-                                        <td class="text-align-right">
-                                            10.000.000
-                                        </td>
-                                        <td class="text-align-right">0.10</td>
-                                        <td class="text-align-right">
-                                            8.000.000
-                                        </td>
-                                        <td class="text-align-center fix-cell">
-                                            <a href="">Sửa</a>
-                                            <div class="m-dropdownlist">
-                                                <select name="">
-                                                    <option value="1">
-                                                        Nhân bản
-                                                    </option>
-                                                    <option value="2">
-                                                        Xóa
-                                                    </option>
-                                                    <option value="3">
-                                                        Ngừng sử dụng
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td
-                                            class="text-align-center sticky-column"
-                                        >
-                                            <input type="checkbox" />
-                                        </td>
-                                        <td class="text-align-left">NV1737</td>
-                                        <td class="text-align-left">
-                                            Nguyễn Văn A
-                                        </td>
-                                        <td class="text-align-left">Nam</td>
-                                        <td class="text-align-center">
-                                            12/05/2000
-                                        </td>
-                                        <td class="text-align-left">
-                                            125993475
-                                        </td>
-                                        <td class="text-align-center">
-                                            11/01/2016
-                                        </td>
-                                        <td class="text-align-left">Hà Nội</td>
-                                        <td class="text-align-left">
-                                            Nhân viên tiếp tân
-                                        </td>
-                                        <td class="text-align-left">DV1728</td>
-                                        <td class="text-align-left">
-                                            Đơn vị 8
-                                        </td>
-                                        <td class="text-align-right">
-                                            10.000.000
-                                        </td>
-                                        <td class="text-align-right">0.10</td>
-                                        <td class="text-align-right">
-                                            8.000.000
-                                        </td>
-                                        <td class="text-align-center fix-cell">
-                                            <a href="">Sửa</a>
-                                            <div class="m-dropdownlist">
-                                                <select name="">
-                                                    <option value="1">
-                                                        Nhân bản
-                                                    </option>
-                                                    <option value="2">
-                                                        Xóa
-                                                    </option>
-                                                    <option value="3">
-                                                        Ngừng sử dụng
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td
-                                            class="text-align-center sticky-column"
-                                        >
-                                            <input type="checkbox" />
-                                        </td>
-                                        <td class="text-align-left">NV1737</td>
-                                        <td class="text-align-left">
-                                            Nguyễn Văn A
-                                        </td>
-                                        <td class="text-align-left">Nam</td>
-                                        <td class="text-align-center">
-                                            12/05/2000
-                                        </td>
-                                        <td class="text-align-left">
-                                            125993475
-                                        </td>
-                                        <td class="text-align-center">
-                                            11/01/2016
-                                        </td>
-                                        <td class="text-align-left">Hà Nội</td>
-                                        <td class="text-align-left">
-                                            Nhân viên tiếp tân
-                                        </td>
-                                        <td class="text-align-left">DV1728</td>
-                                        <td class="text-align-left">
-                                            Đơn vị 8
-                                        </td>
-                                        <td class="text-align-right">
-                                            10.000.000
-                                        </td>
-                                        <td class="text-align-right">0.10</td>
-                                        <td class="text-align-right">
-                                            8.000.000
-                                        </td>
-                                        <td class="text-align-center fix-cell">
-                                            <a href="">Sửa</a>
-                                            <div class="m-dropdownlist">
-                                                <select name="">
-                                                    <option value="1">
-                                                        Nhân bản
-                                                    </option>
-                                                    <option value="2">
-                                                        Xóa
-                                                    </option>
-                                                    <option value="3">
-                                                        Ngừng sử dụng
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td
-                                            class="text-align-center sticky-column"
-                                        >
-                                            <input type="checkbox" />
-                                        </td>
-                                        <td class="text-align-left">NV1737</td>
-                                        <td class="text-align-left">
-                                            Nguyễn Văn A
-                                        </td>
-                                        <td class="text-align-left">Nam</td>
-                                        <td class="text-align-center">
-                                            12/05/2000
-                                        </td>
-                                        <td class="text-align-left">
-                                            125993475
-                                        </td>
-                                        <td class="text-align-center">
-                                            11/01/2016
-                                        </td>
-                                        <td class="text-align-left">Hà Nội</td>
-                                        <td class="text-align-left">
-                                            Nhân viên tiếp tân
-                                        </td>
-                                        <td class="text-align-left">DV1728</td>
-                                        <td class="text-align-left">
-                                            Đơn vị 8
-                                        </td>
-                                        <td class="text-align-right">
-                                            10.000.000
-                                        </td>
-                                        <td class="text-align-right">0.10</td>
-                                        <td class="text-align-right">
-                                            8.000.000
-                                        </td>
-                                        <td class="text-align-center fix-cell">
-                                            <a href="">Sửa</a>
-                                            <div class="m-dropdownlist">
-                                                <select name="">
-                                                    <option value="1">
-                                                        Nhân bản
-                                                    </option>
-                                                    <option value="2">
-                                                        Xóa
-                                                    </option>
-                                                    <option value="3">
-                                                        Ngừng sử dụng
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td
-                                            class="text-align-center sticky-column"
-                                        >
-                                            <input type="checkbox" />
-                                        </td>
-                                        <td class="text-align-left">NV1737</td>
-                                        <td class="text-align-left">
-                                            Nguyễn Văn A
-                                        </td>
-                                        <td class="text-align-left">Nam</td>
-                                        <td class="text-align-center">
-                                            12/05/2000
-                                        </td>
-                                        <td class="text-align-left">
-                                            125993475
-                                        </td>
-                                        <td class="text-align-center">
-                                            11/01/2016
-                                        </td>
-                                        <td class="text-align-left">Hà Nội</td>
-                                        <td class="text-align-left">
-                                            Nhân viên tiếp tân
-                                        </td>
-                                        <td class="text-align-left">DV1728</td>
-                                        <td class="text-align-left">
-                                            Đơn vị 8
-                                        </td>
-                                        <td class="text-align-right">
-                                            10.000.000
-                                        </td>
-                                        <td class="text-align-right">0.10</td>
-                                        <td class="text-align-right">
-                                            8.000.000
-                                        </td>
-                                        <td class="text-align-center fix-cell">
-                                            <a href="">Sửa</a>
-                                            <div class="m-dropdownlist">
-                                                <select name="">
-                                                    <option value="1">
-                                                        Nhân bản
-                                                    </option>
-                                                    <option value="2">
-                                                        Xóa
-                                                    </option>
-                                                    <option value="3">
-                                                        Ngừng sử dụng
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td
-                                            class="text-align-center sticky-column"
-                                        >
-                                            <input type="checkbox" />
-                                        </td>
-                                        <td class="text-align-left">NV1737</td>
-                                        <td class="text-align-left">
-                                            Nguyễn Văn A
-                                        </td>
-                                        <td class="text-align-left">Nam</td>
-                                        <td class="text-align-center">
-                                            12/05/2000
-                                        </td>
-                                        <td class="text-align-left">
-                                            125993475
-                                        </td>
-                                        <td class="text-align-center">
-                                            11/01/2016
-                                        </td>
-                                        <td class="text-align-left">Hà Nội</td>
-                                        <td class="text-align-left">
-                                            Nhân viên tiếp tân
-                                        </td>
-                                        <td class="text-align-left">DV1728</td>
-                                        <td class="text-align-left">
-                                            Đơn vị 8
-                                        </td>
-                                        <td class="text-align-right">
-                                            10.000.000
-                                        </td>
-                                        <td class="text-align-right">0.10</td>
-                                        <td class="text-align-right">
-                                            8.000.000
-                                        </td>
-                                        <td class="text-align-center fix-cell">
-                                            <a href="">Sửa</a>
-                                            <div class="m-dropdownlist">
-                                                <select name="">
-                                                    <option value="1">
-                                                        Nhân bản
-                                                    </option>
-                                                    <option value="2">
-                                                        Xóa
-                                                    </option>
-                                                    <option value="3">
-                                                        Ngừng sử dụng
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td
-                                            class="text-align-center sticky-column"
-                                        >
-                                            <input type="checkbox" />
-                                        </td>
-                                        <td class="text-align-left">NV1737</td>
-                                        <td class="text-align-left">
-                                            Nguyễn Văn A
-                                        </td>
-                                        <td class="text-align-left">Nam</td>
-                                        <td class="text-align-center">
-                                            12/05/2000
-                                        </td>
-                                        <td class="text-align-left">
-                                            125993475
-                                        </td>
-                                        <td class="text-align-center">
-                                            11/01/2016
-                                        </td>
-                                        <td class="text-align-left">Hà Nội</td>
-                                        <td class="text-align-left">
-                                            Nhân viên tiếp tân
-                                        </td>
-                                        <td class="text-align-left">DV1728</td>
-                                        <td class="text-align-left">
-                                            Đơn vị 8
-                                        </td>
-                                        <td class="text-align-right">
-                                            10.000.000
-                                        </td>
-                                        <td class="text-align-right">0.10</td>
-                                        <td class="text-align-right">
-                                            8.000.000
-                                        </td>
-                                        <td class="text-align-center fix-cell">
-                                            <a href="">Sửa</a>
-                                            <div class="m-dropdownlist">
-                                                <select name="">
-                                                    <option value="1">
-                                                        Nhân bản
-                                                    </option>
-                                                    <option value="2">
-                                                        Xóa
-                                                    </option>
-                                                    <option value="3">
-                                                        Ngừng sử dụng
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td
-                                            class="text-align-center sticky-column"
-                                        >
-                                            <input type="checkbox" />
-                                        </td>
-                                        <td class="text-align-left">NV1737</td>
-                                        <td class="text-align-left">
-                                            Nguyễn Văn A
-                                        </td>
-                                        <td class="text-align-left">Nam</td>
-                                        <td class="text-align-center">
-                                            12/05/2000
-                                        </td>
-                                        <td class="text-align-left">
-                                            125993475
-                                        </td>
-                                        <td class="text-align-center">
-                                            11/01/2016
-                                        </td>
-                                        <td class="text-align-left">Hà Nội</td>
-                                        <td class="text-align-left">
-                                            Nhân viên tiếp tân
-                                        </td>
-                                        <td class="text-align-left">DV1728</td>
-                                        <td class="text-align-left">
-                                            Đơn vị 8
-                                        </td>
-                                        <td class="text-align-right">
-                                            10.000.000
-                                        </td>
-                                        <td class="text-align-right">0.10</td>
-                                        <td class="text-align-right">
-                                            8.000.000
-                                        </td>
-                                        <td class="text-align-center fix-cell">
-                                            <a href="">Sửa</a>
-                                            <div class="m-dropdownlist">
-                                                <select name="">
-                                                    <option value="1">
-                                                        Nhân bản
-                                                    </option>
-                                                    <option value="2">
-                                                        Xóa
-                                                    </option>
-                                                    <option value="3">
-                                                        Ngừng sử dụng
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td
-                                            class="text-align-center sticky-column"
-                                        >
-                                            <input type="checkbox" />
-                                        </td>
-                                        <td class="text-align-left">NV1737</td>
-                                        <td class="text-align-left">
-                                            Nguyễn Văn A
-                                        </td>
-                                        <td class="text-align-left">Nam</td>
-                                        <td class="text-align-center">
-                                            12/05/2000
-                                        </td>
-                                        <td class="text-align-left">
-                                            125993475
-                                        </td>
-                                        <td class="text-align-center">
-                                            11/01/2016
-                                        </td>
-                                        <td class="text-align-left">Hà Nội</td>
-                                        <td class="text-align-left">
-                                            Nhân viên tiếp tân
-                                        </td>
-                                        <td class="text-align-left">DV1728</td>
-                                        <td class="text-align-left">
-                                            Đơn vị 8
-                                        </td>
-                                        <td class="text-align-right">
-                                            10.000.000
-                                        </td>
-                                        <td class="text-align-right">0.10</td>
-                                        <td class="text-align-right">
-                                            8.000.000
-                                        </td>
-                                        <td class="text-align-center fix-cell">
-                                            <a href="">Sửa</a>
-                                            <div class="m-dropdownlist">
-                                                <select name="">
-                                                    <option value="1">
-                                                        Nhân bản
-                                                    </option>
-                                                    <option value="2">
-                                                        Xóa
-                                                    </option>
-                                                    <option value="3">
-                                                        Ngừng sử dụng
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td
-                                            class="text-align-center sticky-column"
-                                        >
-                                            <input type="checkbox" />
-                                        </td>
-                                        <td class="text-align-left">NV1737</td>
-                                        <td class="text-align-left">
-                                            Nguyễn Văn A
-                                        </td>
-                                        <td class="text-align-left">Nam</td>
-                                        <td class="text-align-center">
-                                            12/05/2000
-                                        </td>
-                                        <td class="text-align-left">
-                                            125993475
-                                        </td>
-                                        <td class="text-align-center">
-                                            11/01/2016
-                                        </td>
-                                        <td class="text-align-left">Hà Nội</td>
-                                        <td class="text-align-left">
-                                            Nhân viên tiếp tân
-                                        </td>
-                                        <td class="text-align-left">DV1728</td>
-                                        <td class="text-align-left">
-                                            Đơn vị 8
-                                        </td>
-                                        <td class="text-align-right">
-                                            10.000.000
-                                        </td>
-                                        <td class="text-align-right">0.10</td>
-                                        <td class="text-align-right">
-                                            8.000.000
-                                        </td>
-                                        <td class="text-align-center fix-cell">
-                                            <a href="">Sửa</a>
-                                            <div class="m-dropdownlist">
-                                                <select name="">
-                                                    <option value="1">
-                                                        Nhân bản
-                                                    </option>
-                                                    <option value="2">
-                                                        Xóa
-                                                    </option>
-                                                    <option value="3">
-                                                        Ngừng sử dụng
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td
-                                            class="text-align-center sticky-column"
-                                        >
-                                            <input type="checkbox" />
-                                        </td>
-                                        <td class="text-align-left">NV1737</td>
-                                        <td class="text-align-left">
-                                            Nguyễn Văn A
-                                        </td>
-                                        <td class="text-align-left">Nam</td>
-                                        <td class="text-align-center">
-                                            12/05/2000
-                                        </td>
-                                        <td class="text-align-left">
-                                            125993475
-                                        </td>
-                                        <td class="text-align-center">
-                                            11/01/2016
-                                        </td>
-                                        <td class="text-align-left">Hà Nội</td>
-                                        <td class="text-align-left">
-                                            Nhân viên tiếp tân
-                                        </td>
-                                        <td class="text-align-left">DV1728</td>
-                                        <td class="text-align-left">
-                                            Đơn vị 8
-                                        </td>
-                                        <td class="text-align-right">
-                                            10.000.000
-                                        </td>
-                                        <td class="text-align-right">0.10</td>
-                                        <td class="text-align-right">
-                                            8.000.000
-                                        </td>
-                                        <td class="text-align-center fix-cell">
-                                            <a href="">Sửa</a>
-                                            <div class="m-dropdownlist">
-                                                <select name="">
-                                                    <option value="1">
-                                                        Nhân bản
-                                                    </option>
-                                                    <option value="2">
-                                                        Xóa
-                                                    </option>
-                                                    <option value="3">
-                                                        Ngừng sử dụng
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td
-                                            class="text-align-center sticky-column"
-                                        >
-                                            <input type="checkbox" />
-                                        </td>
-                                        <td class="text-align-left">NV1737</td>
-                                        <td class="text-align-left">
-                                            Nguyễn Văn A
-                                        </td>
-                                        <td class="text-align-left">Nam</td>
-                                        <td class="text-align-center">
-                                            12/05/2000
-                                        </td>
-                                        <td class="text-align-left">
-                                            125993475
-                                        </td>
-                                        <td class="text-align-center">
-                                            11/01/2016
-                                        </td>
-                                        <td class="text-align-left">Hà Nội</td>
-                                        <td class="text-align-left">
-                                            Nhân viên tiếp tân
-                                        </td>
-                                        <td class="text-align-left">DV1728</td>
-                                        <td class="text-align-left">
-                                            Đơn vị 8
-                                        </td>
-                                        <td class="text-align-right">
-                                            10.000.000
-                                        </td>
-                                        <td class="text-align-right">0.10</td>
-                                        <td class="text-align-right">
-                                            8.000.000
-                                        </td>
-                                        <td class="text-align-center fix-cell">
-                                            <a href="">Sửa</a>
-                                            <div class="m-dropdownlist">
-                                                <select name="">
-                                                    <option value="1">
-                                                        Nhân bản
-                                                    </option>
-                                                    <option value="2">
-                                                        Xóa
-                                                    </option>
-                                                    <option value="3">
-                                                        Ngừng sử dụng
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td
-                                            class="text-align-center sticky-column"
-                                        >
-                                            <input type="checkbox" />
-                                        </td>
-                                        <td class="text-align-left">NV1737</td>
-                                        <td class="text-align-left">
-                                            Nguyễn Văn A
-                                        </td>
-                                        <td class="text-align-left">Nam</td>
-                                        <td class="text-align-center">
-                                            12/05/2000
-                                        </td>
-                                        <td class="text-align-left">
-                                            125993475
-                                        </td>
-                                        <td class="text-align-center">
-                                            11/01/2016
-                                        </td>
-                                        <td class="text-align-left">Hà Nội</td>
-                                        <td class="text-align-left">
-                                            Nhân viên tiếp tân
-                                        </td>
-                                        <td class="text-align-left">DV1728</td>
-                                        <td class="text-align-left">
-                                            Đơn vị 8
-                                        </td>
-                                        <td class="text-align-right">
-                                            10.000.000
-                                        </td>
-                                        <td class="text-align-right">0.10</td>
-                                        <td class="text-align-right">
-                                            8.000.000
-                                        </td>
-                                        <td class="text-align-center fix-cell">
-                                            <a href="">Sửa</a>
-                                            <div class="m-dropdownlist">
-                                                <select name="">
-                                                    <option value="1">
-                                                        Nhân bản
-                                                    </option>
-                                                    <option value="2">
-                                                        Xóa
-                                                    </option>
-                                                    <option value="3">
-                                                        Ngừng sử dụng
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
+                        <!-- End Table -->
+
+                        <!-- Paging -->
                         <div class="paging">
                             <div class="m-paging">
-                                <!-- Left -->
+                                <!-- Paging Left -->
                                 <div class="m-paging-left">
                                     Tổng: <span class="number">4</span> bản ghi
                                 </div>
 
-                                <!-- Right -->
+                                <!-- Paging Right -->
                                 <div class="m-paging-right">
                                     <div class="record-per-page">
                                         Số bản ghi/trang:
@@ -1041,8 +378,9 @@
                             </div>
                         </div>
                     </div>
+                    <!-- End Page Content -->
                 </div>
-                <!-- End Page Content -->
+                <!-- End Content -->
             </div>
 
             <!-- Popup: Chi tiết nhân viên -->
@@ -1080,9 +418,9 @@
                             </button>
                             <button
                                 class="m-button m-button-icon"
-                                id="button-exit"
+                                id="button-close"
                             >
-                                <div class="icon icon-exit"></div>
+                                <div class="icon icon-close"></div>
                             </button>
                         </div>
                     </div>
@@ -1090,6 +428,7 @@
                     <!-- Form -->
                     <div class="form-wrapper">
                         <div class="content-1">
+                            <!-- Column Left -->
                             <div class="column-left">
                                 <div class="row-1">
                                     <div class="m-textfield">
@@ -1159,6 +498,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Column Right -->
                             <div class="column-right">
                                 <div class="row-1">
                                     <div class="m-textfield m-datepicker">
@@ -1221,7 +561,6 @@
                                             class="m-input"
                                             type="text"
                                             name="name"
-                                            placeholder=""
                                         />
                                     </div>
                                     <div class="m-textfield m-datepicker">
@@ -1346,7 +685,7 @@
                         </div>
                     </div>
 
-                    <!-- Form buttons -->
+                    <!-- Form Buttons -->
                     <div class="form-button">
                         <button
                             class="m-button m-button-second"
@@ -1361,9 +700,14 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Progess khi load dữ liệu -->
+            <div class="m-loading" id="loading">
+                <div class="icon icon-loading"></div>
+            </div>
         </div>
 
-        <script src="../lib/jquery-3.7.0.min.js"></script>
+        <script src="../js/helpers/common.js"></script>
         <script src="../js/employee.js"></script>
     </body>
 </html>

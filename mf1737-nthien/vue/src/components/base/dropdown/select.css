@@ -1,0 +1,107 @@
+.m-select {
+    height: var(--control-height);
+    min-width: 250px;
+    outline: none;
+    font-family: "Google Sans Regular", sans-serif;
+    font-size: 14px;
+    line-height: var(--control-height);
+    position: relative;
+    z-index: 3;
+}
+
+.m-selected {
+    padding-left: 12px;
+    padding-right: 24px;
+    background-color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--input-placeholder-color);
+    user-select: none;
+}
+
+.m-selected:hover {
+    background-color: var(--secondary-color--hover);
+    cursor: pointer;
+}
+
+.m-selected.open {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.m-selected:before {
+    content: "";
+    height: 16px;
+    width: 16px;
+    margin-top: 1px;
+    background-image: url(../../../assets/img/sprites.svg);
+    background-position: -32px -360px;
+    transform: rotate(-90deg);
+    transition: transform 0.3s ease-in-out;
+    position: absolute;
+    top: 10px;
+    right: 8px;
+}
+
+.m-selected.open::before {
+    transform: rotate(90deg);
+}
+
+.m-selected:after {
+    content: "";
+    height: 0;
+    width: 0;
+    position: absolute;
+    top: 22px;
+    right: 10px;
+}
+
+.m-select-items {
+    max-height: 200px;
+    border: 8px solid var(--secondary-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 16px #c8c8cc;
+    overflow: auto;
+    background-color: var(--secondary-color);
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 3;
+}
+
+/* Scroll (Thanh cuộn) */
+.m-select-items::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 4px;
+    background-color: var(--secondary-color);
+}
+
+/* Scroll thumb (Phần thanh cuộn di chuyển) */
+.m-select-items::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: var(--input-placeholder-color);
+}
+
+/* Scroll track (Phần diện tích còn lại trong thanh cuộn) */
+.m-select-items::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background-color: var(--secondary-color);
+}
+
+.m-select-item {
+    height: var(--control-height);
+    border-radius: var(--border-radius);
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    padding: 0 8px;
+    user-select: none;
+}
+
+.m-select-item:hover {
+    background-color: #edf8eb;
+    cursor: pointer;
+}
+
+.selectHide {
+    display: none;
+}

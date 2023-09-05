@@ -1,0 +1,110 @@
+<template>
+    <div class="spinner-wrapper">
+        <div id="loading-bar-spinner" class="spinner">
+            <div class="spinner-icon"></div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    name: "MSpinner",
+};
+</script>
+
+<style scoped>
+.spinner-wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 4;
+}
+
+#loading-bar-spinner.spinner {
+    left: 50%;
+    margin-left: -20px;
+    top: 50%;
+    margin-top: -20px;
+    position: absolute;
+    z-index: 19 !important;
+    -webkit-animation: loading-bar-spinner 400ms linear infinite;
+    animation: loading-bar-spinner 400ms linear infinite;
+}
+
+#loading-bar-spinner.spinner .spinner-icon {
+    width: 40px;
+    height: 40px;
+    border: solid 4px transparent;
+    border-bottom-color: transparent !important;
+    border-radius: 50%;
+    -webkit-animation: colors 5s infinite;
+    animation: colors 5s infinite;
+}
+
+@-webkit-keyframes loading-bar-spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes loading-bar-spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes colors {
+    0% {
+        border-color: #4285f4;
+    }
+    25% {
+        border-color: #de3e35;
+    }
+    50% {
+        border-color: #f7c223;
+    }
+    75% {
+        border-color: #1b9a59;
+    }
+    100% {
+        border-color: #4285f4;
+    }
+}
+
+@keyframes colors {
+    0% {
+        border-color: #4285f4;
+    }
+    25% {
+        border-color: #de3e35;
+    }
+    50% {
+        border-color: #f7c223;
+    }
+    75% {
+        border-color: #1b9a59;
+    }
+    100% {
+        border-color: #4285f4;
+    }
+}
+</style>

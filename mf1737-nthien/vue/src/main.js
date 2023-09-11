@@ -29,6 +29,7 @@ app.config.globalProperties.$languageCode = "VN";
 app.config.globalProperties.$language = "VN";
 app.config.globalProperties.$axios = axios;
 app.config.globalProperties.$emitter = emitter;
+app.config.globalProperties.$Resource = MISAResource["$language"];
 
 app.use(vueRouter);
 

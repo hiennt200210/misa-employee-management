@@ -14,15 +14,15 @@ export default {
 
 <style scoped>
 .spinner-wrapper {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 4;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
 }
 
 #loading-bar-spinner.spinner {

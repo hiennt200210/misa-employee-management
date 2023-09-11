@@ -27,7 +27,7 @@
         <!-- Thông báo xác thực đầu vào -->
         <div v-if="showErrorMessage" class="error-message">
             {{
-                `${label} ${$MISAResource[$languageCode].Component.Form.Warning.CannotBeEmpty}`
+                `${label} ${$Resource.Component.Form.Warning.CannotBeEmpty}`
             }}
         </div>
     </div>
@@ -42,20 +42,27 @@ export default {
         MLabel,
     },
 
-    props: [
+    emits: ["update:modelValue"],
+
+    props: {
         // Props for MLabel
-        "id",
-        "label",
-        "tooltip",
-        "required",
+        id: String,
+        label: String,
+        tooltip: String,
+        required: Boolean,
 
         // Props for input element
-        "placeHolder",
-        "icon",
-        "modelValue",
-    ],
+        placeHolder: String,
+        icon: Object,
+        modelValue: String,
+    },
 
-    emits: ["update:modelValue"],
+    data() {
+        return {
+            value: "",
+            showErrorMessage: false,
+        };
+    },
 
     computed: {
         /**
@@ -89,7 +96,7 @@ export default {
          * Focus vào phần tử input.
          * CreatedBy: hiennt200210 (24/08/2023)
          */
-        focusInput() {
+        focus() {
             this.$refs["input"].focus();
         },
 
@@ -99,7 +106,7 @@ export default {
          */
         validateInput() {
             if (this.required)
-                this.showErrorMessage = this.value === "" ? true : false;
+                this.showErrorMessage = this.value === "";
         },
 
         /**
@@ -110,7 +117,7 @@ export default {
             this.$emit("update:modelValue", e.target.value);
 
             if (this.required)
-                this.showErrorMessage = e.target.value === "" ? true : false;
+                this.showErrorMessage = e.target.value === "";
         },
 
         /**
@@ -120,13 +127,6 @@ export default {
         setWidth(width) {
             this.$refs["input"].style.width = width;
         },
-    },
-
-    data() {
-        return {
-            value: "",
-            showErrorMessage: false,
-        };
     },
 };
 </script>
@@ -153,8 +153,8 @@ export default {
     background-color: var(--secondary-color);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    font-family: "Google Sans Regular", sans-serif;
-    font-size: 14px;
+    font-family: var(--default-font-family);
+    font-size: var(--default-font-size);
     color: var(--input-text-color);
 }
 
@@ -171,7 +171,7 @@ export default {
 
 .m-textfield__input input::placeholder {
     color: var(--input-placeholder-color);
-    font-family: "Google Sans Regular", sans-serif;
+    font-family: var(--default-font-family);
     font-size: 14px;
 }
 

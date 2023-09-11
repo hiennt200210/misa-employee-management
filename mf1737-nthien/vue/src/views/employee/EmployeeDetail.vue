@@ -10,12 +10,12 @@
                             <MTextfield
                                 v-model="employee.employeeCode"
                                 label="Mã"
-                                :required="true"
+                                required
                                 ref="firstInput" />
                             <MTextfield
                                 v-model="employee.fullName"
                                 label="Tên"
-                                :required="true" />
+                                required />
                         </div>
 
                         <div class="row-2">
@@ -337,7 +337,7 @@ export default {
 
     mounted() {
         this.$refs["firstInput"].setWidth("150px");
-        this.$refs["firstInput"].focusInput();
+        this.$refs["firstInput"].focus();
     },
 };
 </script>

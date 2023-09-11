@@ -44,6 +44,10 @@
     --color-table-row-checked: #f1ffef;
     --height-table-row: 48px;
 
+    --default-font-family: "Google Sans", san-serif;
+    --default-font-size: 14px;
+    --default-border-radius: 4px;
+
     /* Color Variables */
     --primary-color: #50B83C;
     --primary-color--hover: #57c841;

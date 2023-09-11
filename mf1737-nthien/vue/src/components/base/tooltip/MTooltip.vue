@@ -1,5 +1,5 @@
 <template>
-    <div class="m-tooltip">
+    <div :class="styleClass">
         {{ content }}
     </div>
 </template>
@@ -7,37 +7,89 @@
 <script>
 export default {
     name: "MTooltip",
-    props: ["align", "content"],
+
+    props: {
+        // Hướng hiển thị tooltip.
+        align: {
+            type: String,
+            default: "bottom",
+            validator: (value) => {
+                return ["top", "bottom", "left", "right"].includes(value);
+            },
+        },
+
+        // Nội dung của tooltip.
+        content: String,
+    },
+
+    computed: {
+        /**
+         * Xác định các style class phù hợp cho tooltip.
+         * CreatedBy: hiennt200210 (2023/09/07)
+         */
+        styleClass() {
+            return `m-tooltip m-tooltip--align-${this.align}`;
+        },
+    },
 };
 </script>
 
 <style scoped>
+
+
 .m-tooltip {
+    --tooltip-background: rgba(0, 0, 0, 0.8);
+
+    /* Position */
     position: absolute;
-    top: calc(100% + 10px);
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 999;
-    min-height: 40px;
+    z-index: 99;
+    
+    /* Size and display */
     max-width: 250px;
+    min-height: 40px;
     padding: 12px 16px;
     white-space: nowrap;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: var(--border-radius);
+
+    /* Border and background */
+    border-radius: var(--default-border-radius);
+    background-color: var(--tooltip-background);
+
+    /* Content */
+    font-family: var(--default-font-family);
+    font-size: var(--default-font-size);
     color: #fff;
-    font-family: "Google Sans", san-serif;
-    font-size: 14px;
 }
 
 .m-tooltip::after {
     content: "";
     position: absolute;
-    top: -5px;
-    left: calc(50% - 4px);
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 6px solid rgba(0, 0, 0, 0.8);
-    font-size: 0;
 }
 
+.m-tooltip--align-top {
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.m-tooltip--align-top::after {
+    bottom: -5px;
+    left: calc(50% - 5px);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid var(--tooltip-background);
+}
+
+.m-tooltip--align-bottom {
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.m-tooltip--align-bottom::after {
+    top: -5px;
+    left: calc(50% - 5px);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid var(--tooltip-background);
+}
 </style>

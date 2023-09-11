@@ -126,6 +126,9 @@
   <data name="Error_InputValidation" xml:space="preserve">
     <value>Dữ liệu không hợp lệ.</value>
   </data>
+  <data name="Error_InputValidation_IdInvalid" xml:space="preserve">
+    <value>Id không hợp lệ!</value>
+  </data>
   <data name="Error_NotFound" xml:space="preserve">
     <value>Không tìm thấy tài nguyên.</value>
   </data>
@@ -134,5 +137,17 @@
   </data>
   <data name="Error_Service_User" xml:space="preserve">
     <value>Có lỗi xảy ra! Vui lòng liên hệ MISA để được trợ giúp.</value>
+  </data>
+  <data name="Errot_InputValidation_EmailInvalid" xml:space="preserve">
+    <value>Định dạng email không hợp lệ!</value>
+  </data>
+  <data name="Errot_InputValidation_EmployeeCodeCannotBeEmpty" xml:space="preserve">
+    <value>Mã nhân viên không được để trống!</value>
+  </data>
+  <data name="Errot_InputValidation_EmployeeCodeIsExists" xml:space="preserve">
+    <value>Mã nhân viên đã tồn tại!</value>
+  </data>
+  <data name="Errot_InputValidation_FullNameCannotBeEmpty" xml:space="preserve">
+    <value>Tên nhân viên không được để trống!</value>
   </data>
 </root>

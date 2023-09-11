@@ -34,7 +34,7 @@ namespace DemoAspNetCore.Controllers
                 var connection = new MySqlConnection(ConnectionString);
 
                 // Tạo câu truy vấn
-                var sql = "SELECT * FROM Employee;";
+                var sql = "CALL Proc_GetAllEmployees();";
 
                 // Thực thi câu truy vấn
                 var result = await connection.QueryAsync<EmployeeEntity>(sql);
@@ -71,7 +71,7 @@ namespace DemoAspNetCore.Controllers
                 var connection = new MySqlConnection(ConnectionString);
 
                 // Tạo câu truy vấn
-                var sql = $"SELECT * FROM Employee WHERE EmployeeId = @employeeId;";
+                var sql = "CALL Proc_GetEmployeeById(@employeeId);";
 
                 // Tạo dynamicParam
                 var param = new DynamicParameters();
@@ -111,32 +111,32 @@ namespace DemoAspNetCore.Controllers
                 // Validate dữ liệu bắt buộc nhập
                 if (string.IsNullOrEmpty(employee.EmployeeCode))
                 {
-                    ErrorData.Add("employeeCode", "Mã nhân viên không được để trống!");
+                    ErrorData.Add("employeeCode", Resources.VN.Errot_InputValidation_EmployeeCodeCannotBeEmpty);
                 }
 
                 if (string.IsNullOrEmpty(employee.FullName))
                 {
-                    ErrorData.Add("fullName", "Tên nhân viên không được để trống!");
+                    ErrorData.Add("fullName", Resources.VN.Errot_InputValidation_FullNameCannotBeEmpty);
                 }
 
                 // Validate định dạng email
                 if (employee.Email != null && IsValidEmail(employee.Email) == false)
                 {
-                    ErrorData.Add("email", "Định dạng email không hợp lệ!");
+                    ErrorData.Add("email", Resources.VN.Errot_InputValidation_EmailInvalid);
                 }
 
                 // Kiểm tra mã nhân viên đã tồn tại hay chưa
                 if (employee.EmployeeCode != null && EmployeeCodeIsExists(employee.EmployeeCode) == true)
                 {
-                    ErrorData.Add("employeeCodeIsExists", "Mã nhân viên đã tồn tại!");
+                    ErrorData.Add("employeeCodeIsExists", Resources.VN.Errot_InputValidation_EmployeeCodeIsExists);
                 }
 
                 if (ErrorData.Count > 0)
                 {
                     var error = new ErrorService
                     {
-                        DevMsg = "Dữ liệu không hợp lệ!",
-                        UserMsg = "Dữ liệu không hợp lệ!",
+                        DevMsg = Resources.VN.Error_InputValidation,
+                        UserMsg = Resources.VN.Error_InputValidation,
                         MoreInfo = ErrorData,
                     };
 
@@ -147,7 +147,7 @@ namespace DemoAspNetCore.Controllers
                 var connection = new MySqlConnection(ConnectionString);
 
                 // Tạo câu truy vấn INSERT
-                var sql = "INSERT INTO Employee (EmployeeId, EmployeeCode, FullName, Gender, DateOfBirth, PositionName, DepartmentId, PhoneNumber, Landline, Email, Address, IdentityNumber, IdentityDate, IdentityPlace, BankAccount, BankName, BankBranch, CreatedDate, CreatedBy, ModifiedDate, ModifiedBy) VALUES (@EmployeeId, @EmployeeCode, @FullName, @Gender, @DateOfBirth, @PositionName, @DepartmentId, @PhoneNumber, @Landline, @Email, @Address, @IdentityNumber, @IdentityDate, @IdentityPlace, @BankAccount, @BankName, @BankBranch, @CreatedDate, @CreatedBy, @ModifiedDate, @ModifiedBy);";
+                var sql = "CALL Proc_CreateEmployee(@EmployeeId, @EmployeeCode, @FullName, @Gender, @DateOfBirth, @PositionName, @DepartmentId, @PhoneNumber, @Landline, @Email, @Address, @IdentityNumber, @IdentityDate, @IdentityPlace, @BankAccount, @BankName, @BankBranch, @CreatedDate, @CreatedBy, @ModifiedDate, @ModifiedBy);";
 
                 // Tạo mới EmployeeId
                 employee.EmployeeId = Guid.NewGuid();
@@ -164,7 +164,7 @@ namespace DemoAspNetCore.Controllers
                 }
                 else
                 {
-                    return Ok("Tạo không thành công! " + affectedRows);
+                    return Ok(affectedRows);
                 }
             }
             catch (Exception ex)
@@ -197,37 +197,37 @@ namespace DemoAspNetCore.Controllers
                 // Validate dữ liệu bắt buộc nhập
                 if (string.IsNullOrEmpty(employee.EmployeeCode))
                 {
-                    ErrorData.Add("employeeCode", "Mã nhân viên không được để trống!");
+                    ErrorData.Add("employeeCode", Resources.VN.Errot_InputValidation_EmployeeCodeCannotBeEmpty);
                 }
 
                 if (string.IsNullOrEmpty(employee.FullName))
                 {
-                    ErrorData.Add("fullName", "Tên nhân viên không được để trống!");
+                    ErrorData.Add("fullName", Resources.VN.Errot_InputValidation_FullNameCannotBeEmpty);
                 }
 
                 // Validate định dạng email
                 if (employee.Email != null && IsValidEmail(employee.Email) == false)
                 {
-                    ErrorData.Add("email", "Định dạng email không hợp lệ!");
+                    ErrorData.Add("email", Resources.VN.Errot_InputValidation_EmailInvalid);
                 }
 
                 // Kiểm tra mã nhân viên đã tồn tại hay chưa
                 if (employee.EmployeeCode != null && EmployeeCodeIsExists(employee.EmployeeCode) == true)
                 {
-                    ErrorData.Add("employeeCodeIsExists", "Mã nhân viên đã tồn tại!");
+                    ErrorData.Add("employeeCodeIsExists", Resources.VN.Errot_InputValidation_EmployeeCodeIsExists);
                 }
 
                 if (employeeId != employee.EmployeeId)
                 {
-                    ErrorData.Add("employeeIdInvalid", "Id không hợp lệ!");
+                    ErrorData.Add("employeeIdInvalid", Resources.VN.Error_InputValidation_IdInvalid);
                 }
 
                 if (ErrorData.Count > 0)
                 {
                     var error = new ErrorService
                     {
-                        DevMsg = "Dữ liệu không hợp lệ!",
-                        UserMsg = "Dữ liệu không hợp lệ!",
+                        DevMsg = Resources.VN.Error_InputValidation,
+                        UserMsg = Resources.VN.Error_InputValidation,
                         MoreInfo = ErrorData,
                     };
 
@@ -236,7 +236,7 @@ namespace DemoAspNetCore.Controllers
 
                 var connection = new MySqlConnection(ConnectionString);
 
-                var sql = "UPDATE Employee SET EmployeeCode = @EmployeeCode, FullName = @FullName, Gender = @Gender, DateOfBirth = @DateOfBirth, PositionName = @PositionName, DepartmentId = @DepartmentId, PhoneNumber = @PhoneNumber, Landline = @Landline, Email = @Email, Address = @Address, IdentityNumber = @IdentityNumber, IdentityDate = @IdentityDate, IdentityPlace = @IdentityPlace, BankAccount = @BankAccount, BankName = @BankName, BankBranch = @BankBranch, ModifiedDate = @ModifiedDate, ModifiedBy = @ModifiedBy WHERE EmployeeId = @EmployeeId;";
+                var sql = "CALL Proc_UpdateEmployee(@EmployeeId, @EmployeeCode, @FullName, @Gender, @DateOfBirth, @PositionName, @DepartmentId, @PhoneNumber, @Landline, @Email, @Address, @IdentityNumber, @IdentityDate, @IdentityPlace, @BankAccount, @BankName, @BankBranch, @CreatedDate, @CreatedBy, @ModifiedDate, @ModifiedBy);";
 
                 employee.ModifiedDate = DateTime.Now;
 
@@ -248,7 +248,7 @@ namespace DemoAspNetCore.Controllers
                 }
                 else
                 {
-                    return Ok("Cập nhật không thành công! " + affectedRows);
+                    throw new InvalidOperationException();
                 }
             }
             catch (Exception ex)
@@ -277,7 +277,7 @@ namespace DemoAspNetCore.Controllers
             {
                 var connection = new MySqlConnection(ConnectionString);
 
-                var sql = "DELETE FROM Employee WHERE EmployeeId = @employeeId;";
+                var sql = "CALL Proc_DeleteEmployee(@employeeId);";
 
                 var param = new DynamicParameters();
                 param.Add("@employeeId", employeeId);
@@ -346,7 +346,7 @@ namespace DemoAspNetCore.Controllers
         {
             var connection = new MySqlConnection(ConnectionString);
 
-            var sql = "SELECT EmployeeCode FROM Employee WHERE EmployeeCode = @employeeCode;";
+            var sql = "CALL Proc_GetAllEmployeeCode(@employeeCode);";
 
             var param = new DynamicParameters();
             param.Add("@employeeCode", employeeCode);

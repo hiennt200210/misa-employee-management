@@ -88,6 +88,15 @@ namespace DemoAspNetCore.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Id không hợp lệ!.
+        /// </summary>
+        public static string Error_InputValidation_IdInvalid {
+            get {
+                return ResourceManager.GetString("Error_InputValidation_IdInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Không tìm thấy tài nguyên..
         /// </summary>
         public static string Error_NotFound {
@@ -111,6 +120,42 @@ namespace DemoAspNetCore.Resources {
         public static string Error_Service_User {
             get {
                 return ResourceManager.GetString("Error_Service_User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Định dạng email không hợp lệ!.
+        /// </summary>
+        public static string Errot_InputValidation_EmailInvalid {
+            get {
+                return ResourceManager.GetString("Errot_InputValidation_EmailInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã nhân viên không được để trống!.
+        /// </summary>
+        public static string Errot_InputValidation_EmployeeCodeCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("Errot_InputValidation_EmployeeCodeCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã nhân viên đã tồn tại!.
+        /// </summary>
+        public static string Errot_InputValidation_EmployeeCodeIsExists {
+            get {
+                return ResourceManager.GetString("Errot_InputValidation_EmployeeCodeIsExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên nhân viên không được để trống!.
+        /// </summary>
+        public static string Errot_InputValidation_FullNameCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("Errot_InputValidation_FullNameCannotBeEmpty", resourceCulture);
             }
         }
     }

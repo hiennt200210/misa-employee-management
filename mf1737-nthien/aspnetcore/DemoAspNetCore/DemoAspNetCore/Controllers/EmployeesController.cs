@@ -28,8 +28,6 @@ namespace DemoAspNetCore.Controllers
         {
             try
             {
-                // Khai báo thông tin kết nối với database
-
                 // Khởi tạo đối tượng kết nối với database
                 var connection = new MySqlConnection(ConnectionString);
 
@@ -350,11 +348,7 @@ namespace DemoAspNetCore.Controllers
             param.Add("@employeeCode", employeeCode);
             
             var result = connection.QueryFirstOrDefault(sql, param);
-<<<<<<< HEAD
-            
-=======
 
->>>>>>> 7d01d673d5b3aeff49ba330f353711973fb31dbb
             if (result != null)
             {
                 return true;

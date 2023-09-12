@@ -352,8 +352,15 @@ namespace DemoAspNetCore.Controllers
             param.Add("@employeeCode", employeeCode);
             
             var result = connection.QueryFirstOrDefault(sql, param);
-            
-            return result ? true : false;
+
+            if (result != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>

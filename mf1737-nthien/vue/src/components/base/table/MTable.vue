@@ -300,8 +300,10 @@ export default {
         loadData() {
             this.showSpinner = true;
             this.$axios
-                .get("https://cukcuk.manhnv.net/api/v1/Employees")
+                // .get("https://cukcuk.manhnv.net/api/v1/Employees")
+                .get("https://localhost:7111/api/v1/Employees")
                 .then((response) => {
+                    console.log(response);
                     this.employees = response.data;
                     this.showSpinner = false;
                 })

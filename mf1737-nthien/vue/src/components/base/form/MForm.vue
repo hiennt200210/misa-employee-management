@@ -12,6 +12,7 @@
             <slot name="content"></slot>
         </div>
 
+        <!-- Các nút của Form -->
         <div class="form-action">
             <slot name="action"></slot>
         </div>

@@ -63,6 +63,7 @@
                         </div>
                     </div>
                 </div>
+            
 
                 <div class="content-2">
                     <div class="row-1">
@@ -96,8 +97,9 @@
 
             <!-- Form Actions -->
             <template #action>
-                <!-- Nút Hủy -->
-                <MSButton
+                <div class="form-action">
+                    <!-- Nút Hủy -->
+                    <MSButton
                     :type="$MISAEnum.Component.Button.Type.Secondary"
                     :label="
                         $MISAResource[$language].Component.Button.Label.Cancel
@@ -120,6 +122,8 @@
                             .StoreAndAdd
                     "
                     @click="onSaveAndAdd" />
+                </div>
+                
             </template>
         </MForm>
 

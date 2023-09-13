@@ -69,6 +69,7 @@
 .content-2 {
     display: flex;
     flex-direction: column;
+    margin-top: 32px;
 }
 
 .content-2 .row-1 input {
@@ -84,6 +85,10 @@
 .content-2 .row-2 > *,
 .content-2 .row-3 > * {
     margin-right: 16px;
+}
+
+.form-action > * {
+    margin-left: 12px;
 }
 
 #code {

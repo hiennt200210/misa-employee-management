@@ -9,14 +9,11 @@ namespace MISA.AspNetCore.Domain
     public interface IDepartmentRepository
     {
         /// <summary>
-        /// Tìm kiếm phòng ban theo định danh
+        /// Lấy toàn bộ danh sách phòng ban
         /// </summary>
-        /// <param name="departmentId">Định danh của phòng ban cần tìm</param>
-        /// <returns>
-        /// Thông tin phòng ban cần tìm
-        /// </returns>
+        /// <returns>Tất cả phòng ban</returns>
         /// CreatedBy: hiennt200210 (16/09/2023)
-        Task<Department?> FindAsync(Guid departmentId);
+        Task<List<Department>> GetAllAsync();
 
         /// <summary>
         /// Lấy thông tin một phòng ban
@@ -25,7 +22,7 @@ namespace MISA.AspNetCore.Domain
         /// <exception cref="NotFoundException"></exception>
         /// <returns>Thông tin một phòng ban</returns>
         /// CreatedBy: hiennt200210 (16/09/2023)
-        Task<Department> GetAsync(Guid departmentId);
+        Task<Department> GetByIdAsync(Guid departmentId);
 
         /// <summary>
         /// Thêm mới một phòng ban

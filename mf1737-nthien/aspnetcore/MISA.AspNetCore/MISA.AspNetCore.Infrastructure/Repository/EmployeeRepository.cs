@@ -24,12 +24,24 @@ namespace MISA.AspNetCore.Infrastructure
             throw new NotImplementedException();
         }
 
-        public Task<List<Employee>> GetAllAsync()
+        public async Task<List<Employee>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            // Lấy ra connection string
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+            // Khởi tạo đối tượng kết nối với database
+            var connection = new MySqlConnection(connectionString);
+
+            // Tạo câu truy vấn
+            var sql = "CALL Proc_GetAllEmployees();";
+
+            // Thực thi câu truy vấn
+            var employees = await connection.QueryAsync<Employee>(sql);
+
+            return employees.ToList();
         }
 
-        public async Task<Employee> GetAsync(Guid employeeId)
+        public async Task<Employee> GetByIdAsync(Guid employeeId)
         {
             // Lấy ra connection string
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
@@ -59,7 +71,7 @@ namespace MISA.AspNetCore.Infrastructure
             var connection = new MySqlConnection(connectionString);
 
             // Tạo câu truy vấn
-            var sql = "CALL Proc_InsertEmployee(@EmployeeId);";
+            var sql = "CALL Proc_InsertEmployee(@CreatedDate, @CreatedBy, @ModifiedDate, @ModifiedBy, @EmployeeId, @EmployeeCode, @FullName, @Gender, @DateOfBirth, @PositionName, @DepartmentId, @PhoneNumber, @LandlineNumber, @Email, @Address, @IdentityNumber, @IdentityDate, @IdentityPlace, @BankAccount, @BankName, @BankBranch);";
 
             // Tạo dynamic parameter
             var parameters = new DynamicParameters();
@@ -91,14 +103,65 @@ namespace MISA.AspNetCore.Infrastructure
             return affectedRows;
         }
 
-        public Task<int> UpdateAsync(Employee employee)
+        public async Task<int> UpdateAsync(Employee employee)
         {
-            throw new NotImplementedException();
+            // Lấy ra connection string
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+            // Khởi tạo đối tượng kết nối với database
+            var connection = new MySqlConnection(connectionString);
+
+            // Tạo câu truy vấn
+            var sql = "CALL Proc_UpdateEmployee(@CreatedDate, @CreatedBy, @ModifiedDate, @ModifiedBy, @EmployeeId, @EmployeeCode, @FullName, @Gender, @DateOfBirth, @PositionName, @DepartmentId, @PhoneNumber, @LandlineNumber, @Email, @Address, @IdentityNumber, @IdentityDate, @IdentityPlace, @BankAccount, @BankName, @BankBranch);";
+
+            // Tạo dynamic parameter
+            var parameters = new DynamicParameters();
+            parameters.Add("@CreatedDate", employee.CreatedDate);
+            parameters.Add("@CreatedBy", employee.CreatedBy);
+            parameters.Add("@ModifiedDate", employee.ModifiedDate);
+            parameters.Add("@ModifiedBy", employee.ModifiedBy);
+            parameters.Add("@EmployeeId", employee.EmployeeId);
+            parameters.Add("@EmployeeCode", employee.EmployeeCode);
+            parameters.Add("@FullName", employee.FullName);
+            parameters.Add("@Gender", employee.Gender);
+            parameters.Add("@DateOfBirth", employee.DateOfBirth);
+            parameters.Add("@PositionName", employee.PositionName);
+            parameters.Add("@DepartmentId", employee.DepartmentId);
+            parameters.Add("@PhoneNumber", employee.PhoneNumber);
+            parameters.Add("@LandlineNumber", employee.LandlineNumber);
+            parameters.Add("@Email", employee.Email);
+            parameters.Add("@Address", employee.Address);
+            parameters.Add("@IdentityNumber", employee.IdentityNumber);
+            parameters.Add("@IdentityDate", employee.IdentityDate);
+            parameters.Add("@IdentityPlace", employee.IdentityPlace);
+            parameters.Add("@BankAccount", employee.BankAccount);
+            parameters.Add("@BankName", employee.BankName);
+            parameters.Add("@BankBranch", employee.BankBranch);
+
+            var affectedRows = await connection.ExecuteAsync(sql, parameters);
+
+            return affectedRows;
         }
 
-        public Task<int> DeleteAsync(Guid employeeId)
+        public async Task<int> DeleteAsync(Guid employeeId)
         {
-            throw new NotImplementedException();
+            // Lấy ra connection string
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+            // Khởi tạo đối tượng kết nối với database
+            var connection = new MySqlConnection(connectionString);
+
+            // Tạo câu truy vấn
+            var sql = "CALL Proc_DeleteEmployee(@EmployeeId);";
+
+            // Tạo dynamic parameter
+            var parameters = new DynamicParameters();
+            parameters.Add("@EmployeeId", employeeId);
+
+            // Thực thi câu truy vấn
+            var result = await connection.ExecuteAsync(sql, parameters);
+
+            return result;
         }
 
         public async Task<Employee> CheckEmployeeCodeExistsAsync(string employeeCode)

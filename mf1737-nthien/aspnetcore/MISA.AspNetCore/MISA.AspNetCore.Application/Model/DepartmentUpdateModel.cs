@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MISA.AspNetCore.Application
 {
-    public class DepartmentModel
+    public class DepartmentUpdateModel
     {
         /// <summary>
         /// Ngày tạo

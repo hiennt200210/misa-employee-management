@@ -26,11 +26,10 @@ namespace MISA.AspNetCore.Application
             return employeeModels;
         }
 
-        public async Task<EmployeeModel> GetAsync(Guid employeeId)
+        public async Task<EmployeeModel> GetByIdAsync(Guid employeeId)
         {
-            var employee = await _employeeRepository.GetAsync(employeeId);
+            var employee = await _employeeRepository.GetByIdAsync(employeeId);
 
-            // Chuyển đổi từ Entity sang DTO
             var employeeModel = MapEmployeeToEmployeeModel(employee);
 
             return employeeModel;
@@ -39,18 +38,26 @@ namespace MISA.AspNetCore.Application
         public async Task<int> InsertAsync(EmployeeInsertModel employeeInsertModel)
         {
             var employee = MapEmployeeInsertModelToEmployee(employeeInsertModel);
+
             var affectedRows = await _employeeRepository.InsertAsync(employee);
+
             return affectedRows;
         }
 
-        public Task<EmployeeModel> UpdateAsync(EmployeeModel employeeModel)
+        public async Task<int> UpdateAsync(EmployeeUpdateModel employeeUpdateModel)
         {
-            throw new NotImplementedException();
+            var employee = MapEmployeeUpdateModelToEmployee(employeeUpdateModel);
+
+            var affectedRows = await _employeeRepository.UpdateAsync(employee);
+
+            return affectedRows;
         }
 
-        public Task<int> DeleteAsync(Guid employeeId)
+        public async Task<int> DeleteAsync(Guid employeeId)
         {
-            throw new NotImplementedException();
+            var affectedRows = await _employeeRepository.DeleteAsync(employeeId);
+
+            return affectedRows;
         }
 
         public Task<int> DeleteMultipleAsync(List<Guid> employeeId)
@@ -64,7 +71,7 @@ namespace MISA.AspNetCore.Application
         /// <param name="employee">Đối tượng kiểu Entity</param>
         /// <returns>Đối tượng kiểu Model</returns>
         /// CreatedBy: hiennt200210 (16/09/2023)
-        public EmployeeModel MapEmployeeToEmployeeModel(Employee employee)
+        private static EmployeeModel MapEmployeeToEmployeeModel(Employee employee)
         {
             var employeeModel = new EmployeeModel()
             {
@@ -93,7 +100,7 @@ namespace MISA.AspNetCore.Application
             return employeeModel;
         }
 
-        public Employee MapEmployeeInsertModelToEmployee(EmployeeInsertModel employeeInsertModel)
+        private static Employee MapEmployeeInsertModelToEmployee(EmployeeInsertModel employeeInsertModel)
         {
             var employee = new Employee()
             {
@@ -117,6 +124,32 @@ namespace MISA.AspNetCore.Application
                 BankAccount = employeeInsertModel.BankAccount,
                 BankName = employeeInsertModel.BankName,
                 BankBranch = employeeInsertModel.BankBranch
+            };
+
+            return employee;
+        }
+
+        private static Employee MapEmployeeUpdateModelToEmployee(EmployeeUpdateModel employeeUpdateModel)
+        {
+            var employee = new Employee()
+            {
+                ModifiedDate = DateTime.Now,
+                ModifiedBy = null,
+                EmployeeCode = employeeUpdateModel.EmployeeCode,
+                FullName = employeeUpdateModel.FullName,
+                Gender = employeeUpdateModel.Gender,
+                DateOfBirth = employeeUpdateModel.DateOfBirth,
+                PositionName = employeeUpdateModel.PositionName,
+                DepartmentId = employeeUpdateModel.DepartmentId,
+                PhoneNumber = employeeUpdateModel.PhoneNumber,
+                LandlineNumber = employeeUpdateModel.LandlineNumber,
+                Email = employeeUpdateModel.Email,
+                IdentityNumber = employeeUpdateModel.IdentityNumber,
+                IdentityDate = employeeUpdateModel.IdentityDate,
+                IdentityPlace = employeeUpdateModel.IdentityPlace,
+                BankAccount = employeeUpdateModel.BankAccount,
+                BankName = employeeUpdateModel.BankName,
+                BankBranch = employeeUpdateModel.BankBranch
             };
 
             return employee;

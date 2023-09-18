@@ -36,6 +36,6 @@ namespace MISA.AspNetCore.Domain
         /// <summary>
         /// Tên phòng ban
         /// </summary>
-        public string? DepartmentCode { get; set; }
+        public string? DepartmentName { get; set; }
     }
 }

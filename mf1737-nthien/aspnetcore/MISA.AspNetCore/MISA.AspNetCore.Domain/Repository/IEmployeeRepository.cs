@@ -33,7 +33,7 @@ namespace MISA.AspNetCore.Domain
         /// <exception cref="NotFoundException"></exception>
         /// <returns>Thông tin nhân viên</returns>
         /// CreatedBy: hiennt200210 (16/09/2023)
-        Task<Employee> GetAsync(Guid employeeId);
+        Task<Employee> GetByIdAsync(Guid employeeId);
 
         /// <summary>
         /// Thêm mới một nhân viên

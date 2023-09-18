@@ -4,7 +4,7 @@ using MISA.AspNetCore.Application;
 
 namespace MISA.AspNetCore.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase
     {
@@ -23,9 +23,9 @@ namespace MISA.AspNetCore.Web.Controllers
 		}
 
         [HttpGet("{employeeId}")]
-        public async Task<EmployeeModel> GetAsync(Guid employeeId)
+        public async Task<EmployeeModel> GetByIdAsync(Guid employeeId)
         {
-            var employee = await _employeeService.GetAsync(employeeId);
+            var employee = await _employeeService.GetByIdAsync(employeeId);
             return employee;
         }
 
@@ -35,5 +35,19 @@ namespace MISA.AspNetCore.Web.Controllers
             var affectedRows = await _employeeService.InsertAsync(employeeInsertModel);
             return affectedRows;
         }
-}
+
+        [HttpPut("{employee}")]
+        public async Task<int> UpdateAsync(EmployeeUpdateModel employeeUpdateModel)
+        {
+            var affectedRows = await _employeeService.UpdateAsync(employeeUpdateModel);
+            return affectedRows;
+        }
+
+        [HttpDelete("{employeeId}")]
+        public async Task<int> DeleteAsync(Guid employeeId)
+        {
+            var affectedRows = await _employeeService.DeleteAsync(employeeId);
+            return affectedRows;
+        }
+    }
 }

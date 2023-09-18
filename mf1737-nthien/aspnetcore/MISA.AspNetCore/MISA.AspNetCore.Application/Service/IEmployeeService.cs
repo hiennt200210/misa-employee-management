@@ -21,7 +21,7 @@ namespace MISA.AspNetCore.Application
         /// <param name="employeeId">Định danh của nhân viên cần lấy thông tin</param>
         /// <returns>Thông tin nhân viên</returns>
         /// CreatedBy: hiennt200210 (16/09/2023)
-        Task<EmployeeModel> GetAsync(Guid employeeId);
+        Task<EmployeeModel> GetByIdAsync(Guid employeeId);
 
         /// <summary>
         /// Thêm mới một nhân viên
@@ -37,7 +37,7 @@ namespace MISA.AspNetCore.Application
         /// <param name="employee">Thông tin cần cập nhật</param>
         /// <returns>Thông tin cần cập nhật</returns>
         /// CreatedBy: hiennt200210 (16/09/2023)
-        Task<EmployeeModel> UpdateAsync(EmployeeModel employeeModel);
+        Task<int> UpdateAsync(EmployeeUpdateModel employeeUpdateModel);
 
         /// <summary>
         /// Xóa một nhân viên

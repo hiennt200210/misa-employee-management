@@ -1,4 +1,4 @@
-using MISA.AspNetCore.Application;
+﻿using MISA.AspNetCore.Application;
 using MISA.AspNetCore.Domain;
 using MISA.AspNetCore.Infrastructure;
 using MISA.AspNetCore.Web;
@@ -13,6 +13,9 @@ builder.Services.AddCors(options =>
         build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
     });
 });
+
+// Get connection string
+builder.Services.AddTransient<IDbConnectionService>(provider => new DbConnectionService(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 

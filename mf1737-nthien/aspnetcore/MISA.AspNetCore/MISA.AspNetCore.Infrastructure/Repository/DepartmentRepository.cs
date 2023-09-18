@@ -12,20 +12,17 @@ namespace MISA.AspNetCore.Infrastructure
 {
     public class DepartmentRepository
     {
-        private readonly IConfiguration _configuration;
+        private readonly IDbConnectionService _dbConnectionService;
 
-        public DepartmentRepository(IConfiguration configuration)
+        public DepartmentRepository(IDbConnectionService dbConnectionService)
         {
-            _configuration = configuration;
+            _dbConnectionService = dbConnectionService;
         }
 
         public async Task<List<Department>> GetAllAsync()
         {
-            // Lấy ra connection string
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
             // Khởi tạo đối tượng kết nối với database
-            var connection = new MySqlConnection(connectionString);
+            var connection = _dbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
             var sql = "CALL Proc_GetAllDepartment();";
@@ -38,11 +35,8 @@ namespace MISA.AspNetCore.Infrastructure
 
         public async Task<Department> GetByIdAsync(Guid departmentId)
         {
-            // Lấy ra connection string
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
             // Khởi tạo đối tượng kết nối với database
-            var connection = new MySqlConnection(connectionString);
+            var connection = _dbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
             var sql = "CALL Proc_GetDepartmentById(@DepartmentId);";
@@ -59,11 +53,8 @@ namespace MISA.AspNetCore.Infrastructure
 
         public async Task<int> InsertAsync(Department department)
         {
-            // Lấy ra connection string
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
             // Khởi tạo đối tượng kết nối với database
-            var connection = new MySqlConnection(connectionString);
+            var connection = _dbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
             var sql = "CALL Proc_InsertEmployee(@CreatedDate, @CreatedBy, @ModifiedDate, @ModifiedBy, @DepartmentId, @DepartmentName);";
@@ -86,11 +77,8 @@ namespace MISA.AspNetCore.Infrastructure
 
         public async Task<int> UpdateAsync(Department department)
         {
-            // Lấy ra connection string
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
             // Khởi tạo đối tượng kết nối với database
-            var connection = new MySqlConnection(connectionString);
+            var connection = _dbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
             var sql = "CALL Proc_UpdateEmployee(@CreatedDate, @CreatedBy, @ModifiedDate, @ModifiedBy, @DepartmentId, @DepartmentName);";
@@ -111,11 +99,8 @@ namespace MISA.AspNetCore.Infrastructure
 
         public async Task<int> DeleteAsync(Guid departmentId)
         {
-            // Lấy ra connection string
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
             // Khởi tạo đối tượng kết nối với database
-            var connection = new MySqlConnection(connectionString);
+            var connection = _dbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
             var sql = "CALL Proc_DeleteDepartment(@DepartmentId);";

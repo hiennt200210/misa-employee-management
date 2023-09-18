@@ -12,11 +12,11 @@ namespace MISA.AspNetCore.Infrastructure
 {
     public class EmployeeRepository : IEmployeeRepository
     {
-        private readonly IConfiguration _configuration;
+        private readonly IDbConnectionService _dbConnectionService;
 
-        public EmployeeRepository(IConfiguration configuration)
+        public EmployeeRepository(IDbConnectionService dbConnectionService)
         {
-            _configuration = configuration;
+            _dbConnectionService = dbConnectionService;
         }
 
         public Task<Employee?> FindAsync(Guid employeeId)
@@ -26,11 +26,8 @@ namespace MISA.AspNetCore.Infrastructure
 
         public async Task<List<Employee>> GetAllAsync()
         {
-            // Lấy ra connection string
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
             // Khởi tạo đối tượng kết nối với database
-            var connection = new MySqlConnection(connectionString);
+            var connection = _dbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
             var sql = "CALL Proc_GetAllEmployees();";
@@ -43,11 +40,8 @@ namespace MISA.AspNetCore.Infrastructure
 
         public async Task<Employee> GetByIdAsync(Guid employeeId)
         {
-            // Lấy ra connection string
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
             // Khởi tạo đối tượng kết nối với database
-            var connection = new MySqlConnection(connectionString);
+            var connection = _dbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
             var sql = "CALL Proc_GetEmployeeById(@EmployeeId);";
@@ -64,11 +58,9 @@ namespace MISA.AspNetCore.Infrastructure
 
         public async Task<int> InsertAsync(Employee employee)
         {
-            // Lấy ra connection string
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
 
             // Khởi tạo đối tượng kết nối với database
-            var connection = new MySqlConnection(connectionString);
+            var connection = _dbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
             var sql = "CALL Proc_InsertEmployee(@CreatedDate, @CreatedBy, @ModifiedDate, @ModifiedBy, @EmployeeId, @EmployeeCode, @FullName, @Gender, @DateOfBirth, @PositionName, @DepartmentId, @PhoneNumber, @LandlineNumber, @Email, @Address, @IdentityNumber, @IdentityDate, @IdentityPlace, @BankAccount, @BankName, @BankBranch);";
@@ -105,11 +97,8 @@ namespace MISA.AspNetCore.Infrastructure
 
         public async Task<int> UpdateAsync(Employee employee)
         {
-            // Lấy ra connection string
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
             // Khởi tạo đối tượng kết nối với database
-            var connection = new MySqlConnection(connectionString);
+            var connection = _dbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
             var sql = "CALL Proc_UpdateEmployee(@CreatedDate, @CreatedBy, @ModifiedDate, @ModifiedBy, @EmployeeId, @EmployeeCode, @FullName, @Gender, @DateOfBirth, @PositionName, @DepartmentId, @PhoneNumber, @LandlineNumber, @Email, @Address, @IdentityNumber, @IdentityDate, @IdentityPlace, @BankAccount, @BankName, @BankBranch);";
@@ -145,11 +134,8 @@ namespace MISA.AspNetCore.Infrastructure
 
         public async Task<int> DeleteAsync(Guid employeeId)
         {
-            // Lấy ra connection string
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
             // Khởi tạo đối tượng kết nối với database
-            var connection = new MySqlConnection(connectionString);
+            var connection = _dbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
             var sql = "CALL Proc_DeleteEmployee(@EmployeeId);";
@@ -166,11 +152,8 @@ namespace MISA.AspNetCore.Infrastructure
 
         public async Task<Employee> CheckEmployeeCodeExistsAsync(string employeeCode)
         {
-            // Lấy ra connection string
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
             // Khởi tạo đối tượng kết nối với database
-            var connection = new MySqlConnection(connectionString);
+            var connection = _dbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
             var sql = "SELECT * FROM Employee WHERE EmployeeCode = @EmployeeCode;";

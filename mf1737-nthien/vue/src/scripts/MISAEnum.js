@@ -37,6 +37,7 @@ const MISAEnum = {
     Gender: {
         Male: 0,
         Female: 1,
+        Other: 2,
     },
     ToastMessageType: {
         Successful: "successful",

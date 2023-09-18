@@ -11,36 +11,39 @@
                     <MButton
                         @click="unSelectAll"
                         :type="$MISAEnum.ButtonType.Link"
-                        label="Bỏ chọn" />
+                        label="Bỏ chọn"
+                    />
                 </div>
 
                 <div v-if="numberSelectedRows" class="selected-rows-action">
                     <!-- Nút Nhân bản -->
-                    <MSButton
+                    <MButton
                         :type="$MISAEnum.Component.Button.Type.SecondaryIcon"
                         :label="
                             $MISAResource[$language].Component.Button.Label
                                 .Clone
                         "
-                        :icon="{ style: 'regular', name: 'clone' }" />
+                        icon="content_copy"
+                    />
 
                     <!-- Nút Xóa -->
-                    <MSButton
+                    <MButton
                         id="delete-button"
                         :type="$MISAEnum.Component.Button.Type.SecondaryIcon"
                         :label="
                             $MISAResource[$language].Component.Button.Label
                                 .Delete
                         "
-                        :icon="{ style: 'regular', name: 'trash-can' }" />
+                        icon="delete"
+                        @click="onClickDeleteButton"
+                    />
 
                     <!-- Nút Khác -->
-                    <MSButton
+                    <MButton
                         :type="$MISAEnum.Component.Button.Type.Icon"
-                        :icon="{ style: 'regular', name: 'ellipsis' }"
-                        :tooltip="
-                            $MISAResource[$language].Tooltip.Button.Other
-                        " />
+                        icon="more_horiz"
+                        :tooltip="$MISAResource[$language].Tooltip.Button.Other"
+                    />
                 </div>
             </div>
 
@@ -49,20 +52,22 @@
                 <MTextfield
                     id="search-textfield"
                     placeHolder="Tìm kiếm trong danh sách"
-                    :icon="{ style: 'regular', name: 'magnifying-glass' }" />
+                    :icon="{ style: 'regular', name: 'magnifying-glass' }"
+                />
 
                 <!-- Nút Xuất -->
                 <MButton
                     :type="$MISAEnum.Component.Button.Type.Icon"
-                    icon="excel-file"
-                    :tooltip="$MISAResource[$language].Tooltip.Button.Export" />
-
+                    icon-sprites="excel-file"
+                    :tooltip="$MISAResource[$language].Tooltip.Button.Export"
+                />
                 <!-- Nút Tải lại -->
-                <MSButton
+                <MButton
                     :type="$MISAEnum.Component.Button.Type.Icon"
-                    :icon="{ style: 'regular', name: 'arrow-rotate-forward' }"
+                    icon="refresh"
                     :tooltip="$MISAResource[$language].Tooltip.Button.Reload"
-                    @click="loadData" />
+                    @click="loadData"
+                />
             </div>
         </div>
 
@@ -74,7 +79,8 @@
                         <th class="text-align-center sticky-column-left">
                             <MSCheckbox
                                 v-model="allSelected"
-                                @click="selectAll" />
+                                @click="selectAll"
+                            />
                         </th>
                         <th class="text-align-left">
                             <MLabel label="Mã nhân viên" />
@@ -100,24 +106,26 @@
                         <th class="text-align-left">
                             <MLabel
                                 label="Số CCCD"
-                                tooltip="Số căn cước công dân" />
+                                tooltip="Số căn cước công dân"
+                            />
                         </th>
                         <th class="text-align-center">Ngày cấp</th>
                         <th class="text-align-left">Nơi cấp</th>
-                        <th class="text-align-left">Đơn vị</th>
+                        <th class="text-align-left">Phòng ban</th>
                         <th class="text-align-left">Chức vụ</th>
-                        <th class="text-align-left">Trạng thái</th>
-                        <th class="text-align-left">Mã số thuế cá nhân</th>
-                        <th class="text-align-right">Lương</th>
+                        <th class="text-align-left">Tài khoản ngân hàng</th>
+                        <th class="text-align-left">Tên ngân hàng</th>
+                        <th class="text-align-left">Chi nhánh ngân hàng</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr
                         v-for="employee in employees"
-                        :key="employee.id"
+                        :key="employee.EmployeeId"
                         @mouseover="employee.showRowAction = true"
                         @mouseout="employee.showRowAction = false"
-                        :class="{ 'selected-row': employee.isSelected }">
+                        :class="{ 'selected-row': employee.isSelected }"
+                    >
                         <!-- Checkbox -->
                         <td class="text-align-center sticky-column-left">
                             <MSCheckbox v-model="employee.isSelected" />
@@ -181,37 +189,41 @@
                             {{ employee.PositionName }}
                         </td>
 
-                        <!-- Trạng thái -->
+                        <!-- Tài khoản ngân hàng -->
                         <td class="text-align-left">
-                            {{ employee.WorkStatus }}
+                            {{ employee.BankAccount }}
                         </td>
 
-                        <!-- Mã số thuế cá nhân -->
+                        <!-- Tên ngân hàng -->
                         <td class="text-align-left">
-                            {{ employee.PersonalTaxCode }}
+                            {{ employee.BankName }}
                         </td>
 
-                        <!-- Lương -->
-                        <td class="text-align-right">{{ employee.Salary }}</td>
+                        <!-- Chi nhánh ngân hàng -->
+                        <td class="text-align-left">
+                            {{ employee.BankBranch }}
+                        </td>
 
                         <div v-show="employee.showRowAction" class="row-action">
                             <!-- Nút Sửa -->
-                            <MSButton
+                            <MButton
                                 class="edit-button"
                                 :type="$MISAEnum.Component.Button.Type.Icon"
-                                :icon="{ style: 'solid', name: 'pen' }"
+                                icon="edit"
                                 :tooltip="
                                     $MISAResource[$language].Tooltip.Button.Edit
-                                " />
+                                "
+                            />
 
                             <!-- Nút Khác -->
-                            <MSButton
+                            <MButton
                                 :type="$MISAEnum.Component.Button.Type.Icon"
-                                :icon="{ style: 'regular', name: 'ellipsis' }"
+                                icon="more_horiz"
                                 :tooltip="
                                     $MISAResource[$language].Tooltip.Button
                                         .Other
-                                " />
+                                "
+                            />
                         </div>
                     </tr>
                 </tbody>
@@ -238,8 +250,8 @@
                 </div>
                 <div>1 - 4 bản ghi</div>
                 <div class="paging-button">
-                    <MButton type="title-bar" icon="prev" />
-                    <MButton type="title-bar" icon="next" />
+                    <MButton type="title-bar" icon="navigate_before" />
+                    <MButton type="title-bar" icon="navigate_next" />
                 </div>
             </div>
         </div>
@@ -248,7 +260,6 @@
 
 <script>
 import MButton from "../button/MButton.vue";
-import MSButton from "../button/MSButton.vue";
 import MLabel from "../label/MLabel.vue";
 import MTextfield from "../textfield/MTextfield.vue";
 import MSCheckbox from "../checkbox/MSCheckbox.vue";
@@ -258,11 +269,17 @@ export default {
     name: "MTable",
     components: {
         MButton,
-        MSButton,
         MLabel,
         MTextfield,
         MSCheckbox,
         MSpinner,
+    },
+
+    data() {
+        return {
+            employees: [],
+            showSpinner: false,
+        };
     },
 
     computed: {
@@ -300,10 +317,8 @@ export default {
         loadData() {
             this.showSpinner = true;
             this.$axios
-                // .get("https://cukcuk.manhnv.net/api/v1/Employees")
-                .get("https://localhost:7111/api/v1/Employees")
+                .get(`${this.$api.BaseUrl}${this.$api.GetAllEmployees}`)
                 .then((response) => {
-                    console.log(response);
                     this.employees = response.data;
                     this.showSpinner = false;
                 })
@@ -335,13 +350,14 @@ export default {
                 for (let employee of this.employees) employee.isSelected = true;
             }
         },
-    },
 
-    data() {
-        return {
-            employees: [],
-            showSpinner: false,
-        };
+        /**
+         * Xử lý khi nhấn nút Xóa.
+         * CreatedBy: hiennt200210 (01/09/2023)
+         */
+        onClickDeleteButton() {
+            console.log("Delete");
+        },
     },
 
     created() {
@@ -351,243 +367,5 @@ export default {
 </script>
 
 <style scoped>
-.component-wrapper {
-    height: 100%;
-    width: 100%;
-    position: relative;
-}
-
-/* Table Toolbar */
-
-.table-toolbar {
-    height: 60px;
-    width: 100%;
-    padding: 12px 16px;
-    display: flex;
-    justify-content: space-between;
-    background-color: #fff;
-    border-bottom: 1px solid var(--border-color);
-    border-top-left-radius: var(--border-radius);
-    border-top-right-radius: var(--border-radius);
-}
-
-.toolbar-left,
-.toolbar-right {
-    display: flex;
-    align-items: center;
-}
-
-.selected-rows {
-    display: flex;
-    align-items: center;
-}
-
-.selected-rows > *:not(:first-child) {
-    margin-left: 16px;
-}
-
-.selected-rows .m-button--link {
-    color: #e61d1d;
-}
-
-.selected-rows span {
-    font-family: "Google Sans Bold", sans-serif;
-}
-
-.selected-rows-action {
-    margin-left: 24px;
-    display: flex;
-    align-items: center;
-}
-
-.selected-rows-action > *:not(:first-child) {
-    margin-left: 12px;
-}
-
-.selected-rows-action #delete-button i {
-    color: red;
-}
-
-.toolbar-right > * {
-    margin-left: 12px;
-}
-
-/* Table */
-
-.table-wrapper {
-    height: calc(100% - 48px - 60px);
-    width: 100%;
-    overflow: auto;
-    background-color: #fff;
-    position: relative;
-}
-
-.table-wrapper::-webkit-scrollbar {
-    height: 8px;
-    width: 8px;
-    border-radius: 4px;
-    background-color: var(--secondary-color);
-}
-
-.table-wrapper::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: var(--input-placeholder-color);
-}
-
-.table-wrapper::-webkit-scrollbar-track {
-    border-radius: 4px;
-    background-color: var(--secondary-color);
-}
-
-table {
-    border-collapse: collapse;
-    color: var(--text-color);
-}
-
-th,
-td {
-    max-width: 300px;
-    padding: 0 16px;
-    overflow: hidden;
-    border: 1px solid var(--border-color);
-    text-align: left;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-tr {
-    height: var(--table-row-height);
-    display: table-row;
-}
-
-tr > *:first-child {
-    border-left: none;
-}
-
-thead tr {
-    background-color: #f5f5f5;
-    font-family: "Google Sans Medium", sans-serif;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-}
-
-thead tr > *:first-child {
-    z-index: 2;
-}
-
-th {
-    overflow: visible;
-    border-top: none;
-}
-
-th:hover {
-    background-color: #eee;
-}
-
-tbody tr {
-    background-color: #fff;
-}
-
-tbody tr:hover {
-    background-color: #f2f2f2;
-}
-
-.text-align-left {
-    text-align: left;
-}
-
-.text-align-right {
-    text-align: right;
-}
-
-.text-align-center {
-    text-align: center;
-}
-
-.selected-row,
-.selected-row:hover {
-    background-color: #edf8eb;
-}
-
-.row-action {
-    height: var(--table-row-height);
-    margin-right: 16px;
-    display: flex;
-    align-items: center;
-    position: absolute;
-    right: 0;
-}
-
-.row-action .m-button {
-    height: var(--control-height);
-    width: var(--control-height);
-    background-color: #fff;
-    border: none;
-    border-radius: 50%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
-}
-
-.row-action .m-button:first-child {
-    font-size: 18px;
-}
-
-.row-action .m-button:not(:first-child) {
-    margin-left: 8px;
-}
-
-.sticky-column-left {
-    background-color: inherit;
-    position: sticky;
-    left: 0;
-}
-
-/* Table Paging */
-
-.table-paging {
-    height: 48px;
-    width: 100%;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    padding: 0px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #f5f5f5;
-    position: absolute;
-    bottom: 0;
-}
-
-.paging-left .number {
-    font-family: "Google Sans Bold", sans-serif;
-}
-
-.paging-right {
-    display: flex;
-    align-items: center;
-}
-
-.paging-right > * {
-    margin-left: 16px;
-}
-
-.paging-right .record-per-page {
-    display: flex;
-    align-items: center;
-}
-
-.paging-right .record-per-page select {
-    color: var(--color-label);
-    padding: 0 8px;
-    margin-left: 8px;
-}
-
-.paging-button {
-    display: flex;
-    align-items: center;
-}
-
-.paging-button > *:not(:last-child) {
-    margin-right: 8px;
-}
+@import url("./table.css");
 </style>

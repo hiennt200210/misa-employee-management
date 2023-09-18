@@ -27,13 +27,11 @@ export default {
 
 <style>
 @import url(./assets/fontawesome/css/all.min.css);
-@import url(./styles/main.css);
+@import url(./styles/style.css);
 
 .container {
-    font-family: "Google Sans Regular", sans-serif;
-    font-size: 14px;
+    position: relative;
     height: 100vh;
     width: 100%;
-    position: relative;
 }
 </style>

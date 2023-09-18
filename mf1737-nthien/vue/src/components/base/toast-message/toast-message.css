@@ -1,0 +1,79 @@
+.m-toast-wrapper {
+    height: fit-content;
+    width: fit-content;
+    padding: 24px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    background-color: transparent;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 4;
+}
+
+.m-toast-wrapper > *:not(:first-child) {
+    margin-bottom: 8px;
+}
+
+.m-toast {
+    height: 56px;
+    width: 450px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 40px rgba(0, 0, 0, 0.078);
+}
+
+/* Color of toast message's label */
+.m-toast__label--successful {
+    color: var(--primary-color);
+}
+
+.m-toast__label--error {
+    color: var(--danger-color);
+}
+
+.m-toast__label--warning {
+    color: var(--warning-color);
+}
+
+.m-toast__label--information {
+    color: var(--information-color);
+}
+
+/* Toast message's left-side */
+.m-toast-left {
+    display: flex;
+    align-items: center;
+}
+
+.m-toast__label {
+    margin-left: 8px;
+    font-family: "Google Sans Bold", san-serif;
+}
+
+.m-toast .icon {
+    height: 24px;
+    width: 24px;
+}
+
+.m-toast__message {
+    margin-left: 6px;
+    color: var(--text-color);
+}
+
+/* Toast message's right-side */
+.m-toast-right {
+    display: flex;
+    align-items: center;
+}
+
+.m-toast__link {
+    margin-right: 16px;
+    font-family: "Google Sans Medium", san-serif;
+    text-decoration: underline;
+}

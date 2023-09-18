@@ -5,41 +5,43 @@
             <!-- Tiêu đề trang -->
             <MHeading
                 :type="$MISAEnum.Component.Heading.Type.Heading1"
-                :title="$MISAResource[$language].Page.Title.Employee" />
+                :title="$MISAResource[$language].Page.Title.Employee"
+            />
 
             <div class="page-title-right">
                 <!-- Nút Thêm mới -->
-                <MSButton
-                    @click="onShowEmployeeDetail($MISAEnum.FormMode.Add)"
+                <MButton
+                    @click="onClickAddEmployeeButton"
                     :type="$MISAEnum.Component.Button.Type.PrimaryIcon"
                     :label="
                         $MISAResource[$language].Component.Button.Label
                             .AddNewEmployee
                     "
-                    :icon="{ style: 'solid', name: 'plus' }" />
+                    icon="add"
+                />
 
                 <!-- Nút Cài đặt -->
                 <MButton
-                    :type="$MISAEnum.ButtonType.Icon"
-                    icon="setting"
-                    :tooltip="$MISAResource[$languageCode].Setting" />
+                    :type="$MISAEnum.Component.Button.Type.Icon"
+                    icon="settings"
+                    :tooltip="$MISAResource[$languageCode].Setting"
+                />
             </div>
         </div>
 
         <!-- Phần nội dung trang -->
         <div class="page-content">
             <!-- Bảng danh sách nhân viên -->
-            <MTable />
+            <MTable ref="table" />
         </div>
 
         <!-- Employee Detail Form -->
-        <EmployeeDetail
-            @showEmployeeDetail="onShowEmployeeDetail"
-            @closeEmployeeDetail="onCloseEmployeeDetail"
+        <EmployeeForm
+            v-if="displayEmployeeForm"
+            :form-data="employeeEdit"
             @showToastMessage="onShowToastMessage"
-            ref="focusEmployeeDetail"
-            v-if="showEmployeeDetail"
-            :employeeEdit="employeeEdit" />
+            @closeEmployeeForm="onCloseEmployeeForm"
+        />
 
         <!-- Toast Message -->
         <MToastMessage
@@ -50,14 +52,14 @@
                     message: $MISAResource[$languageCode].EmployeeAdd,
                     close: onCloseToastMessage,
                 },
-            ]" />
+            ]"
+        />
     </div>
 </template>
 
 <script>
-import EmployeeDetail from "./EmployeeDetail.vue";
+import EmployeeForm from "./EmployeeForm.vue";
 import MButton from "../../components/base/button/MButton.vue";
-import MSButton from "../../components/base/button/MSButton.vue";
 import MHeading from "../../components/base/heading/MHeading.vue";
 import MTable from "../../components/base/table/MTable.vue";
 import MToastMessage from "../../components/base/toast-message/MToastMessage.vue";
@@ -65,9 +67,8 @@ import MToastMessage from "../../components/base/toast-message/MToastMessage.vue
 export default {
     name: "EmployeeList",
     components: {
-        EmployeeDetail,
+        EmployeeForm,
         MButton,
-        MSButton,
         MHeading,
         MTable,
         MToastMessage,
@@ -75,24 +76,20 @@ export default {
 
     methods: {
         /**
-         * Mở form Thông tin chi tiết khi nhấn nút Thêm mới.
+         * Đóng form Thông tin chi tiết.
          * CreatedBy: hiennt200210 (20/08/2023)
          */
-        onShowEmployeeDetail(formMode) {
-            if (formMode === this.$MISAEnum.FormMode.Add)
-                this.showEmployeeDetail = true;
-            else {
-                this.showEmployeeDetail = true;
-                // Gán đối tượng nhân viên cần sửa cho employeeEdit
-            }
+        onCloseEmployeeForm() {
+            this.displayEmployeeForm = false;
         },
 
         /**
-         * Đóng form Thông tin chi tiết khi nhấn nút Hủy.
+         * Mở form Thông tin chi tiết khi nhấn nút Thêm mới.
          * CreatedBy: hiennt200210 (20/08/2023)
          */
-        onCloseEmployeeDetail() {
-            this.showEmployeeDetail = false;
+        onClickAddEmployeeButton() {
+            this.displayEmployeeForm = true;
+            // this.$refs.employeeDetail.show();
         },
 
         /**
@@ -104,6 +101,7 @@ export default {
             setTimeout(() => {
                 this.showToastMessage = false;
             }, 5000);
+            this.$refs.table.loadData();
         },
 
         /**
@@ -112,7 +110,6 @@ export default {
          */
         onCloseToastMessage() {
             this.showToastMessage = false;
-            // this.showEmployeeDetail = false;
         },
     },
 
@@ -120,7 +117,7 @@ export default {
         return {
             employees: [],
             employeeEdit: {},
-            showEmployeeDetail: false,
+            displayEmployeeForm: false,
             showToastMessage: false,
         };
     },
@@ -136,6 +133,5 @@ export default {
 </script>
 
 <style scoped>
-@import url(../../styles/components/dropdownlist.css);
-@import url(../../styles/views/employee/employee-list.css);
+@import url(./employee-list.css);
 </style>

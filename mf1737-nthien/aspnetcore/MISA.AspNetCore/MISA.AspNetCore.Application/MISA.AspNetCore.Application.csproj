@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Service\4ub3iysg.iwf~" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MISA.AspNetCore.Domain\MISA.AspNetCore.Domain.csproj" />
+    <ProjectReference Include="..\MISA.AspNetCore.Infrastructure\MISA.AspNetCore.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

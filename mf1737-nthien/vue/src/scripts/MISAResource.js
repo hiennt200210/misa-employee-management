@@ -30,6 +30,11 @@ const MISAResource = {
                 Employee: "Nhân viên",
             },
         },
+        Gener: {
+            Male: "Nam",
+            Female: "Nữ",
+            Other: "Khác",
+        },
         BadRequest: "Đầu vào không hợp lệ!",
         Cancel: "Hủy",
         Close: "Đóng",
@@ -45,6 +50,7 @@ const MISAResource = {
         GenderFemale: "Nữ",
         Information: "Thông tin!",
         InternalServerError: "Lỗi máy chủ!",
+        InternalServerErrorMessage: "Lỗi máy chủ! Vui lòng liên hệ MISA để được trợ giúp.",
         Reload: "Tải lại",
         Selected: "Đã chọn ",
         Setting: "Cài đặt",
@@ -85,6 +91,11 @@ const MISAResource = {
             Title: {
                 Employee: "Employee",
             },
+        },
+        Gener: {
+            Male: "Male",
+            Female: "Female",
+            Other: "Other",
         },
         BadRequest: "Invalid input!",
         Cancel: "Cancel",

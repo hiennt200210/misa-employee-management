@@ -2,10 +2,7 @@
     <div class="sidebar">
         <div class="sidebar__menu">
             <MMenuItem v-for="item in items" :key="item.id" :item="item" />
-            <router-link
-                @click="onClickMenuItem"
-                class="m-menu-item"
-                :to="items[0].path">
+            <router-link class="m-menu-item" :to="items[0].path">
                 <div :class="`icon icon-${items[0].icon}`"></div>
                 {{ items[0].title }}
             </router-link>

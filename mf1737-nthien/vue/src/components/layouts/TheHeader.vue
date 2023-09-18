@@ -50,8 +50,6 @@ export default {
 </script>
 
 <style scoped>
-@import url("../../styles/components/dropdownlist.css");
-
 .header {
     background-color: #fff;
     display: flex;
@@ -99,4 +97,33 @@ export default {
     border: none;
     border-radius: 50%;
 }
+
+.m-dropdownlist select {
+    height: 36px;
+    border: 1px solid #e0e1e4;
+    border-radius: 4px;
+    min-width: 30px;
+    background-color: #fff;
+    outline: none;
+    padding: 0 16px;
+    color: var(--input-placeholder-color);
+    font-family: "Google Sans Regular", sans-serif;
+    font-size: 14px;
+}
+
+.m-dropdownlist select:hover {
+    background-color: var(--secondary-color--hover);
+    cursor: pointer;
+}
+
+.m-dropdownlist select:focus {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--primary-color);
+    outline: none;
+}
+
+.m-dropdownlist select:active {
+    background-color: var(--bgcolor-button-secondary-pressed);
+}
+
 </style>

@@ -1,7 +1,10 @@
 export default {
-    /*
-     * Format một xâu ngày tháng năm sang định dạng DD/MM/YYYY.
-     * Author:  hiennt200210 (17/08/2023)
+    /**
+     * Định dạng ngày tháng năm.
+     * @param {String} date - Ngày tháng năm
+     * @returns {String} - Ngày tháng năm định dạng dd/MM/yyyy
+     * 
+     * CreatedBy: hiennt200210 (17/08/2023)
      */
     formatDate(date) {
         try {

@@ -1,5 +1,5 @@
 <template>
-    <div :class="styleClass">
+    <div v-show="display" :class="classes">
         {{ content }}
     </div>
 </template>
@@ -19,77 +19,48 @@ export default {
         },
 
         // Nội dung của tooltip.
-        content: String,
+        content: {
+            type: String,
+        },
+    },
+
+    data() {
+        return {
+            // Trạng thái hiển thị của tooltip.
+            display: false,
+        };
     },
 
     computed: {
         /**
-         * Xác định các style class phù hợp cho tooltip.
-         * CreatedBy: hiennt200210 (2023/09/07)
+         * Tạo ra các lớp CSS cho tooltip.
+         * CreatedBy: hiennt200210 (07/09/2023)
          */
-        styleClass() {
+        classes() {
             return `m-tooltip m-tooltip--align-${this.align}`;
+        },
+    },
+
+    methods: {
+        /**
+         * Hiển thị tooltip.
+         * CreatedBy: hiennt200210 (07/09/2023)
+         */
+        show() {
+            this.display = true;
+        },
+
+        /**
+         * Ẩn tooltip.
+         * CreatedBy: hiennt200210 (07/09/2023)
+         */
+        hide() {
+            this.display = false;
         },
     },
 };
 </script>
 
 <style scoped>
-
-
-.m-tooltip {
-    --tooltip-background: rgba(0, 0, 0, 0.8);
-
-    /* Position */
-    position: absolute;
-    z-index: 99;
-    
-    /* Size and display */
-    max-width: 250px;
-    min-height: 40px;
-    padding: 12px 16px;
-    white-space: nowrap;
-
-    /* Border and background */
-    border-radius: var(--default-border-radius);
-    background-color: var(--tooltip-background);
-
-    /* Content */
-    font-family: var(--default-font-family);
-    font-size: var(--default-font-size);
-    color: #fff;
-}
-
-.m-tooltip::after {
-    content: "";
-    position: absolute;
-}
-
-.m-tooltip--align-top {
-    bottom: calc(100% + 10px);
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.m-tooltip--align-top::after {
-    bottom: -5px;
-    left: calc(50% - 5px);
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid var(--tooltip-background);
-}
-
-.m-tooltip--align-bottom {
-    top: calc(100% + 10px);
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.m-tooltip--align-bottom::after {
-    top: -5px;
-    left: calc(50% - 5px);
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 5px solid var(--tooltip-background);
-}
+@import url(./tooltip.css);
 </style>

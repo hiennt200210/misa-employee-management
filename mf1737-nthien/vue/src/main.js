@@ -12,6 +12,7 @@ import MSelectWithLabel from "./components/base/dropdown/MSelectWithLabel.vue";
 import MISAEnum from "./scripts/MISAEnum";
 import MISAResource from "./scripts/MISAResource";
 import helpers from "./scripts/helpers";
+import constants from "./scripts/constants";
 
 import vueRouter from "./router/index";
 
@@ -30,6 +31,7 @@ app.config.globalProperties.$language = "VN";
 app.config.globalProperties.$axios = axios;
 app.config.globalProperties.$emitter = emitter;
 app.config.globalProperties.$Resource = MISAResource["$language"];
+app.config.globalProperties.$api = constants.Api;
 
 app.use(vueRouter);
 

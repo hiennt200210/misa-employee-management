@@ -1,6 +1,6 @@
 export default {
     Api: {
-        BaseUrl: "https://localhost:7111/api/v1",
+        BaseUrl: "https://cukcuk.manhnv.net/api/v1",
         GetAllEmployees: "/Employees",
         CreateEmployee: "/Employees",
         NewEmployeeCode: "/Employees/NewEmployeeCode",

@@ -1,19 +1,15 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-
 import axios from "axios";
 import emitter from "tiny-emitter/instance";
-
 import MLabel from "./components/base/label/MLabel.vue";
 import MCheckbox from "./components/base/checkbox/MCheckbox.vue";
 import MSelect from "./components/base/dropdown/MSelect.vue";
 import MSelectWithLabel from "./components/base/dropdown/MSelectWithLabel.vue";
-
 import MISAEnum from "./scripts/MISAEnum";
 import MISAResource from "./scripts/MISAResource";
 import helpers from "./scripts/helpers";
 import constants from "./scripts/constants";
-
 import vueRouter from "./router/index";
 
 const app = createApp(App);

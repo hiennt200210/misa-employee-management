@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.6.33829.357
+VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MISA.AspNetCore.Domain", "MISA.AspNetCore.Domain\MISA.AspNetCore.Domain.csproj", "{3C09578A-CD27-4BA7-BAFA-F688CCC7557E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MISA.AspNetCore.Web", "MISA.AspNetCore.Web\MISA.AspNetCore.Web.csproj", "{52B0A5C1-78C9-4E84-B1F0-C3CF2A23F866}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MISA.AspNetCore.Infrastructure", "MISA.AspNetCore.Infrastructure\MISA.AspNetCore.Infrastructure.csproj", "{C66DCB46-0AEA-4A88-8E12-28B55FADAD4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MISA.AspNetCore.Domain", "MISA.AspNetCore.Domain\MISA.AspNetCore.Domain.csproj", "{6B27A811-2765-45D1-B627-610B24A19A4C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MISA.AspNetCore.Application", "MISA.AspNetCore.Application\MISA.AspNetCore.Application.csproj", "{F36687B9-23A0-4F73-AA34-980B063C26FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MISA.AspNetCore.Infrastructure", "MISA.AspNetCore.Infrastructure\MISA.AspNetCore.Infrastructure.csproj", "{138E2C94-17F1-4468-AE92-1933D60ECCB6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MISA.AspNetCore.Web", "MISA.AspNetCore.Web\MISA.AspNetCore.Web.csproj", "{32E5C7F4-08EB-4270-9594-DF0DA45EBD3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MISA.AspNetCore.Application", "MISA.AspNetCore.Application\MISA.AspNetCore.Application.csproj", "{CB1EA838-5BC0-4FE4-BF91-155DEF25C15F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MISA.AspNetCore.Web.UnitTests", "MISA.AspNetCore.Web.UnitTests\MISA.AspNetCore.Web.UnitTests.csproj", "{4D78AD12-7201-44B8-A213-4E96DAEB0D8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MISA.AspNetCore.UnitTests", "MISA.AspNetCore.UnitTests\MISA.AspNetCore.UnitTests.csproj", "{6FEB942B-63CD-47A3-B24C-B608527B4A77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,31 +19,31 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3C09578A-CD27-4BA7-BAFA-F688CCC7557E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C09578A-CD27-4BA7-BAFA-F688CCC7557E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C09578A-CD27-4BA7-BAFA-F688CCC7557E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C09578A-CD27-4BA7-BAFA-F688CCC7557E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C66DCB46-0AEA-4A88-8E12-28B55FADAD4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C66DCB46-0AEA-4A88-8E12-28B55FADAD4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C66DCB46-0AEA-4A88-8E12-28B55FADAD4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C66DCB46-0AEA-4A88-8E12-28B55FADAD4C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F36687B9-23A0-4F73-AA34-980B063C26FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F36687B9-23A0-4F73-AA34-980B063C26FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F36687B9-23A0-4F73-AA34-980B063C26FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F36687B9-23A0-4F73-AA34-980B063C26FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{32E5C7F4-08EB-4270-9594-DF0DA45EBD3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{32E5C7F4-08EB-4270-9594-DF0DA45EBD3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{32E5C7F4-08EB-4270-9594-DF0DA45EBD3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{32E5C7F4-08EB-4270-9594-DF0DA45EBD3A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D78AD12-7201-44B8-A213-4E96DAEB0D8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D78AD12-7201-44B8-A213-4E96DAEB0D8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D78AD12-7201-44B8-A213-4E96DAEB0D8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D78AD12-7201-44B8-A213-4E96DAEB0D8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52B0A5C1-78C9-4E84-B1F0-C3CF2A23F866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52B0A5C1-78C9-4E84-B1F0-C3CF2A23F866}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52B0A5C1-78C9-4E84-B1F0-C3CF2A23F866}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52B0A5C1-78C9-4E84-B1F0-C3CF2A23F866}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B27A811-2765-45D1-B627-610B24A19A4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B27A811-2765-45D1-B627-610B24A19A4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B27A811-2765-45D1-B627-610B24A19A4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B27A811-2765-45D1-B627-610B24A19A4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{138E2C94-17F1-4468-AE92-1933D60ECCB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{138E2C94-17F1-4468-AE92-1933D60ECCB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{138E2C94-17F1-4468-AE92-1933D60ECCB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{138E2C94-17F1-4468-AE92-1933D60ECCB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB1EA838-5BC0-4FE4-BF91-155DEF25C15F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB1EA838-5BC0-4FE4-BF91-155DEF25C15F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB1EA838-5BC0-4FE4-BF91-155DEF25C15F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB1EA838-5BC0-4FE4-BF91-155DEF25C15F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FEB942B-63CD-47A3-B24C-B608527B4A77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FEB942B-63CD-47A3-B24C-B608527B4A77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FEB942B-63CD-47A3-B24C-B608527B4A77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FEB942B-63CD-47A3-B24C-B608527B4A77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9931CA18-3E42-44BD-AF07-131D3B14D238}
+		SolutionGuid = {F1E48E4B-81B2-409E-95B1-597E84B474FF}
 	EndGlobalSection
 EndGlobal

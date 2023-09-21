@@ -36,7 +36,7 @@ namespace MISA.AspNetCore.Web
                 context.Response.StatusCode = StatusCodes.Status404NotFound;
 
                 await context.Response.WriteAsync(
-                    text: new BaseException()
+                    text: new BaseException(ErrorCode.NotFound, "Không tìm thấy tài nguyên")
                     {
                         ErrorCode = notFoundException.ErrorCode,
                         UserMessage = "Không tìm thấy tài nguyên",
@@ -51,7 +51,7 @@ namespace MISA.AspNetCore.Web
 
                 context.Response.StatusCode = StatusCodes.Status409Conflict;
                 await context.Response.WriteAsync(
-                    text: new BaseException()
+                    text: new BaseException(ErrorCode.Conflict, "Tài nguyên bị trùng")
                     {
                         ErrorCode = conflictException.ErrorCode,
                         UserMessage = "Tài nguyên bị trùng",
@@ -66,7 +66,7 @@ namespace MISA.AspNetCore.Web
             {
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 await context.Response.WriteAsync(
-                    text: new BaseException()
+                    text: new BaseException(ErrorCode.InternalServerError, "Lỗi hệ thống")
                     {
                         ErrorCode = (ErrorCode)context.Response.StatusCode,
                         UserMessage = "Lỗi hệ thống",

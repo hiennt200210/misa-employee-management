@@ -45,14 +45,14 @@ namespace MISA.AspNetCore.Domain
         /// </summary>
         /// <param name="entity">Thông tin cần cập nhật</param>
         /// CreatedBy: hiennt200210 (16/09/2023)
-        Task<int> UpdateAsync(TEntity entity);
+        Task<int> UpdateAsync(Guid id, TEntity entity);
 
         /// <summary>
         /// Cập nhật nhiều bản ghi
         /// </summary>
         /// <param name="">Thông tin cần cập nhật</param>
         /// CreatedBy: hiennt200210 (20/09/2023)
-        Task<int> UpdateManyAsync(List<TEntity> entities);
+        Task<int> UpdateManyAsync(List<Guid> ids, List<TEntity> entities);
 
         /// <summary>
         /// Xóa một bản ghi

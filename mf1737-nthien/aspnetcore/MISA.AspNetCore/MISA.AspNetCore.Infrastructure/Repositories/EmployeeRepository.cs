@@ -12,8 +12,10 @@ namespace MISA.AspNetCore.Infrastructure
 {
     public class EmployeeRepository : BaseRepository<Employee>, IEmployeeRepository
     {
+        private readonly IDbConnectionService _dbConnectionService;
         public EmployeeRepository(IDbConnectionService dbConnectionService) : base(dbConnectionService)
         {
+            _dbConnectionService = dbConnectionService;
         }
 
         public async Task<bool> CheckDuplicateEmployeeCodeAsync(string employeeCode)

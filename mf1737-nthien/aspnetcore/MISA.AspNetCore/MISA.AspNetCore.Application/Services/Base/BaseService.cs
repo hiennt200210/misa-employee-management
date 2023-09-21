@@ -10,21 +10,11 @@ namespace MISA.AspNetCore.Application
 {
     public abstract class BaseService<TEntity, TDto, TInsertDto, TUpdateDto> : BaseReadOnlyService<TEntity, TDto>, IBaseService<TDto, TInsertDto, TUpdateDto> where TEntity : IEntity
     {
-        protected BaseService(IBaseRepository<TEntity> baseRepository) : base(baseRepository)
+        public BaseService(IBaseRepository<TEntity> baseRepository) : base(baseRepository)
         {
         }
 
-        public Task<TDto> GetByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<TDto>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<TDto> InsertAsync(TInsertDto insertDto)
+        public async Task<int> InsertAsync(TInsertDto insertDto)
         {
             var entity = MapInsertDtoToEntity(insertDto);
 
@@ -42,29 +32,56 @@ namespace MISA.AspNetCore.Application
             }    
             
             await ValidateInsertBusiness(entity);
-            await BaseRepository.InsertAsync(entity);
-            var result = MapEntityToDto(entity);
+            var result = await BaseRepository.InsertAsync(entity);
             return result;
         }
 
-        public Task<TDto> InsertManyAsync(List<TInsertDto> insertDtos)
+        public async Task<int> InsertManyAsync(List<TInsertDto> insertDtos)
         {
-            throw new NotImplementedException();
+            var entities = insertDtos.Select(insertDto => MapInsertDtoToEntity(insertDto)).ToList();
+
+            for (var i = 0; i < entities.Count; i++)
+            {
+                if (entities[i].GetId() == Guid.Empty)
+                {
+                    entities[i].SetId(Guid.NewGuid());
+                }
+
+                if (entities[i] is BaseEntity baseEntity)
+                {
+                    baseEntity.CreatedDate = DateTime.Now;
+                    baseEntity.CreatedBy ??= "hiennt200210";
+                    baseEntity.ModifiedDate = DateTime.Now;
+                    baseEntity.ModifiedBy ??= "hiennt200210";
+                }
+
+                await ValidateInsertBusiness(entities[i]);
+            }
+
+            var result = await BaseRepository.InsertManyAsync(entities);
+            return result;
         }
 
-        public async Task<TDto> UpdateAsync(Guid id, TUpdateDto updateDto)
+        public async Task<int> UpdateAsync(Guid id, TUpdateDto updateDto)
         {
             var entity = await BaseRepository.GetByIdAsync(id);
             var newEntity = MapUpdateDtoToEntity(updateDto, entity);
             await ValidateUpdateBusiness(newEntity);
-            await BaseRepository.UpdateAsync(newEntity, connection);
-            var result = MapEntityToDto(newEntity);
+            var result = await BaseRepository.UpdateAsync(newEntity);
             return result;
         }
 
-        public Task<TDto> UpdateManyAsync(List<TUpdateDto> updateDtos)
+        public async Task<int> UpdateManyAsync(List<TUpdateDto> updateDtos)
         {
-            throw new NotImplementedException();
+            var entities = updateDtos.Select(updateDto => MapUpdateDtoToEntity(updateDto)).ToList();
+            
+            for (var i = 0; i < entities.Count; i++)
+            {
+                await ValidateUpdateBusiness(entities[i]);
+            }
+            
+            var result = await BaseRepository.UpdateManyAsync(entities);
+            return result;
         }
 
         public async Task<int> DeleteAsync(Guid id)
@@ -82,6 +99,8 @@ namespace MISA.AspNetCore.Application
         }
 
         public abstract TEntity MapInsertDtoToEntity(TInsertDto insertDto);
+
+        public abstract TEntity MapUpdateDtoToEntity(TUpdateDto updateDto);
 
         public abstract TEntity MapUpdateDtoToEntity(TUpdateDto updateDto, TEntity entity);
 

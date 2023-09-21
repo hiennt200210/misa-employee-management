@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MISA.AspNetCore.Application;
+using MISA.AspNetCore.Domain;
 
 namespace MISA.AspNetCore.Web
 {
@@ -17,6 +18,7 @@ namespace MISA.AspNetCore.Web
         public async Task<int> InsertAsync(TInsertDto insertDto)
         {
             var result = await BaseService.InsertAsync(insertDto);
+
             return result;
         }
 
@@ -25,10 +27,17 @@ namespace MISA.AspNetCore.Web
         public async Task<int> UpdateAsync(Guid id, TUpdateDto updateDto)
         {
             var result = await BaseService.UpdateAsync(id, updateDto);
+
+            if (result == null)
+            {
+                throw new NotFoundException("Không tìm thấy dữ liệu cần sửa");
+            }
+
             return result;
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("{id}")]
         public async Task<int> DeleteAsync(Guid id)
         {
             var result = await BaseService.DeleteAsync(id);

@@ -13,7 +13,7 @@ namespace MISA.AspNetCore.Application
         /// </summary>
         /// <param name="dto">Thông tin cần thêm mới</param>
         /// CreatedBy: hiennt200210 (16/09/2023)
-        Task<TDto> InsertAsync(TInsertDto insertDto);
+        Task<int> InsertAsync(TInsertDto insertDto);
 
         /// <summary>
         /// Thêm mới nhiều bản ghi
@@ -21,21 +21,21 @@ namespace MISA.AspNetCore.Application
         /// <param name="dtos">Thông tin cần thêm mới</param>
         /// <returns></returns>
         /// CreatedBy: hiennt200210 (20/09/2023)
-        Task<TDto> InsertManyAsync(List<TInsertDto> insertDtos);
+        Task<int> InsertManyAsync(List<TInsertDto> insertDtos);
 
         /// <summary>
         /// Cập nhật một bản ghi
         /// </summary>
         /// <param name="dto">Thông tin cần cập nhật</param>
         /// CreatedBy: hiennt200210 (16/09/2023)
-        Task<TDto> UpdateAsync(Guid id, TUpdateDto updateDto);
+        Task<int> UpdateAsync(Guid id, TUpdateDto updateDto);
 
         /// <summary>
         /// Cập nhật nhiều bản ghi
         /// </summary>
         /// <param name="">Thông tin cần cập nhật</param>
         /// CreatedBy: hiennt200210 (20/09/2023)
-        Task<TDto> UpdateManyAsync(List<TUpdateDto> updateDtos);
+        Task<int> UpdateManyAsync(List<TUpdateDto> updateDtos);
 
         /// <summary>
         /// Xóa một bản ghi

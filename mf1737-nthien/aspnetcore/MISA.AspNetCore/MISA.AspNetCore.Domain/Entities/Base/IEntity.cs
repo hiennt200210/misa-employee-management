@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MISA.AspNetCore.Domain
 {
-    public interface IEntity
+    public interface TEntity
     {
         public Guid GetId();
         public void SetId(Guid id);

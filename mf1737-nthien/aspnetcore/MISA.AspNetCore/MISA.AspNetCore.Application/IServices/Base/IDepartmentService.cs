@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MISA.AspNetCore.Application
 {
-    internal interface IDepartmentService : IBaseReadOnlyService<DepartmentDto>
+    public interface IDepartmentService : IBaseReadOnlyService<DepartmentDto>
     {
     }
 }

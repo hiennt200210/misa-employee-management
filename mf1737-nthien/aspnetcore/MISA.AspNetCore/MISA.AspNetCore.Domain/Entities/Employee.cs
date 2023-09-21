@@ -8,7 +8,7 @@ using MISA.AspNetCore.Domain.Entities.Base;
 
 namespace MISA.AspNetCore.Domain
 {
-    public class Employee : BaseEntity, IEntity
+    public class Employee : BaseEntity, TEntity
     {
         #region Properties
 

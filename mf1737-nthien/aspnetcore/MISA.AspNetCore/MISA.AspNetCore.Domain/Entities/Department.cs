@@ -7,7 +7,7 @@ using MISA.AspNetCore.Domain.Entities.Base;
 
 namespace MISA.AspNetCore.Domain
 {
-    public class Department : BaseEntity, IEntity
+    public class Department : BaseEntity, TEntity
     {
         #region Properties
 

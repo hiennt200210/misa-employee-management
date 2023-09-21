@@ -11,7 +11,7 @@ namespace MISA.AspNetCore.Application
         /// <summary>
         /// Lấy một bản ghi
         /// </summary>
-        /// <param name="entityId">Định danh của bản ghi cần lấy</param>
+        /// <param name="id">Định danh của bản ghi cần lấy</param>
         /// CreatedBy: hiennt200210 (20/09/2023)
         Task<TDto> GetByIdAsync(Guid id);
 

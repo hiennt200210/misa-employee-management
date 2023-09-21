@@ -112,5 +112,31 @@ namespace MISA.AspNetCore.Application
 
             return employee;
         }
+
+        public override Employee MapUpdateDtoToEntity(EmployeeUpdateDto updateDto)
+        {
+            var employee = new Employee()
+            {
+                ModifiedDate = DateTime.Now,
+                ModifiedBy = "hiennt200210",
+                EmployeeCode = updateDto.EmployeeCode,
+                FullName = updateDto.FullName,
+                Gender = updateDto.Gender,
+                DateOfBirth = updateDto.DateOfBirth,
+                PositionName = updateDto.PositionName,
+                DepartmentId = updateDto.DepartmentId,
+                PhoneNumber = updateDto.PhoneNumber,
+                LandlineNumber = updateDto.LandlineNumber,
+                Email = updateDto.Email,
+                IdentityNumber = updateDto.IdentityNumber,
+                IdentityDate = updateDto.IdentityDate,
+                IdentityPlace = updateDto.IdentityPlace,
+                BankAccount = updateDto.BankAccount,
+                BankName = updateDto.BankName,
+                BankBranch = updateDto.BankBranch
+            };
+
+            return employee;
+        }
     }
 }

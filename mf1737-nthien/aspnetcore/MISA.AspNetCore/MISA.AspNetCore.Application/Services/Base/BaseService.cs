@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MISA.AspNetCore.Application
 {
-    public abstract class BaseService<TEntity, TDto, TInsertDto, TUpdateDto> : BaseReadOnlyService<TEntity, TDto>, IBaseService<TDto, TInsertDto, TUpdateDto> where TEntity : IEntity
+    public abstract class BaseService<TEntity, TDto, TInsertDto, TUpdateDto> : BaseReadOnlyService<TEntity, TDto>, IBaseService<TDto, TInsertDto, TUpdateDto> where TEntity : Domain.TEntity
     {
         public BaseService(IBaseRepository<TEntity> baseRepository) : base(baseRepository)
         {

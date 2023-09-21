@@ -60,7 +60,7 @@ namespace MISA.AspNetCore.Domain
         /// <param name="entity">Thông tin cần xóa</param>
         /// <returns></returns>
         /// CreatedBy: hiennt200210 (16/09/2023)
-        Task<int> DeleteAsync(TEntity entity);
+        Task<int> DeleteAsync(Guid id);
 
         /// <summary>
         /// Xóa nhiều bản ghi
@@ -68,7 +68,7 @@ namespace MISA.AspNetCore.Domain
         /// <param name="entities">Thông tin cần xóa</param>
         /// <returns></returns>
         /// CreatedBy: hiennt200210 (20/09/2023)
-        Task<int> DeleteManyAsync(List<TEntity> entities);
+        Task<int> DeleteManyAsync(List<Guid> ids);
 
         #endregion
     }

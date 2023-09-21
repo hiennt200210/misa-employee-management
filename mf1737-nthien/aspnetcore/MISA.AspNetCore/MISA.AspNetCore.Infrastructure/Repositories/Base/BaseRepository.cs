@@ -10,7 +10,7 @@ using static Dapper.SqlMapper;
 
 namespace MISA.AspNetCore.Infrastructure
 {
-    public class BaseRepository<IEntity> : IBaseRepository<IEntity> where IEntity : IEntity
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> 
     {
         protected readonly IDbConnectionService DbConnectionService;
 
@@ -19,9 +19,9 @@ namespace MISA.AspNetCore.Infrastructure
             DbConnectionService = dbConnectionService;
         }
 
-        public virtual string TableName { get; set; } = typeof(IEntity).Name;
+        public virtual string TableName { get; set; } = typeof(TEntity).Name;
 
-        public async Task<int> DeleteAsync(TEntity entity)
+        public async Task<int> DeleteAsync(Guid id)
         {
             // Khởi tạo đối tượng kết nối với database
             var DbConnection = DbConnectionService.GetConnection();
@@ -31,7 +31,7 @@ namespace MISA.AspNetCore.Infrastructure
 
             // Tạo dynamic parameter
             var parameters = new DynamicParameters();
-            parameters.Add("@id", entity.GetId());
+            parameters.Add("@id", id);
 
             // Thực thi câu truy vấn
             var result = await DbConnection.ExecuteAsync(sql, parameters);
@@ -39,37 +39,21 @@ namespace MISA.AspNetCore.Infrastructure
             return result;
         }
 
-        public async Task<int> DeleteManyAsync(List<TEntity> entities)
-        {
-            // Khởi tạo đối tượng kết nối với database
-            var DbConnection = DbConnectionService.GetConnection();
-
-            // Tạo câu truy vấn
-            var sql = $"DELETE FROM {TableName} WHERE {TableName}Id = @id;";
-
-            // Tạo dynamic parameter
-            var parameters = new DynamicParameters();
-            parameters.Add("@id", entities.Select(entity => entity.GetId()));
-
-            // Thực thi câu truy vấn
-            var result = await DbConnection.ExecuteAsync(sql, parameters);
-
-            return result;
-        }
-
-        public async Task<int> DeleteManyAsync(List<TEntity> entities)
+        public async Task<int> DeleteManyAsync(List<Guid> ids)
         {
             // Khởi tạo đối tượng kết nối với database
             var DbConnection = DbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
             var sql = $"DELETE FROM {TableName} WHERE {TableName}Id IN (";
+
+            // Tạo dynamic parameter
             var parameters = new DynamicParameters();
 
-            for (int i = 0; i < entities.Count; i++)
+            for (int i = 0; i < ids.Count; i++)
             {
                 sql += $"@id{i},";
-                parameters.Add($"@id{i}", entities[i].GetId());
+                parameters.Add($"@id{i}", ids[i]);
             }
 
             sql += ");";
@@ -77,20 +61,10 @@ namespace MISA.AspNetCore.Infrastructure
             // Thực thi câu truy vấn
             var result = await DbConnection.ExecuteAsync(sql, parameters);
 
-            if (result == null)
-            {
-                throw new NotFoundException("Không tìm thấy bản ghi.");
-            }
-
             return result;
         }
 
-        public Task<int> DeleteManyAsync(List<IEntity> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<IEntity>> GetAllAsync()
+        public async Task<List<TEntity>> GetAllAsync()
         {
             // Khởi tạo đối tượng kết nối với database
             var DbConnection = DbConnectionService.GetConnection();
@@ -99,12 +73,12 @@ namespace MISA.AspNetCore.Infrastructure
             var sql = $"SELECT * FROM {TableName}";
 
             // Thực thi câu truy vấn
-            var result = await DbConnection.QueryAsync<IEntity>(sql);
+            var result = await DbConnection.QueryAsync<TEntity>(sql);
 
             return result.ToList();
         }
 
-        public async Task<IEntity> GetByIdAsync(Guid entityId)
+        public async Task<TEntity> GetByIdAsync(Guid entityId)
         {
             // Khởi tạo đối tượng kết nối với database
             var DbConnection = DbConnectionService.GetConnection();
@@ -117,7 +91,7 @@ namespace MISA.AspNetCore.Infrastructure
             parameters.Add("@id", entityId);
 
             // Thực thi câu truy vấn
-            var result = await DbConnection.QuerySingleAsync<IEntity>(sql, parameters);
+            var result = await DbConnection.QuerySingleAsync<TEntity>(sql, parameters);
 
             if (result == null)
             {
@@ -127,7 +101,7 @@ namespace MISA.AspNetCore.Infrastructure
             return result;
         }
 
-        public async Task<List<IEntity>> GetByListIdAsync(List<Guid> ids)
+        public async Task<List<TEntity>> GetByListIdAsync(List<Guid> ids)
         {
             // Khởi tạo đối tượng kết nối với database
             var DbConnection = DbConnectionService.GetConnection();
@@ -148,8 +122,10 @@ namespace MISA.AspNetCore.Infrastructure
                 parameters.Add($"@id{i}", ids[i]);
             }
 
+            sql += ");";
+
             // Thực thi câu truy vấn
-            var result = await DbConnection.QueryAsync<IEntity>(sql, parameters);
+            var result = await DbConnection.QueryAsync<TEntity>(sql, parameters);
 
             if (result == null)
             {
@@ -159,7 +135,7 @@ namespace MISA.AspNetCore.Infrastructure
             return result.ToList();
         }
 
-        public async Task<int> InsertAsync(IEntity entity)
+        public async Task<int> InsertAsync(TEntity entity)
         {
             // Khởi tạo đối tượng kết nối với database
             var DbConnection = DbConnectionService.GetConnection();
@@ -168,7 +144,7 @@ namespace MISA.AspNetCore.Infrastructure
             var sql = $"INSERT INTO {TableName} (";
 
             // Lấy ra các property của object
-            var properties = typeof(IEntity).GetProperties();
+            var properties = typeof(TEntity).GetProperties();
 
             for (int i = 0; i < properties.Length; i++)
             {
@@ -231,7 +207,7 @@ namespace MISA.AspNetCore.Infrastructure
             return result;
         }
 
-        public async Task<int> InsertManyAsync(List<IEntity> entities)
+        public async Task<int> InsertManyAsync(List<TEntity> entities)
         {
             // Khởi tạo đối tượng kết nối với database
             var DbConnection = DbConnectionService.GetConnection();
@@ -242,7 +218,7 @@ namespace MISA.AspNetCore.Infrastructure
             foreach (var entity in entities)
             {
                    // Lấy ra các property của object
-                var properties = typeof(IEntity).GetProperties();
+                var properties = typeof(TEntity).GetProperties();
 
                 for (int i = 0; i < properties.Length; i++)
                 {
@@ -304,7 +280,7 @@ namespace MISA.AspNetCore.Infrastructure
             return result;
         }
 
-        public async Task<int> UpdateAsync(Domain.TEntity entity, System.Data.IDbConnection connection)
+        public async Task<int> UpdateAsync(Guid id, TEntity entity)
         {
             // Khởi tạo đối tượng kết nối với database
             var DbConnection = DbConnectionService.GetConnection();
@@ -313,10 +289,10 @@ namespace MISA.AspNetCore.Infrastructure
             var sql = $"UPDATE {TableName} SET ";
 
             // Lấy ra các property của object
-            var properties = typeof(IEntity).GetProperties();
+            var properties = typeof(TEntity).GetProperties();
 
             // Lấy ra id của object
-            var entityId = entity.GetId();
+            var entityId = id;
 
             // Tạo dynamic parameter
             var parameters = new DynamicParameters();
@@ -356,14 +332,37 @@ namespace MISA.AspNetCore.Infrastructure
             return result;
         }
 
-        public Task<int> UpdateAsync(IEntity entity)
+        public async Task<int> UpdateManyAsync(List<Guid> ids, List<TEntity> entities)
         {
-            throw new NotImplementedException();
-        }
+            // Khởi tạo đối tượng kết nối với database
+            var DbConnection = DbConnectionService.GetConnection();
 
-        public Task<int> UpdateManyAsync(List<IEntity> entities)
-        {
-            throw new NotImplementedException();
+            // Tạo câu truy vấn
+            var sql = $"UPDATE {TableName} SET ";
+
+            // Lấy ra các property của object
+            var properties = typeof(TEntity).GetProperties();
+
+            // Tạo dynamic parameter
+            var parameters = new DynamicParameters();
+
+            for (var i = 0; i < entities.Count; i++)
+            {
+                var propertyName = properties[i].Name;
+                var propertyValue = properties[i].GetValue(entities[i]);
+                parameters.Add($"@{propertyName}", propertyValue);
+            }
+
+            sql += $" WHERE {TableName}Id = @{TableName}Id;";
+            
+            for (var i = 0; i < ids.Count; i++)
+            {
+                parameters.Add($"@{TableName}Id", ids[i]);
+            }
+
+            // Thực thi câu truy vấn
+            var result = await DbConnection.ExecuteAsync(sql, parameters);
+            return result;
         }
     }
 }

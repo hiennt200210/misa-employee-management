@@ -57,7 +57,7 @@ namespace MISA.AspNetCore.Application
             var entity = await BaseRepository.GetByIdAsync(id);
             var newEntity = MapUpdateDtoToEntity(updateDto, entity);
             await ValidateUpdateBusiness(newEntity);
-            await BaseRepository.UpdateAsync(newEntity);
+            await BaseRepository.UpdateAsync(newEntity, connection);
             var result = MapEntityToDto(newEntity);
             return result;
         }

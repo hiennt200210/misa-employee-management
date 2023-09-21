@@ -67,11 +67,11 @@ namespace MISA.AspNetCore.Application
             var entity = await BaseRepository.GetByIdAsync(id);
             var newEntity = MapUpdateDtoToEntity(updateDto, entity);
             await ValidateUpdateBusiness(newEntity);
-            var result = await BaseRepository.UpdateAsync(newEntity);
+            var result = await BaseRepository.UpdateAsync(id, newEntity);
             return result;
         }
 
-        public async Task<int> UpdateManyAsync(List<TUpdateDto> updateDtos)
+        public async Task<int> UpdateManyAsync(List<Guid> ids, List<TUpdateDto> updateDtos)
         {
             var entities = updateDtos.Select(updateDto => MapUpdateDtoToEntity(updateDto)).ToList();
             
@@ -80,21 +80,21 @@ namespace MISA.AspNetCore.Application
                 await ValidateUpdateBusiness(entities[i]);
             }
             
-            var result = await BaseRepository.UpdateManyAsync(entities);
+            var result = await BaseRepository.UpdateManyAsync(ids, entities);
             return result;
         }
 
         public async Task<int> DeleteAsync(Guid id)
         {
             var entity = await BaseRepository.GetByIdAsync(id);
-            var result = await BaseRepository.DeleteAsync(entity);
+            var result = await BaseRepository.DeleteAsync(id);
             return result;
         }
 
         public async Task<int> DeleteManyAsync(List<Guid> ids)
         {
             var entities = await BaseRepository.GetByListIdAsync(ids);
-            var result = await BaseRepository.DeleteManyAsync(entities);
+            var result = await BaseRepository.DeleteManyAsync(ids);
             return result;
         }
 

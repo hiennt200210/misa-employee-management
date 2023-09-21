@@ -35,7 +35,7 @@ namespace MISA.AspNetCore.Application
         /// </summary>
         /// <param name="">Thông tin cần cập nhật</param>
         /// CreatedBy: hiennt200210 (20/09/2023)
-        Task<int> UpdateManyAsync(List<TUpdateDto> updateDtos);
+        Task<int> UpdateManyAsync(List<Guid> ids, List<TUpdateDto> updateDtos);
 
         /// <summary>
         /// Xóa một bản ghi

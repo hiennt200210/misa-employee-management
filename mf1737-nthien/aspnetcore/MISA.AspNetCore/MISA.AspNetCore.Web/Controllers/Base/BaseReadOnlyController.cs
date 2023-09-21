@@ -16,14 +16,14 @@ namespace MISA.AspNetCore.Web
         }
 
         [HttpGet]
-        public async Task<List<EmployeeDto>> GetAllAsync()
+        public async Task<List<TDto>> GetAllAsync()
         {
             var result = await BaseReadOnlyService.GetAllAsync();
             return result;
         }
 
         [HttpGet("{id}")]
-        public async Task<EmployeeDto> GetByIdAsync(Guid id)
+        public async Task<TDto> GetByIdAsync(Guid id)
         {
             var result = await BaseReadOnlyService.GetByIdAsync(id);
             return result;

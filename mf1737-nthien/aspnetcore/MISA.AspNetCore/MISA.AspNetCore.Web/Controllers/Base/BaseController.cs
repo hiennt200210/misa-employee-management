@@ -4,25 +4,17 @@ using MISA.AspNetCore.Application;
 
 namespace MISA.AspNetCore.Web
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class BaseController<TDto, TInsertDto, TUpdateDto> : BaseReadOnlyController<TDto>
     {
         protected readonly IBaseService<TDto, TInsertDto, TUpdateDto> BaseService;
+
         public BaseController(IBaseService<TDto, TInsertDto, TUpdateDto> baseService) : base(baseService)
         {
             BaseService = baseService;
         }
 
-        [HttpGet("{id}")]
-        public async Task<EmployeeDto> GetByIdAsync(Guid id)
-        {
-            var result = await BaseService.GetByIdAsync(id);
-            return result;
-        }
-
         [HttpPost]
-        public async Task<int> InsertAsync(EmployeeInsertDto insertDto)
+        public async Task<int> InsertAsync(TInsertDto insertDto)
         {
             var result = await BaseService.InsertAsync(insertDto);
             return result;

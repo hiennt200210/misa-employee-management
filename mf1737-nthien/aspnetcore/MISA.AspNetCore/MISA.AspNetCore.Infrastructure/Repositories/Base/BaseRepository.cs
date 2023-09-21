@@ -207,7 +207,7 @@ namespace MISA.AspNetCore.Infrastructure
         {
         }
 
-        public async Task<int> UpdateAsync(TEntity entity, System.Data.IDbConnection connection)
+        public async Task<int> UpdateAsync(IEntity entity, System.Data.IDbConnection connection)
         {
             // Khởi tạo đối tượng kết nối với database
             var connection = _dbConnectionService.GetConnection();

@@ -13,11 +13,6 @@ namespace MISA.AspNetCore.Application
         #region Properties
 
         /// <summary>
-        /// Định danh của nhân viên
-        /// </summary>
-        public Guid EmployeeId { get; set; }
-
-        /// <summary>
         /// Mã nhân viên
         /// </summary>
         [Required]

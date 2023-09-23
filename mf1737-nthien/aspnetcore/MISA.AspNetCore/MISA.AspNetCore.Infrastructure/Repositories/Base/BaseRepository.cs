@@ -6,67 +6,30 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static Dapper.SqlMapper;
 
 namespace MISA.AspNetCore.Infrastructure
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity> 
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity>
     {
         protected readonly IDbConnectionService DbConnectionService;
+        protected virtual string TableName { get; set; } = typeof(TEntity).Name;
 
         public BaseRepository(IDbConnectionService dbConnectionService)
         {
             DbConnectionService = dbConnectionService;
         }
 
-        public virtual string TableName { get; set; } = typeof(TEntity).Name;
-
-        public async Task<int> DeleteAsync(Guid id)
-        {
-            // Khởi tạo đối tượng kết nối với database
-            var DbConnection = DbConnectionService.GetConnection();
-
-            // Tạo câu truy vấn
-            var sql = $"DELETE FROM {TableName} WHERE {TableName}Id = @id;";
-
-            // Tạo dynamic parameter
-            var parameters = new DynamicParameters();
-            parameters.Add("@id", id);
-
-            // Thực thi câu truy vấn
-            var result = await DbConnection.ExecuteAsync(sql, parameters);
-
-            return result;
-        }
-
-        public async Task<int> DeleteManyAsync(List<Guid> ids)
-        {
-            // Khởi tạo đối tượng kết nối với database
-            var DbConnection = DbConnectionService.GetConnection();
-
-            // Tạo câu truy vấn
-            var sql = $"DELETE FROM {TableName} WHERE {TableName}Id IN (";
-
-            // Tạo dynamic parameter
-            var parameters = new DynamicParameters();
-
-            for (int i = 0; i < ids.Count; i++)
-            {
-                sql += $"@id{i},";
-                parameters.Add($"@id{i}", ids[i]);
-            }
-
-            sql += ");";
-
-            // Thực thi câu truy vấn
-            var result = await DbConnection.ExecuteAsync(sql, parameters);
-
-            return result;
-        }
-
+        /// <summary>
+        /// Lấy tất cả bản ghi
+        /// </summary>
+        /// <returns>Tất cả bản ghi</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy bản ghi nào</exception>"
+        /// CreatedBy: hiennt200210 (16/09/2023)
         public async Task<List<TEntity>> GetAllAsync()
         {
-            // Khởi tạo đối tượng kết nối với database
+            // Tạo kết nối với database
             var DbConnection = DbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
@@ -75,12 +38,24 @@ namespace MISA.AspNetCore.Infrastructure
             // Thực thi câu truy vấn
             var result = await DbConnection.QueryAsync<TEntity>(sql);
 
+            if (result == null)
+            {
+                throw new NotFoundException();
+            }
+
             return result.ToList();
         }
 
-        public async Task<TEntity> GetByIdAsync(Guid entityId)
+        /// <summary>
+        /// Lấy một bản ghi theo Id
+        /// </summary>
+        /// <param name="id">Định danh của bản ghi cần lấy</param>
+        /// <returns>Bản ghi cần lấy</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy bản ghi cần lấy</exception>
+        /// CreatedBy: hiennt200210 (16/09/2023)
+        public async Task<TEntity> GetByIdAsync(Guid id)
         {
-            // Khởi tạo đối tượng kết nối với database
+            // Tạo kết nối với database
             var DbConnection = DbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
@@ -88,56 +63,28 @@ namespace MISA.AspNetCore.Infrastructure
 
             // Tạo dynamic parameter
             var parameters = new DynamicParameters();
-            parameters.Add("@id", entityId);
+            parameters.Add("@id", id);
 
             // Thực thi câu truy vấn
-            var result = await DbConnection.QuerySingleAsync<TEntity>(sql, parameters);
+            var result = await DbConnection.QuerySingleOrDefaultAsync<TEntity>(sql, parameters);
 
             if (result == null)
             {
-                throw new NotFoundException("Không tìm thấy bản ghi.");
+                throw new NotFoundException();
             }
 
             return result;
         }
 
-        public async Task<List<TEntity>> GetByListIdAsync(List<Guid> ids)
-        {
-            // Khởi tạo đối tượng kết nối với database
-            var DbConnection = DbConnectionService.GetConnection();
-
-            // Tạo câu truy vấn
-            var sql = $"SELECT * FROM {TableName} WHERE {TableName}Id IN (";
-
-            for (int i = 0; i < ids.Count; i++)
-            {
-                sql += $"@id{i},";
-            }
-
-            // Tạo dynamic parameter
-            var parameters = new DynamicParameters();
-
-            for (int i = 0; i < ids.Count; i++)
-            {
-                parameters.Add($"@id{i}", ids[i]);
-            }
-
-            sql += ");";
-
-            // Thực thi câu truy vấn
-            var result = await DbConnection.QueryAsync<TEntity>(sql, parameters);
-
-            if (result == null)
-            {
-                throw new NotFoundException("Không tìm thấy bản ghi.");
-            }
-
-            return result.ToList();
-        }
-
+        /// <summary>
+        /// Thêm mới một bản ghi
+        /// </summary>
+        /// <param name="entity">Bản ghi cần thêm mới</param>
+        /// <returns>1 (Thêm mới thành công)</returns>
+        /// CreatedBy: hiennt200210 (16/09/2023)
         public async Task<int> InsertAsync(TEntity entity)
         {
-            // Khởi tạo đối tượng kết nối với database
+            // Tạo kết nối với database
             var DbConnection = DbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
@@ -148,10 +95,8 @@ namespace MISA.AspNetCore.Infrastructure
 
             for (int i = 0; i < properties.Length; i++)
             {
-                var property = properties[i];
-
                 // Lấy ra tên của property
-                var propertyName = property.Name;
+                var propertyName = properties[i].Name;
 
                 // Nếu là property đầu tiên thì không cần thêm dấu phẩy
                 if (i == 0)
@@ -168,10 +113,8 @@ namespace MISA.AspNetCore.Infrastructure
 
             for (int i = 0; i < properties.Length; i++)
             {
-                var property = properties[i];
-
                 // Lấy ra tên của property
-                var propertyName = property.Name;
+                var propertyName = properties[i].Name;
 
                 // Nếu là property đầu tiên thì không cần thêm dấu phẩy
                 if (i == 0)
@@ -207,83 +150,22 @@ namespace MISA.AspNetCore.Infrastructure
             return result;
         }
 
-        public async Task<int> InsertManyAsync(List<TEntity> entities)
-        {
-            // Khởi tạo đối tượng kết nối với database
-            var DbConnection = DbConnectionService.GetConnection();
-
-            // Tạo câu truy vấn
-            var sql = $"INSERT INTO {TableName} (";
-            var parameters = new DynamicParameters();
-            foreach (var entity in entities)
-            {
-                   // Lấy ra các property của object
-                var properties = typeof(TEntity).GetProperties();
-
-                for (int i = 0; i < properties.Length; i++)
-                {
-                    var property = properties[i];
-
-                    // Lấy ra tên của property
-                    var propertyName = property.Name;
-
-                    // Nếu là property đầu tiên thì không cần thêm dấu phẩy
-                    if (i == 0)
-                    {
-                        sql += $"{propertyName}";
-                    }
-                    else
-                    {
-                        sql += $", {propertyName}";
-                    }
-                }
-
-                sql += ") VALUES (";
-
-                for (int i = 0; i < properties.Length; i++)
-                {
-                    var property = properties[i];
-
-                    // Lấy ra tên của property
-                    var propertyName = property.Name;
-
-                    // Nếu là property đầu tiên thì không cần thêm dấu phẩy
-                    if (i == 0)
-                    {
-                        sql += $"@{propertyName}";
-                    }
-                    else
-                    {
-                        sql += $", @{propertyName}";
-                    }
-                }
-
-                sql += ");";
-
-                // Tạo dynamic parameter
-                foreach (var property in properties)
-                {
-                    // Lấy ra tên của property
-                    var propertyName = property.Name;
-
-                    // Lấy ra giá trị của property
-                    var propertyValue = property.GetValue(entity);
-
-                    // Thêm parameter
-                    parameters.Add($"@{propertyName}", propertyValue);
-                }
-            }
-
-            // Thực thi câu truy vấn
-            var result = await DbConnection.ExecuteAsync(sql, parameters);
-
-            return result;
-        }
-
+        /// <summary>
+        /// Cập nhật một bản ghi
+        /// </summary>
+        /// <param name="id">Định danh của bản ghi cần cập nhật</param>
+        /// <param name="entity">Bản ghi mới cần cập nhật</param>
+        /// <returns>1 (Cập nhật thành công)</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy bản ghi cần cập nhật</exception>
+        /// CreatedBy: hiennt200210 (16/09/2023)
         public async Task<int> UpdateAsync(Guid id, TEntity entity)
         {
-            // Khởi tạo đối tượng kết nối với database
+            // Tạo kết nối với database
             var DbConnection = DbConnectionService.GetConnection();
+
+            // Tạo dynamic parameter
+            var parameters = new DynamicParameters();
+            parameters.Add("@id", id);
 
             // Tạo câu truy vấn
             var sql = $"UPDATE {TableName} SET ";
@@ -291,40 +173,28 @@ namespace MISA.AspNetCore.Infrastructure
             // Lấy ra các property của object
             var properties = typeof(TEntity).GetProperties();
 
-            // Lấy ra id của object
-            var entityId = id;
-
-            // Tạo dynamic parameter
-            var parameters = new DynamicParameters();
-            foreach (var property in properties)
+            for (int i = 0; i < properties.Length; i++)
             {
                 // Lấy ra tên của property
-                var propertyName = property.Name;
+                var propertyName = properties[i].Name;
 
                 // Lấy ra giá trị của property
-                var propertyValue = property.GetValue(entity);
+                var propertyValue = properties[i].GetValue(entity);
 
                 // Nếu là property đầu tiên thì không cần thêm dấu phẩy
-                if (property.Name == "EntityId")
+                if (i == 0)
                 {
-                    continue;
-                }
-                else if (property.Name == "ModifiedBy")
-                {
-                    sql += $"{propertyName} = @{propertyName}, ";
-                    parameters.Add($"@{propertyName}", propertyValue);
-                }
-                else if (property.Name == "ModifiedDate")
-                {
-                    sql += $"{propertyName} = @{propertyName} ";
+                    sql += $"{propertyName} = @{propertyName}";
                     parameters.Add($"@{propertyName}", propertyValue);
                 }
                 else
                 {
-                    sql += $"{propertyName} = @{propertyName}, ";
+                    sql += $", {propertyName} = @{propertyName}";
                     parameters.Add($"@{propertyName}", propertyValue);
                 }
             }
+
+            sql += $" WHERE {TableName}Id = @id;";
 
             // Thực thi câu truy vấn
             var result = await DbConnection.ExecuteAsync(sql, parameters);
@@ -332,36 +202,33 @@ namespace MISA.AspNetCore.Infrastructure
             return result;
         }
 
-        public async Task<int> UpdateManyAsync(List<Guid> ids, List<TEntity> entities)
+        /// <summary>
+        /// Xóa một bản ghi
+        /// </summary>
+        /// <param name="id">Định danh của bản ghi cần xóa</param>
+        /// <returns>1 (Xóa thành công)</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy bản ghi cần xóa</exception>"
+        /// CreatedBy: hiennt200210 (16/09/2023)
+        public async Task<int> DeleteAsync(Guid id)
         {
-            // Khởi tạo đối tượng kết nối với database
+            // Tạo kết nối với database
             var DbConnection = DbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
-            var sql = $"UPDATE {TableName} SET ";
-
-            // Lấy ra các property của object
-            var properties = typeof(TEntity).GetProperties();
+            var sql = $"DELETE FROM {TableName} WHERE {TableName}Id = @id;";
 
             // Tạo dynamic parameter
             var parameters = new DynamicParameters();
-
-            for (var i = 0; i < entities.Count; i++)
-            {
-                var propertyName = properties[i].Name;
-                var propertyValue = properties[i].GetValue(entities[i]);
-                parameters.Add($"@{propertyName}", propertyValue);
-            }
-
-            sql += $" WHERE {TableName}Id = @{TableName}Id;";
-            
-            for (var i = 0; i < ids.Count; i++)
-            {
-                parameters.Add($"@{TableName}Id", ids[i]);
-            }
+            parameters.Add("@id", id);
 
             // Thực thi câu truy vấn
             var result = await DbConnection.ExecuteAsync(sql, parameters);
+
+            if (result == 0)
+            {
+                throw new NotFoundException();
+            }
+
             return result;
         }
     }

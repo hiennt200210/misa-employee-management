@@ -8,39 +8,23 @@ namespace MISA.AspNetCore.Domain
 {
     public class EmployeeValidate : IEmployeeValidate
     {
-        #region Fields
         private readonly IEmployeeRepository _employeeRepository;
-        #endregion
 
-        #region Constructors
         public EmployeeValidate(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
         }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// Kiểm tra trùng mã nhân viên
         /// </summary>
-        /// <exception cref="ConflictException">
-        /// Nếu mã nhân viên đã tồn tại
-        /// </exception>
-        /// <returns>
-        /// False nếu mã nhân viên chưa tồn tại
-        /// </returns>
+        /// <param name="employeeCode">Mã nhân viên cần kiểm tra</param>
+        /// <exception cref="ConflictException">Mã nhân viên đã tồn tại</exception>
+        /// <returns>False nếu mã nhân viên chưa tồn tại</returns>
         /// CreatedBy: hiennt200210 (16/09/2023)
-        public async Task<bool> CheckDuplicateEmployeeCode(Employee employee)
+        public async Task CheckDuplicateEmployeeCodeAsync(string employeeCode)
         {
-            var isDuplicated = await _employeeRepository.CheckDuplicateEmployeeCodeAsync(employee.EmployeeCode);
-
-            if (isDuplicated)
-            {
-                throw new ConflictException(Resources.ErrorResource.EmployeeCodeDuplicated);
-            }
-
-            return false;
+            await _employeeRepository.CheckDuplicateEmployeeCodeAsync(employeeCode);
         }
-        #endregion
     }
 }

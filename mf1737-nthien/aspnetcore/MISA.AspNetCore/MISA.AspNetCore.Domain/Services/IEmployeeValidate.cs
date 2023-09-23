@@ -11,9 +11,9 @@ namespace MISA.AspNetCore.Domain
         /// <summary>
         /// Kiểm tra trùng mã nhân viên
         /// </summary>
-        /// <param name="employee">Nhân viên cần kiểm tra</param>
+        /// <param name="employeeCode">Nhân viên cần kiểm tra</param>
         /// <exception cref="ConflictException">Mã nhân viên đã tồn tại</exception>
         /// CreatedBy: hiennt200210 (16/09/2023)
-        Task<bool> CheckDuplicateEmployeeCode(Employee employee);
+        Task CheckDuplicateEmployeeCodeAsync(string employeeCode);
     }
 }

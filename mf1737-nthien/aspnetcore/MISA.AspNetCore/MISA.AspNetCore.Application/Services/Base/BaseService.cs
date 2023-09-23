@@ -1,10 +1,7 @@
-﻿using MISA.AspNetCore.Domain;
+﻿using AutoMapper;
+using MISA.AspNetCore.Domain;
 using MISA.AspNetCore.Domain.Entities.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Principal;
 
 namespace MISA.AspNetCore.Application
 {
@@ -14,109 +11,79 @@ namespace MISA.AspNetCore.Application
         {
         }
 
+        /// <summary>
+        /// Thêm mới một đối tượng
+        /// </summary>
+        /// <param name="insertDto">Đối tượng cần thêm mới</param>
+        /// <returns>1 (Thêm mới thành công)</returns>
+        /// <exception cref="BadRequestException">Dữ liệu không hợp lệ</exception>
+        /// CreatedBy: hiennt200210 (16/09/2023)
         public async Task<int> InsertAsync(TInsertDto insertDto)
         {
             var entity = MapInsertDtoToEntity(insertDto);
-
-            if (entity.GetId() == Guid.Empty)
-            {
-                entity.SetId(Guid.NewGuid());
-            }
-
-            if (entity is BaseEntity baseEntity)
-            {
-                baseEntity.CreatedDate = DateTime.Now;
-                baseEntity.CreatedBy ??= "hiennt200210";
-                baseEntity.ModifiedDate = DateTime.Now;
-                baseEntity.ModifiedBy ??= "hiennt200210";
-            }    
-            
-            await ValidateInsertBusiness(entity);
+            await ValidateBusinessInsertAsync(entity);
             var result = await BaseRepository.InsertAsync(entity);
             return result;
         }
 
-        public async Task<int> InsertManyAsync(List<TInsertDto> insertDtos)
-        {
-            var entities = insertDtos.Select(insertDto => MapInsertDtoToEntity(insertDto)).ToList();
-
-            for (var i = 0; i < entities.Count; i++)
-            {
-                if (entities[i].GetId() == Guid.Empty)
-                {
-                    entities[i].SetId(Guid.NewGuid());
-                }
-
-                if (entities[i] is BaseEntity baseEntity)
-                {
-                    baseEntity.CreatedDate = DateTime.Now;
-                    baseEntity.CreatedBy ??= "hiennt200210";
-                    baseEntity.ModifiedDate = DateTime.Now;
-                    baseEntity.ModifiedBy ??= "hiennt200210";
-                }
-
-                await ValidateInsertBusiness(entities[i]);
-            }
-
-            var result = await BaseRepository.InsertManyAsync(entities);
-            return result;
-        }
-
+        /// <summary>
+        /// Cập nhật một đối tượng
+        /// </summary>
+        /// <param name="id">Định danh của đối tượng cần cập nhật</param>
+        /// <param name="updateDto">Đối tượng mới cần cập nhật</param>
+        /// <returns>1 (Cập nhật thành công)</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy đối tượng cần cập nhật</exception>
+        /// <exception cref="BadRequestException">Dữ liệu không hợp lệ</exception>
+        /// CreatedBy: hiennt200210 (16/09/2023)
         public async Task<int> UpdateAsync(Guid id, TUpdateDto updateDto)
         {
-            var entity = await BaseRepository.GetByIdAsync(id);
-            var newEntity = MapUpdateDtoToEntity(updateDto, entity);
-            await ValidateUpdateBusiness(newEntity);
+            var oldEntity = await BaseRepository.GetByIdAsync(id);
+            var newEntity = MapUpdateDtoToEntity(updateDto, oldEntity);
+            await ValidateBusinessUpdateAsync(oldEntity, newEntity);
             var result = await BaseRepository.UpdateAsync(id, newEntity);
             return result;
         }
 
-        public async Task<int> UpdateManyAsync(List<Guid> ids, List<TUpdateDto> updateDtos)
-        {
-            var entities = updateDtos.Select(updateDto => MapUpdateDtoToEntity(updateDto)).ToList();
-            
-            for (var i = 0; i < entities.Count; i++)
-            {
-                await ValidateUpdateBusiness(entities[i]);
-            }
-            
-            var result = await BaseRepository.UpdateManyAsync(ids, entities);
-            return result;
-        }
-
+        /// <summary>
+        /// Xóa một đối tượng
+        /// </summary>
+        /// <param name="id">Định danh của đối tượng cần xóa</param>
+        /// <returns>1 (Xóa thành công)</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy đối tượng cần xóa</exception>"
+        /// CreatedBy: hiennt200210 (16/09/2023)
         public async Task<int> DeleteAsync(Guid id)
         {
-            var entity = await BaseRepository.GetByIdAsync(id);
             var result = await BaseRepository.DeleteAsync(id);
             return result;
         }
 
-        public async Task<int> DeleteManyAsync(List<Guid> ids)
-        {
-            var entities = await BaseRepository.GetByListIdAsync(ids);
-            var result = await BaseRepository.DeleteManyAsync(ids);
-            return result;
-        }
-
+        /// <summary>
+        /// Chuyển đổi từ EmployeeInsertDto sang Employee
+        /// </summary>
+        /// CreatedBy: hiennt200210 (20/09/2023)
         public abstract TEntity MapInsertDtoToEntity(TInsertDto insertDto);
 
-        public abstract TEntity MapUpdateDtoToEntity(TUpdateDto updateDto);
+        /// <summary>
+        /// Chuyển đổi từ EmployeeUpdateDto sang Employee
+        /// </summary>
+        /// CreatedBy: hiennt200210 (20/09/2023)
+        public abstract TEntity MapUpdateDtoToEntity(TUpdateDto updateDto, TEntity oldEntity);
 
-        public abstract TEntity MapUpdateDtoToEntity(TUpdateDto updateDto, TEntity entity);
+        /// <summary>
+        /// Validate nghiệp vụ khi thêm mới
+        /// </summary>
+        /// <param name="entity">Dữ liệu cần validate</param>
+        /// <exception cref="BadRequestException">Dữ liệu không hợp lệ</exception>
+        /// CreatedBy: hiennt200210 (20/09/2023)
+        public abstract Task ValidateBusinessInsertAsync(TEntity entity);
 
-        public virtual async Task ValidateInsertBusiness(TEntity entity)
-        {
-            await Task.CompletedTask;
-        }
-
-        public virtual async Task ValidateUpdateBusiness(TEntity entity)
-        {
-            await Task.CompletedTask;
-        }
-
-        public virtual async Task ValidateDeleteBusiness(TEntity entity)
-        {
-            await Task.CompletedTask;
-        }
+        /// <summary>
+        /// Validate nghiệp vụ khi cập nhật
+        /// </summary>
+        /// <param name="oldEntity">Dữ liệu cũ</param>
+        /// <param name="newEntity">Dữ liệu mới</param>
+        /// <exception cref="BadRequestException">Dữ liệu không hợp lệ</exception>
+        /// CreatedBy: hiennt200210 (20/09/2023)
+        public abstract Task ValidateBusinessUpdateAsync(TEntity oldEntity, TEntity newEntity);
     }
 }

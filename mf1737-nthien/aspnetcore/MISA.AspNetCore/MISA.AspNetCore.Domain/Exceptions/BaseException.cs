@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace MISA.AspNetCore.Domain
 {
-    public class BaseException : Exception
+    public class BaseException
     {
         #region Properties
         /// <summary>
-        /// Mã lỗi
+        /// Mã lỗi nghiệp vụ
         /// </summary>
-        public ErrorCode ErrorCode { get; set; }
+        public ErrorCode? ErrorCode { get; set; }
 
         /// <summary>
         /// Thông báo cho lập trình viên
@@ -39,29 +39,6 @@ namespace MISA.AspNetCore.Domain
         /// Thông tin bổ sung
         /// </summary>
         public string? MoreInfo { get; set; }
-        #endregion
-
-        #region Constructors
-        public BaseException(ErrorCode errorCode) : base()
-        {
-            ErrorCode = errorCode;
-        }
-
-        public BaseException(ErrorCode errorCode, string userMessage) : base()
-        {
-            ErrorCode = errorCode;
-            UserMessage = userMessage;
-        }
-
-        public BaseException(ErrorCode errorCode, string devMessage, string userMessage, string errors, string traceId, string moreInfo) : base()
-        {
-            ErrorCode = errorCode;
-            DevMessage = devMessage;
-            UserMessage = userMessage;
-            Errors = errors;
-            TraceId = traceId;
-            MoreInfo = moreInfo;
-        }
         #endregion
 
         #region Methods

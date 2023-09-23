@@ -16,13 +16,12 @@ namespace MISA.AspNetCore.Application
             BaseRepository = baseRepository;
         }
 
-        public async Task<TDto> GetByIdAsync(Guid id)
-        {
-            var entity = await BaseRepository.GetByIdAsync(id);
-            var dto = MapEntityToDto(entity);
-            return dto;
-        }
-
+        /// <summary>
+        /// Lấy tất cả bản ghi
+        /// </summary>
+        /// <returns>Tất cả bản ghi</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy bản ghi nào</exception>"
+        /// CreatedBy: hiennt200210 (16/09/2023)
         public async Task<List<TDto>> GetAllAsync()
         {
             var entities = await BaseRepository.GetAllAsync();
@@ -30,6 +29,24 @@ namespace MISA.AspNetCore.Application
             return dtos;
         }
 
+        /// <summary>
+        /// Lấy một bản ghi theo Id
+        /// </summary>
+        /// <param name="id">Định danh của bản ghi cần lấy</param>
+        /// <returns>Bản ghi cần lấy</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy bản ghi cần lấy</exception>
+        /// CreatedBy: hiennt200210 (16/09/2023)
+        public async Task<TDto> GetByIdAsync(Guid id)
+        {
+            var entity = await BaseRepository.GetByIdAsync(id);
+            var dto = MapEntityToDto(entity);
+            return dto;
+        }
+
+        /// <summary>
+        /// Chuyển đổi từ Employee sang EmployeeDto
+        /// </summary>
+        /// CreatedBy: hiennt200210 (20/09/2023)
         public abstract TDto MapEntityToDto(TEntity entity);
     }
 }

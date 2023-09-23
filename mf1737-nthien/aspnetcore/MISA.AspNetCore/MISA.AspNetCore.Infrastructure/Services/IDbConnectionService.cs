@@ -13,6 +13,7 @@ namespace MISA.AspNetCore.Infrastructure
         /// Lấy thông tin kết nối tới cơ sở dữ liệu
         /// </summary>
         /// <returns>Thông tin kết nối cơ sở dữ liệu</returns>
+        /// CreatedBy: hiennt200210 (18/09/2023)
         MySqlConnection GetConnection();
     }
 }

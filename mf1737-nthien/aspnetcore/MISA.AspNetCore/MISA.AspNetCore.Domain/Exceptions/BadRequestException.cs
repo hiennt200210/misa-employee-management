@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MISA.AspNetCore.Domain
 {
-    public class ConflictException : Exception
+    public class BadRequestException : Exception
     {
         #region Properties
         /// <summary>

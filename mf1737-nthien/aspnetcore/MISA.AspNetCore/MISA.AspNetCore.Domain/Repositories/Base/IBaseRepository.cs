@@ -8,68 +8,48 @@ namespace MISA.AspNetCore.Domain
 {
     public interface IBaseRepository<TEntity>
     {
-        #region Methods
-
-        /// <summary>
-        /// Lấy một bản ghi
-        /// </summary>
-        /// <param name="entityId">Định danh của bản ghi cần lấy</param>
-        /// CreatedBy: hiennt200210 (16/09/2023)
-        Task<TEntity> GetByIdAsync(Guid entityId);
-
-        Task<List<TEntity>> GetByListIdAsync(List<Guid> ids);
-
         /// <summary>
         /// Lấy tất cả bản ghi
         /// </summary>
+        /// <returns>Tất cả bản ghi</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy bản ghi nào</exception>"
         /// CreatedBy: hiennt200210 (16/09/2023)
         Task<List<TEntity>> GetAllAsync();
 
         /// <summary>
+        /// Lấy một bản ghi theo Id
+        /// </summary>
+        /// <param name="id">Định danh của bản ghi cần lấy</param>
+        /// <returns>Bản ghi cần lấy</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy bản ghi cần lấy</exception>
+        /// CreatedBy: hiennt200210 (16/09/2023)
+        Task<TEntity> GetByIdAsync(Guid id);
+
+        /// <summary>
         /// Thêm mới một bản ghi
         /// </summary>
-        /// <param name="entity">Thông tin cần thêm mới</param>
+        /// <param name="entity">Bản ghi cần thêm mới</param>
+        /// <returns>1 (Thêm mới thành công)</returns>
         /// CreatedBy: hiennt200210 (16/09/2023)
         Task<int> InsertAsync(TEntity entity);
 
         /// <summary>
-        /// Thêm mới nhiều bản ghi
-        /// </summary>
-        /// <param name="entities">Thông tin cần thêm mới</param>
-        /// <returns></returns>
-        /// CreatedBy: hiennt200210 (20/09/2023)
-        Task<int> InsertManyAsync(List<TEntity> entities);
-
-        /// <summary>
         /// Cập nhật một bản ghi
         /// </summary>
-        /// <param name="entity">Thông tin cần cập nhật</param>
+        /// <param name="id">Định danh của bản ghi cần cập nhật</param>
+        /// <param name="entity">Bản ghi mới cần cập nhật</param>
+        /// <returns>1 (Cập nhật thành công)</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy bản ghi cần cập nhật</exception>
         /// CreatedBy: hiennt200210 (16/09/2023)
         Task<int> UpdateAsync(Guid id, TEntity entity);
 
         /// <summary>
-        /// Cập nhật nhiều bản ghi
-        /// </summary>
-        /// <param name="">Thông tin cần cập nhật</param>
-        /// CreatedBy: hiennt200210 (20/09/2023)
-        Task<int> UpdateManyAsync(List<Guid> ids, List<TEntity> entities);
-
-        /// <summary>
         /// Xóa một bản ghi
         /// </summary>
-        /// <param name="entity">Thông tin cần xóa</param>
-        /// <returns></returns>
+        /// <param name="id">Định danh của bản ghi cần xóa</param>
+        /// <returns>1 (Xóa thành công)</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy bản ghi cần xóa</exception>"
         /// CreatedBy: hiennt200210 (16/09/2023)
         Task<int> DeleteAsync(Guid id);
-
-        /// <summary>
-        /// Xóa nhiều bản ghi
-        /// </summary>
-        /// <param name="entities">Thông tin cần xóa</param>
-        /// <returns></returns>
-        /// CreatedBy: hiennt200210 (20/09/2023)
-        Task<int> DeleteManyAsync(List<Guid> ids);
-
-        #endregion
     }
 }

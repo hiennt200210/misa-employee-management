@@ -117,10 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EmployeeCodeDuplicated" xml:space="preserve">
-    <value>Mã nhân viên đã tồn tại trong hệ thống.</value>
+  <data name="BadRequest" xml:space="preserve">
+    <value>Đầu vào không hợp lệ.</value>
   </data>
-  <data name="NotFoundRecord" xml:space="preserve">
-    <value>Không tìm thấy bản ghi.</value>
+  <data name="Conflict" xml:space="preserve">
+    <value>Tài nguyên bị trùng.</value>
+  </data>
+  <data name="DepartmentNameDuplicated" xml:space="preserve">
+    <value>Tên phòng ban đã tồn tại.</value>
+  </data>
+  <data name="EmployeeCodeDuplicated" xml:space="preserve">
+    <value>Mã nhân viên đã tồn tại.</value>
+  </data>
+  <data name="Forbidden" xml:space="preserve">
+    <value>Quyền truy cập bị giới hạn.</value>
+  </data>
+  <data name="InternalServerError" xml:space="preserve">
+    <value>Lỗi hệ thống.</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Không tìm thấy tài nguyên.</value>
+  </data>
+  <data name="Unauthorized" xml:space="preserve">
+    <value>Xác thực không thành công.</value>
   </data>
 </root>

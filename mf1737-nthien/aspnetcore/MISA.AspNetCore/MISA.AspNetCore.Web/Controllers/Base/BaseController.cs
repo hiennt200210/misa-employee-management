@@ -14,28 +14,44 @@ namespace MISA.AspNetCore.Web
             BaseService = baseService;
         }
 
+        /// <summary>
+        /// Thêm mới một đối tượng
+        /// </summary>
+        /// <param name="insertDto">Đối tượng cần thêm mới</param>
+        /// <returns>1 (Thêm mới thành công)</returns>
+        /// <exception cref="BadRequestException">Dữ liệu không hợp lệ</exception>
+        /// CreatedBy: hiennt200210 (16/09/2023)
         [HttpPost]
-        public async Task<int> InsertAsync(TInsertDto insertDto)
+        public async Task<IActionResult> InsertAsync(TInsertDto insertDto)
         {
             var result = await BaseService.InsertAsync(insertDto);
-
-            return result;
+            return StatusCode(201, result);
         }
 
+        /// <summary>
+        /// Cập nhật một đối tượng
+        /// </summary>
+        /// <param name="id">Định danh của đối tượng cần cập nhật</param>
+        /// <param name="updateDto">Đối tượng mới cần cập nhật</param>
+        /// <returns>1 (Cập nhật thành công)</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy đối tượng cần cập nhật</exception>
+        /// <exception cref="BadRequestException">Dữ liệu không hợp lệ</exception>
+        /// CreatedBy: hiennt200210 (16/09/2023)
         [HttpPut]
         [Route("{id}")]
         public async Task<int> UpdateAsync(Guid id, TUpdateDto updateDto)
         {
             var result = await BaseService.UpdateAsync(id, updateDto);
-
-            if (result == null)
-            {
-                throw new NotFoundException("Không tìm thấy dữ liệu cần sửa");
-            }
-
             return result;
         }
 
+        /// <summary>
+        /// Xóa một đối tượng
+        /// </summary>
+        /// <param name="id">Định danh của đối tượng cần xóa</param>
+        /// <returns>1 (Xoá thành công)</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy đối tượng cần xoá</exception>
+        /// CreatedBy: hiennt200210 (16/09/2023)
         [HttpDelete]
         [Route("{id}")]
         public async Task<int> DeleteAsync(Guid id)

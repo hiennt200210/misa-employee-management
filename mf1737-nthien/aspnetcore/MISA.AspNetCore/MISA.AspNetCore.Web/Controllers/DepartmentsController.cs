@@ -6,9 +6,9 @@ namespace MISA.AspNetCore.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentController : BaseReadOnlyController<DepartmentDto>
+    public class DepartmentsController : BaseController<DepartmentDto, DepartmentInsertDto, DepartmentUpdateDto>
     {
-        public DepartmentController(IDepartmentService departmentService) : base(departmentService)
+        public DepartmentsController(IDepartmentService departmentService) : base(departmentService)
         {
         }
     }

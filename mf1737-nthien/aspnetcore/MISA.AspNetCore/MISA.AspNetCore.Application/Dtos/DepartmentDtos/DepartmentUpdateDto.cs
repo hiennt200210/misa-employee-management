@@ -12,11 +12,6 @@ namespace MISA.AspNetCore.Application
         #region Properties
 
         /// <summary>
-        /// Định danh của phòng ban
-        /// </summary>
-        public Guid DepartmentId { get; set; }
-
-        /// <summary>
         /// Tên phòng ban
         /// </summary>
         [Required]

@@ -7,37 +7,46 @@ using System.Threading.Tasks;
 using Dapper;
 using MySqlConnector;
 using static Dapper.SqlMapper;
+using System.Resources;
 
 namespace MISA.AspNetCore.Infrastructure
 {
     public class EmployeeRepository : BaseRepository<Employee>, IEmployeeRepository
     {
-        private readonly IDbConnectionService _dbConnectionService;
         public EmployeeRepository(IDbConnectionService dbConnectionService) : base(dbConnectionService)
         {
-            _dbConnectionService = dbConnectionService;
         }
 
-        public async Task<bool> CheckDuplicateEmployeeCodeAsync(string employeeCode)
+        /// <summary>
+        /// Kiểm tra trùng mã nhân viên
+        /// </summary>
+        /// <param name="employeeCode">Mã nhân viên cần kiểm tra</param>
+        /// <exception cref="ConflictException">Mã nhân viên đã tồn tại</exception>"
+        /// CreatedBy: hiennt200210 (16/09/2023)
+        public async Task CheckDuplicateEmployeeCodeAsync(string employeeCode)
         {
-            // Khởi tạo đối tượng kết nối với database
-            var connection = _dbConnectionService.GetConnection();
+            // Tạo kết nối với database
+            var connection = base.DbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
-            var sql = $"SELECT * FROM {TableName} WHERE {TableName}Code = @employeeCode";
+            var sql = $"SELECT EmployeeCode FROM {base.TableName} WHERE {base.TableName}Code = @employeeCode";
 
             // Tạo dynamic parameter
             var parameters = new DynamicParameters();
             parameters.Add("@employeeCode", employeeCode);
 
             // Thực thi câu truy vấn
-            var result = await connection.QuerySingleAsync<Employee>(sql, parameters);
+            var result = await connection.QuerySingleOrDefaultAsync<Employee>(sql, parameters);
 
             if (result != null)
             {
-                return true;
+                throw new ConflictException()
+                {
+                    DevMessage = Domain.Resources.Errors.Conflict,
+                    UserMessage = Domain.Resources.Errors.Conflict,
+                    Errors = Domain.Resources.Errors.EmployeeCodeDuplicated
+                };
             }
-            return false;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using MISA.AspNetCore.Domain;
+﻿using AutoMapper;
+using MISA.AspNetCore.Domain;
+using MISA.AspNetCore.Domain.Entities.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,134 +11,97 @@ namespace MISA.AspNetCore.Application
 {
     public class EmployeeService : BaseService<Employee, EmployeeDto, EmployeeInsertDto, EmployeeUpdateDto>, IEmployeeService
     {
-        private readonly IEmployeeRepository _employeeRepository;
         private readonly IEmployeeValidate _employeeValidate;
+        private readonly IMapper _mapper;
 
-        public EmployeeService(IEmployeeRepository employeeRepository, IEmployeeValidate employeeValidate) : base(employeeRepository)
+        public EmployeeService(IEmployeeRepository employeeRepository, IEmployeeValidate employeeValidate, IMapper mapper) : base(employeeRepository)
         {
-            _employeeRepository = employeeRepository;
             _employeeValidate = employeeValidate;
+            _mapper = mapper;
         }
 
         /// <summary>
-        /// Chuyển đổi từ Entity sang Model
+        /// Lấy mã nhân viên mới
         /// </summary>
-        /// <param name="employee">Đối tượng kiểu Entity</param>
-        /// <returns>Đối tượng kiểu Model</returns>
+        /// <returns>Mã nhân viên mới</returns>
+        /// CreatedBy: hiennt200210 (22/09/2023)
+        public async Task<string> GetNewEmployeeCodeAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Chuyển đổi từ Employee sang EmployeeDto
+        /// </summary>
         /// CreatedBy: hiennt200210 (16/09/2023)
         public override EmployeeDto MapEntityToDto(Employee employee)
         {
-            var employeeDto = new EmployeeDto()
-            {
-                CreatedDate = employee.CreatedDate,
-                CreatedBy = employee.CreatedBy,
-                ModifiedDate = employee.ModifiedDate,
-                ModifiedBy = employee.ModifiedBy,
-                EmployeeId = employee.EmployeeId,
-                EmployeeCode = employee.EmployeeCode,
-                FullName = employee.FullName,
-                Gender = employee.Gender,
-                DateOfBirth = employee.DateOfBirth,
-                PositionName = employee.PositionName,
-                DepartmentId = employee.DepartmentId,
-                PhoneNumber = employee.PhoneNumber,
-                LandlineNumber = employee.LandlineNumber,
-                Email = employee.Email,
-                IdentityNumber = employee.IdentityNumber,
-                IdentityDate = employee.IdentityDate,
-                IdentityPlace = employee.IdentityPlace,
-                BankAccount = employee.BankAccount,
-                BankName = employee.BankName,
-                BankBranch = employee.BankBranch
-            };
-
+            var employeeDto = _mapper.Map<EmployeeDto>(employee);
             return employeeDto;
         }
 
+        /// <summary>
+        /// Chuyển đổi từ EmployeeInsertDto sang Employee
+        /// </summary>
+        /// CreatedBy: hiennt200210 (20/09/2023)
         public override Employee MapInsertDtoToEntity(EmployeeInsertDto insertDto)
         {
-            var employee = new Employee()
-            {
-                CreatedDate = DateTime.Now,
-                CreatedBy = insertDto.CreatedBy,
-                ModifiedDate = DateTime.Now,
-                ModifiedBy = "hiennt200210",
-                EmployeeId = Guid.NewGuid(),
-                EmployeeCode = insertDto.EmployeeCode,
-                FullName = insertDto.FullName,
-                Gender = insertDto.Gender,
-                DateOfBirth = insertDto.DateOfBirth,
-                PositionName = insertDto.PositionName,
-                DepartmentId = insertDto.DepartmentId,
-                PhoneNumber = insertDto.PhoneNumber,
-                LandlineNumber = insertDto.LandlineNumber,
-                Email = insertDto.Email,
-                IdentityNumber = insertDto.IdentityNumber,
-                IdentityDate = insertDto.IdentityDate,
-                IdentityPlace = insertDto.IdentityPlace,
-                BankAccount = insertDto.BankAccount,
-                BankName = insertDto.BankName,
-                BankBranch = insertDto.BankBranch
-            };
+            var employee = _mapper.Map<Employee>(insertDto);
+
+            // Sinh EmployeeId mới
+            employee.EmployeeId = Guid.NewGuid();
+
+            // Thêm thông tin ngày tạo, người tạo, ngày sửa, người sửa
+            employee.CreatedDate = DateTime.Now;
+            employee.CreatedBy ??= "Nguyen The Hien";
+            employee.ModifiedDate = DateTime.Now;
+            employee.ModifiedBy ??= "Nguyen The Hien";
 
             return employee;
         }
 
-        public override async Task ValidateInsertBusiness(Employee employee)
+        /// <summary>
+        /// Chuyển đổi từ EmployeeUpdateDto sang Employee
+        /// </summary>
+        /// CreatedBy: hiennt200210 (20/09/2023)
+        public override Employee MapUpdateDtoToEntity(EmployeeUpdateDto employeeUpdateDto, Employee oldEmployee)
         {
-            await _employeeValidate.CheckDuplicateEmployeeCode(employee);
+            var newEmployee = new Employee();
+            newEmployee = _mapper.Map(oldEmployee, newEmployee);
+            newEmployee = _mapper.Map(employeeUpdateDto, newEmployee);
+
+            // Thêm thông tin ngày sửa, người sửa
+            newEmployee.ModifiedDate = DateTime.Now;
+            newEmployee.ModifiedBy ??= "Nguyen The Hien";
+
+            return newEmployee;
         }
 
-        public override Employee MapUpdateDtoToEntity(EmployeeUpdateDto updateDto, Employee entity)
+        /// <summary>
+        /// Validate nghiệp vụ khi thêm mới nhân viên
+        /// </summary>
+        /// <param name="employee">Dữ liệu cần validate</param>
+        /// <exception cref="BadRequestException">Dữ liệu không hợp lệ</exception>
+        /// CreatedBy: hiennt200210 (20/09/2023)
+        public override async Task ValidateBusinessInsertAsync(Employee employee)
         {
-            var employee = new Employee()
-            {
-                ModifiedDate = DateTime.Now,
-                ModifiedBy = "hiennt200210",
-                EmployeeCode = updateDto.EmployeeCode,
-                FullName = updateDto.FullName,
-                Gender = updateDto.Gender,
-                DateOfBirth = updateDto.DateOfBirth,
-                PositionName = updateDto.PositionName,
-                DepartmentId = updateDto.DepartmentId,
-                PhoneNumber = updateDto.PhoneNumber,
-                LandlineNumber = updateDto.LandlineNumber,
-                Email = updateDto.Email,
-                IdentityNumber = updateDto.IdentityNumber,
-                IdentityDate = updateDto.IdentityDate,
-                IdentityPlace = updateDto.IdentityPlace,
-                BankAccount = updateDto.BankAccount,
-                BankName = updateDto.BankName,
-                BankBranch = updateDto.BankBranch
-            };
-
-            return employee;
+            // Kiểm tra trùng mã nhân viên
+            await _employeeValidate.CheckDuplicateEmployeeCodeAsync(employee.EmployeeCode);
         }
 
-        public override Employee MapUpdateDtoToEntity(EmployeeUpdateDto updateDto)
+        /// <summary>
+        /// Validate nghiệp vụ khi cập nhật
+        /// </summary>
+        /// <param name="oldEmployee">Dữ liệu cũ</param>
+        /// <param name="newEmployee">Dữ liệu mới</param>
+        /// <exception cref="BadRequestException">Dữ liệu không hợp lệ</exception>
+        /// CreatedBy: hiennt200210 (20/09/2023)
+        public override async Task ValidateBusinessUpdateAsync(Employee oldEmployee, Employee newEmployee)
         {
-            var employee = new Employee()
+            if (oldEmployee.EmployeeCode != newEmployee.EmployeeCode)
             {
-                ModifiedDate = DateTime.Now,
-                ModifiedBy = "hiennt200210",
-                EmployeeCode = updateDto.EmployeeCode,
-                FullName = updateDto.FullName,
-                Gender = updateDto.Gender,
-                DateOfBirth = updateDto.DateOfBirth,
-                PositionName = updateDto.PositionName,
-                DepartmentId = updateDto.DepartmentId,
-                PhoneNumber = updateDto.PhoneNumber,
-                LandlineNumber = updateDto.LandlineNumber,
-                Email = updateDto.Email,
-                IdentityNumber = updateDto.IdentityNumber,
-                IdentityDate = updateDto.IdentityDate,
-                IdentityPlace = updateDto.IdentityPlace,
-                BankAccount = updateDto.BankAccount,
-                BankName = updateDto.BankName,
-                BankBranch = updateDto.BankBranch
-            };
-
-            return employee;
+                await _employeeValidate.CheckDuplicateEmployeeCodeAsync(newEmployee.EmployeeCode);
+            }
         }
     }
 }

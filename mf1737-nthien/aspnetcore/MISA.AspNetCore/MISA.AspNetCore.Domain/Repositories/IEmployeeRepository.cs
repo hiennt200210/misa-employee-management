@@ -8,22 +8,14 @@ namespace MISA.AspNetCore.Domain
 {
     public interface IEmployeeRepository : IBaseRepository<Employee>
     {
-        #region Methods
-
         /// <summary>
         /// Kiểm tra trùng mã nhân viên
         /// </summary>
         /// <param name="employeeCode">Mã nhân viên cần kiểm tra</param>
-        /// <exception cref="ConflictException">
-        /// Nếu mã nhân viên đã tồn tại
-        /// </exception>"
-        /// <returns>
-        /// False nếu mã nhân viên chưa tồn tại
-        /// </returns>
+        /// <returns>False nếu mã nhân viên chưa tồn tại</returns>
+        /// <exception cref="ConflictException">Mã nhân viên đã tồn tại</exception>"
         /// CreatedBy: hiennt200210 (16/09/2023)
-        Task<bool> CheckDuplicateEmployeeCodeAsync(string employeeCode);
-
-        #endregion
+        Task CheckDuplicateEmployeeCodeAsync(string employeeCode);
     }
 }
 

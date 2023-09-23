@@ -22,14 +22,14 @@ namespace MISA.AspNetCore.Domain.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ErrorResource {
+    public class Errors {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ErrorResource() {
+        internal Errors() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MISA.AspNetCore.Domain.Resources.ErrorResource", typeof(ErrorResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MISA.AspNetCore.Domain.Resources.Errors", typeof(Errors).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,34 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mã nhân viên đã tồn tại trong hệ thống..
+        ///   Looks up a localized string similar to Đầu vào không hợp lệ..
+        /// </summary>
+        public static string BadRequest {
+            get {
+                return ResourceManager.GetString("BadRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tài nguyên bị trùng..
+        /// </summary>
+        public static string Conflict {
+            get {
+                return ResourceManager.GetString("Conflict", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên phòng ban đã tồn tại..
+        /// </summary>
+        public static string DepartmentNameDuplicated {
+            get {
+                return ResourceManager.GetString("DepartmentNameDuplicated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã nhân viên đã tồn tại..
         /// </summary>
         public static string EmployeeCodeDuplicated {
             get {
@@ -70,11 +97,38 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Không tìm thấy bản ghi..
+        ///   Looks up a localized string similar to Quyền truy cập bị giới hạn..
         /// </summary>
-        public static string NotFoundRecord {
+        public static string Forbidden {
             get {
-                return ResourceManager.GetString("NotFoundRecord", resourceCulture);
+                return ResourceManager.GetString("Forbidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lỗi hệ thống..
+        /// </summary>
+        public static string InternalServerError {
+            get {
+                return ResourceManager.GetString("InternalServerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Không tìm thấy tài nguyên..
+        /// </summary>
+        public static string NotFound {
+            get {
+                return ResourceManager.GetString("NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xác thực không thành công..
+        /// </summary>
+        public static string Unauthorized {
+            get {
+                return ResourceManager.GetString("Unauthorized", resourceCulture);
             }
         }
     }

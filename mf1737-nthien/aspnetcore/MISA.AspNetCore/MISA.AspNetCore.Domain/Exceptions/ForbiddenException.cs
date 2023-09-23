@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MISA.AspNetCore.Domain
+namespace MISA.AspNetCore.Domain.Exceptions
 {
-    public class ConflictException : Exception
+    public class ForbiddenException : Exception
     {
         #region Properties
         /// <summary>

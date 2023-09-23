@@ -9,16 +9,20 @@ namespace MISA.AspNetCore.Application
     public interface IBaseReadOnlyService<TDto>
     {
         /// <summary>
-        /// Lấy một bản ghi
-        /// </summary>
-        /// <param name="id">Định danh của bản ghi cần lấy</param>
-        /// CreatedBy: hiennt200210 (20/09/2023)
-        Task<TDto> GetByIdAsync(Guid id);
-
-        /// <summary>
         /// Lấy tất cả bản ghi
         /// </summary>
-        /// CreatedBy: hiennt200210 (20/09/2023)
+        /// <returns>Tất cả bản ghi</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy bản ghi nào</exception>"
+        /// CreatedBy: hiennt200210 (16/09/2023)
         Task<List<TDto>> GetAllAsync();
+
+        /// <summary>
+        /// Lấy một bản ghi theo Id
+        /// </summary>
+        /// <param name="id">Định danh của bản ghi cần lấy</param>
+        /// <returns>Bản ghi cần lấy</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy bản ghi cần lấy</exception>
+        /// CreatedBy: hiennt200210 (16/09/2023)
+        Task<TDto> GetByIdAsync(Guid id);
     }
 }

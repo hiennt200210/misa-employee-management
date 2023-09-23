@@ -15,6 +15,12 @@ namespace MISA.AspNetCore.Web
             BaseReadOnlyService = baseReadOnlyService;
         }
 
+        /// <summary>
+        /// Lấy tất cả bản ghi
+        /// </summary>
+        /// <returns>Tất cả bản ghi</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy bản ghi nào</exception>"
+        /// CreatedBy: hiennt200210 (16/09/2023)
         [HttpGet]
         public async Task<List<TDto>> GetAllAsync()
         {
@@ -22,7 +28,15 @@ namespace MISA.AspNetCore.Web
             return result;
         }
 
-        [HttpGet("{id}")]
+        /// <summary>
+        /// Lấy một bản ghi theo Id
+        /// </summary>
+        /// <param name="id">Định danh của bản ghi cần lấy</param>
+        /// <returns>Bản ghi cần lấy</returns>
+        /// <exception cref="NotFoundException">Không tìm thấy bản ghi cần lấy</exception>
+        /// CreatedBy: hiennt200210 (16/09/2023)
+        [HttpGet]
+        [Route("{id}")]
         public async Task<TDto> GetByIdAsync(Guid id)
         {
             var result = await BaseReadOnlyService.GetByIdAsync(id);

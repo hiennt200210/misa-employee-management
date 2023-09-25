@@ -48,5 +48,52 @@ namespace MISA.AspNetCore.Infrastructure
                 };
             }
         }
+
+        /// <summary>
+        /// Lấy mã nhân viên mới
+        /// </summary>
+        /// <returns>Mã nhân viên mới</returns>
+        /// CreatedBy: hiennt200210 (22/09/2023)
+        public async Task<string> GetNewEmployeeCodeAsync()
+        {
+            // Tạo kết nối với database
+            var connection = base.DbConnectionService.GetConnection();
+
+            // Tạo câu truy vấn
+            var sql = $"SELECT {base.TableName}Code FROM {base.TableName} ORDER BY {base.TableName}Code DESC LIMIT 1";
+
+            // Thực thi câu truy vấn
+            var result = await connection.QueryFirstOrDefaultAsync<string>(sql);
+
+            // Sinh mã nhân viên mới
+            var newEmployeeCode = GenerateNewCode(result);
+
+            return newEmployeeCode;
+        }
+
+        /// <summary>
+        /// Sinh mã nhân viên mới từ mã nhân viên lớn nhất trong database
+        /// </summary>
+        /// <param name="maxEmployeeCode">Mã nhân viên lớn nhất trong database</param>
+        /// <returns>Mã nhân viên mới</returns>
+        /// CreatedBy: hiennt200210 (22/09/2023)
+        public string GenerateNewCode(string maxEmployeeCode)
+        {
+            // Sinh mã nhân viên mới
+            var newEmployeeCode = string.Empty;
+
+            if (maxEmployeeCode == null)
+            {
+                newEmployeeCode = "NV-0000001";
+            }
+            else
+            {
+                var oldCodeNumber = maxEmployeeCode.Substring(3);
+                var newCodeNumber = (int.Parse(oldCodeNumber) + 1).ToString().PadLeft(7, '0');
+                newEmployeeCode = $"NV-{newCodeNumber}";
+            }
+
+            return newEmployeeCode;
+        }
     }
 }

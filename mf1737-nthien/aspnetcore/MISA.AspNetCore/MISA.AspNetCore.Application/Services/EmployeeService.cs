@@ -12,11 +12,15 @@ namespace MISA.AspNetCore.Application
     public class EmployeeService : BaseService<Employee, EmployeeDto, EmployeeInsertDto, EmployeeUpdateDto>, IEmployeeService
     {
         private readonly IEmployeeValidate _employeeValidate;
+        private readonly IEmployeeRepository _employeeRepository;
+        IDepartmentRepository _departmentRepository;
         private readonly IMapper _mapper;
 
-        public EmployeeService(IEmployeeRepository employeeRepository, IEmployeeValidate employeeValidate, IMapper mapper) : base(employeeRepository)
+        public EmployeeService(IEmployeeRepository employeeRepository, IDepartmentRepository departmentRepository, IEmployeeValidate employeeValidate, IMapper mapper) : base(employeeRepository)
         {
             _employeeValidate = employeeValidate;
+            _employeeRepository = employeeRepository;
+            _departmentRepository = departmentRepository;
             _mapper = mapper;
         }
 
@@ -27,7 +31,8 @@ namespace MISA.AspNetCore.Application
         /// CreatedBy: hiennt200210 (22/09/2023)
         public async Task<string> GetNewEmployeeCodeAsync()
         {
-            throw new NotImplementedException();
+            var newEmployeeCode = await _employeeRepository.GetNewEmployeeCodeAsync();
+            return newEmployeeCode;
         }
 
         /// <summary>
@@ -85,6 +90,24 @@ namespace MISA.AspNetCore.Application
         /// CreatedBy: hiennt200210 (20/09/2023)
         public override async Task ValidateBusinessInsertAsync(Employee employee)
         {
+            // Nếu không có phòng ban thì báo lỗi
+            try
+            {
+                var isValidDepartmentId = await _departmentRepository.GetByIdAsync(employee.DepartmentId);
+            }
+            catch (NotFoundException)
+            {
+                throw new BadRequestException()
+                {
+                    ErrorCode = ErrorCode.BadRequest,
+                    DevMessage = Domain.Resources.Errors.DepartmentNotFound,
+                    UserMessage = Domain.Resources.Errors.DepartmentNotFound,
+                    MoreInfo = "",
+                    TraceId = "",
+                    Errors = ""
+                };
+            }
+
             // Kiểm tra trùng mã nhân viên
             await _employeeValidate.CheckDuplicateEmployeeCodeAsync(employee.EmployeeCode);
         }
@@ -98,6 +121,25 @@ namespace MISA.AspNetCore.Application
         /// CreatedBy: hiennt200210 (20/09/2023)
         public override async Task ValidateBusinessUpdateAsync(Employee oldEmployee, Employee newEmployee)
         {
+            // Nếu không có phòng ban thì báo lỗi
+            try
+            {
+                var isValidDepartmentId = await _departmentRepository.GetByIdAsync(newEmployee.DepartmentId);
+            }
+            catch (NotFoundException)
+            {
+                throw new BadRequestException()
+                {
+                    ErrorCode = ErrorCode.BadRequest,
+                    DevMessage = Domain.Resources.Errors.DepartmentNotFound,
+                    UserMessage = Domain.Resources.Errors.DepartmentNotFound,
+                    MoreInfo = "",
+                    TraceId = "",
+                    Errors = ""
+                };
+            }
+
+            // Nếu mã nhân viên thay đổi thì kiểm tra trùng mã nhân viên
             if (oldEmployee.EmployeeCode != newEmployee.EmployeeCode)
             {
                 await _employeeValidate.CheckDuplicateEmployeeCodeAsync(newEmployee.EmployeeCode);

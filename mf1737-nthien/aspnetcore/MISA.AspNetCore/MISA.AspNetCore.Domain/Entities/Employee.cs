@@ -95,17 +95,7 @@ namespace MISA.AspNetCore.Domain
         /// <summary>
         /// Định danh của phòng ban
         /// </summary>
-        public Guid? DepartmentId { get; set; }
-
-        public Guid GetId()
-        {
-            return EmployeeId;
-        }
-
-        public void SetId(Guid id)
-        {
-            EmployeeId = id;
-        }
+        public Guid DepartmentId { get; set; }
 
         #endregion
     }

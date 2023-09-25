@@ -88,6 +88,15 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Không tìm thấy phòng ban..
+        /// </summary>
+        public static string DepartmentNotFound {
+            get {
+                return ResourceManager.GetString("DepartmentNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mã nhân viên đã tồn tại..
         /// </summary>
         public static string EmployeeCodeDuplicated {

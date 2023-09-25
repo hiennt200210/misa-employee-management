@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MISA.AspNetCore.Application
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MISA.AspNetCore.UnitTests", "MISA.AspNetCore.UnitTests\MISA.AspNetCore.UnitTests.csproj", "{6FEB942B-63CD-47A3-B24C-B608527B4A77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MISA.AspNetCore.Domain.UnitTests", "MISA.AspNetCore.Domain.UnitTests\MISA.AspNetCore.Domain.UnitTests.csproj", "{E1BE3D91-754E-44F8-9676-B97E16DEF4BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MISA.AspNetCore.Domain.UnitTests", "MISA.AspNetCore.Domain.UnitTests\MISA.AspNetCore.Domain.UnitTests.csproj", "{E1BE3D91-754E-44F8-9676-B97E16DEF4BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MISA.AspNetCore.Application.UnitTests", "MISA.AspNetCore.Application.UnitTests\MISA.AspNetCore.Application.UnitTests.csproj", "{02F803ED-6233-4366-9AF7-4E969FFB0816}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{E1BE3D91-754E-44F8-9676-B97E16DEF4BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1BE3D91-754E-44F8-9676-B97E16DEF4BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1BE3D91-754E-44F8-9676-B97E16DEF4BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02F803ED-6233-4366-9AF7-4E969FFB0816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02F803ED-6233-4366-9AF7-4E969FFB0816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02F803ED-6233-4366-9AF7-4E969FFB0816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02F803ED-6233-4366-9AF7-4E969FFB0816}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

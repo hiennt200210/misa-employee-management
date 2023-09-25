@@ -126,6 +126,9 @@
   <data name="DepartmentNameDuplicated" xml:space="preserve">
     <value>Tên phòng ban đã tồn tại.</value>
   </data>
+  <data name="DepartmentNotFound" xml:space="preserve">
+    <value>Không tìm thấy phòng ban.</value>
+  </data>
   <data name="EmployeeCodeDuplicated" xml:space="preserve">
     <value>Mã nhân viên đã tồn tại.</value>
   </data>

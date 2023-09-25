@@ -16,6 +16,13 @@ namespace MISA.AspNetCore.Domain
         /// <exception cref="ConflictException">Mã nhân viên đã tồn tại</exception>"
         /// CreatedBy: hiennt200210 (16/09/2023)
         Task CheckDuplicateEmployeeCodeAsync(string employeeCode);
+
+        /// <summary>
+        /// Lấy mã nhân viên mới
+        /// </summary>
+        /// <returns>Mã nhân viên mới</returns>
+        /// CreatedBy: hiennt200210 (22/09/2023)
+        Task<string> GetNewEmployeeCodeAsync();
     }
 }
 

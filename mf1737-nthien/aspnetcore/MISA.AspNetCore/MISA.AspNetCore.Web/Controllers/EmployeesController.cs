@@ -33,7 +33,7 @@ namespace MISA.AspNetCore.Web.Controllers
         [Route("NewEmployeeCode")]
         public async Task<string> GetNewEmployeeCodeAsync()
         {
-            var result = await (base.BaseService as IEmployeeService).GetNewEmployeeCodeAsync();
+            var result = await (BaseService as IEmployeeService).GetNewEmployeeCodeAsync();
             return result;
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NSubstitute;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,19 +10,51 @@ namespace MISA.AspNetCore.Domain.UnitTests.Services
     [TestFixture]
     public class EmployeeValidateTests
     {
-        [Test]
-        public void CheckDuplicateEmployeeCodeAsync_NotDuplicateEmployeeCode_ReturnsFalse()
+        public IEmployeeRepository EmployeeRepository { get; set; }
+        public EmployeeValidate EmployeeValidate { get; set; }
+
+        /// <summary>
+        /// Setup các đối tượng cần thiết cho việc test
+        /// </summary>
+        /// CreatedBy: hiennt200210 (25/09/2023)
+        [SetUp]
+        public void Setup()
         {
-            //// Arrange
-            //var employeeCode = "NV0001";
-            //var employeeId = Guid.NewGuid();
-            //var employeeRepository = new Mock<IEmployeeRepository>();
-            //employeeRepository.Setup(m => m.CheckDuplicateEmployeeCodeAsync(employeeCode, employeeId)).ReturnsAsync(true);
-            //var employeeService = new EmployeeService(employeeRepository.Object);
-            //// Act
-            //var result = employeeService.CheckDuplicateEmployeeCodeAsync(employeeCode, employeeId).Result;
-            //// Assert
-            //Assert.IsFalse(result);
+            EmployeeRepository = Substitute.For<IEmployeeRepository>();
+            EmployeeValidate = Substitute.For<EmployeeValidate>(EmployeeRepository);
+        }
+
+        /// <summary>
+        /// Unit test cho phương thức CheckDuplicateEmployeeCodeAsync với mã nhân viên chưa tồn tại
+        /// </summary>
+        /// CreatedBy: hiennt200210 (25/09/2023)
+        [Test]
+        public async Task CheckDuplicateEmployeeCodeAsync_NotDuplicateEmployeeCode_Success()
+        {
+            // Arrange
+            var employeeCode = "NV0001";
+
+            // Act
+            await EmployeeValidate.CheckDuplicateEmployeeCodeAsync(employeeCode);
+
+            // Assert
+            await EmployeeRepository.Received(1).CheckDuplicateEmployeeCodeAsync(employeeCode);
+        }
+
+        /// <summary>
+        /// Unit test cho phương thức CheckDuplicateEmployeeCodeAsync với mã nhân viên đã tồn tại
+        /// </summary>
+        /// CreatedBy: hiennt200210 (25/09/2023)
+        [Test]
+        public async Task CheckDuplicateEmployeeCodeAsync_DuplicateEmployeeCode_ThrowException()
+        {
+            // Arrange
+            var employeeCode = "NV0001";
+
+            await EmployeeRepository.CheckDuplicateEmployeeCodeAsync(employeeCode);
+
+            // Act & Assert
+            var exception = Assert.ThrowsAsync<ConflictException>(async () => await EmployeeValidate.CheckDuplicateEmployeeCodeAsync(employeeCode));
         }
     }
 }

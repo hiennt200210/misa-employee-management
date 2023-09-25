@@ -231,5 +231,50 @@ namespace MISA.AspNetCore.Infrastructure
 
             return result;
         }
+
+        /// <summary>
+        /// Xóa nhiều bản ghi
+        /// </summary>
+        /// <param name="ids">Danh sách định danh của các bản ghi cần xóa</param>
+        /// <exception cref="NotFoundException">Không tìm thấy bản ghi cần xóa</exception>"
+        /// <returns>Số lượng bản ghi đã xóa</returns>
+        /// CreatedBy: hiennt200210 (25/09/2023)
+        public async Task<int> DeleteMultipleAsync(List<Guid> ids)
+        {
+            // Tạo kết nối với database
+            var DbConnection = DbConnectionService.GetConnection();
+
+            // Tạo câu truy vấn và dynamic parameter
+            var sql = $"DELETE FROM {TableName} WHERE {TableName}Id IN (";
+            var parameters = new DynamicParameters();
+
+            for (int i = 0; i < ids.Count; i++)
+            {
+                // Nếu là id đầu tiên thì không cần thêm dấu phẩy
+                if (i == 0)
+                {
+                    sql += $"@ids{i}";
+                }
+                else
+                {
+                    sql += $", @ids{i}";
+                }
+                parameters.Add($"@ids{i}", ids[i]);
+            }
+
+            sql += ");";
+            
+            parameters.Add("@ids", ids);
+
+            // Thực thi câu truy vấn
+            var result = await DbConnection.ExecuteAsync(sql, parameters);
+
+            if (result < ids.Count)
+            {
+                throw new NotFoundException();
+            }
+
+            return result;
+        }
     }
 }

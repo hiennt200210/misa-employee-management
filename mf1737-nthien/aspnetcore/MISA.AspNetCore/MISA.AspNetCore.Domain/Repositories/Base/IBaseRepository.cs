@@ -51,5 +51,14 @@ namespace MISA.AspNetCore.Domain
         /// <exception cref="NotFoundException">Không tìm thấy bản ghi cần xóa</exception>"
         /// CreatedBy: hiennt200210 (16/09/2023)
         Task<int> DeleteAsync(Guid id);
+
+        /// <summary>
+        /// Xóa nhiều bản ghi
+        /// </summary>
+        /// <param name="ids">Danh sách định danh của các bản ghi cần xóa</param>
+        /// <exception cref="NotFoundException">Không tìm thấy bản ghi cần xóa</exception>"
+        /// <returns>Số lượng bản ghi đã xóa</returns>
+        /// CreatedBy: hiennt200210 (25/09/2023)
+        Task<int> DeleteMultipleAsync(List<Guid> ids);
     }
 }

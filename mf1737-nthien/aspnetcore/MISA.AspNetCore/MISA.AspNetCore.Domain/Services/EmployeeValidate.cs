@@ -20,7 +20,6 @@ namespace MISA.AspNetCore.Domain
         /// </summary>
         /// <param name="employeeCode">Mã nhân viên cần kiểm tra</param>
         /// <exception cref="ConflictException">Mã nhân viên đã tồn tại</exception>
-        /// <returns>False nếu mã nhân viên chưa tồn tại</returns>
         /// CreatedBy: hiennt200210 (16/09/2023)
         public async Task CheckDuplicateEmployeeCodeAsync(string employeeCode)
         {

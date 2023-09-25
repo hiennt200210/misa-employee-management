@@ -33,7 +33,7 @@ namespace MISA.AspNetCore.Domain
         /// <summary>
         /// Thông tin lỗi
         /// </summary>
-        public string? Errors { get; set; }
+        public object? Errors { get; set; }
 
         /// <summary>
         /// Thông tin bổ sung

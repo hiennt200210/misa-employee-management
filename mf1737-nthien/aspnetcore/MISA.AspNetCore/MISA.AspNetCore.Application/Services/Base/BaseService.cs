@@ -58,6 +58,18 @@ namespace MISA.AspNetCore.Application
         }
 
         /// <summary>
+        /// Xóa nhiều đối tượng
+        /// </summary>
+        /// <param name="ids">Danh sách định danh của các đối tượng cần xóa</param>
+        /// <returns>Số lượng đối tượng đã xóa</returns>
+        /// CreatedBy: hiennt200210 (25/09/2023)
+        public async Task<int> DeleteMultipleAsync(List<Guid> ids)
+        {
+            var result = await BaseRepository.DeleteMultipleAsync(ids);
+            return result;
+        }
+
+        /// <summary>
         /// Chuyển đổi từ EmployeeInsertDto sang Employee
         /// </summary>
         /// CreatedBy: hiennt200210 (20/09/2023)

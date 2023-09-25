@@ -36,5 +36,13 @@ namespace MISA.AspNetCore.Application
         /// <exception cref="NotFoundException">Không tìm thấy đối tượng cần xóa</exception>"
         /// CreatedBy: hiennt200210 (16/09/2023)
         Task<int> DeleteAsync(Guid id);
+
+        /// <summary>
+        /// Xóa nhiều đối tượng
+        /// </summary>
+        /// <param name="ids">Danh sách định danh của các đối tượng cần xóa</param>
+        /// <returns>Số lượng đối tượng đã xóa</returns>
+        /// CreatedBy: hiennt200210 (25/09/2023)
+        Task<int> DeleteMultipleAsync(List<Guid> ids);
     }
 }

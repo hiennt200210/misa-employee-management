@@ -23,7 +23,7 @@ namespace MISA.AspNetCore.Application
         /// Chuyển đổi từ Department sang DepartmentDto
         /// </summary>
         /// CreatedBy: hiennt200210 (16/09/2023)
-        public override DepartmentDto MapEntityToDto(Department department)
+        public override async Task<DepartmentDto> MapEntityToDto(Department department)
         {
             var departmentDto = _mapper.Map<DepartmentDto>(department);
             return departmentDto;

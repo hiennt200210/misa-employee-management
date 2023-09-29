@@ -8,7 +8,5 @@ namespace MISA.AspNetCore.Domain
 {
     public interface TEntity
     {
-        public Guid GetId();
-        public void SetId(Guid id);
     }
 }

@@ -1,0 +1,70 @@
+.header {
+    background-color: #fff;
+    display: flex;
+    height: var(--header-height);
+    width: 100%;
+}
+
+.header-left {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    padding-left: 16px;
+    width: var(--sidebar-width);
+}
+
+.header-left .logo {
+    background-image: url(@assets/images/logo.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 103px;
+    height: 36px;
+    margin-left: 10px;
+    width: 100px;
+}
+
+.header-right {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: flex-end;
+    padding: 0 24px;
+    width: calc(100% - var(--sidebar-width));
+}
+
+.header-right > * {
+    margin-left: 8px;
+}
+
+.header-right .user {
+    color: var(--default-font-color);
+    font-weight: 600;
+}
+
+.m-dropdownlist select {
+    height: 36px;
+    border: 1px solid #e0e1e4;
+    border-radius: 4px;
+    min-width: 30px;
+    background-color: #fff;
+    outline: none;
+    padding: 0 16px;
+    color: var(--input-placeholder-color);
+    font-family: var(--default-font-family);
+    font-size: var(--default-font-size);
+}
+
+.m-dropdownlist select:hover {
+    background-color: var(--secondary-color--hover);
+    cursor: pointer;
+}
+
+.m-dropdownlist select:focus {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--primary-color);
+    outline: none;
+}
+
+.m-dropdownlist select:active {
+    background-color: var(--bgcolor-button-secondary-pressed);
+}

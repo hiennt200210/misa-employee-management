@@ -1,21 +1,129 @@
-/* Material Symbols */
-@font-face {
-    font-family: "Material Symbols Rounded";
-    font-style: normal;
-    src: url(../assets/icons/MaterialSymbolsRounded.woff2) format("woff2");
+.icon {
+    background-image: url(@assets/icons/sprites.svg);
 }
 
-.material-symbols-rounded {
-    font-family: "Material Symbols Rounded";
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;
-    color: #212121;
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
+.icon-add {
+    background-position: -1320px -360px;
+    transform: rotate(45deg);
+}
+
+.icon-arrow-left {
+    background-position: -29px -404px;
+}
+
+.icon-duplicate {
+    background-position: -1545px -87px;
+}
+
+.icon-edit {
+    background-position: -1656px -88px;
+}
+
+.icon-excel-file {
+    background-position: -1264px -88px;
+}
+
+.icon-filter {
+    background-position: -1601px -88px;
+}
+
+.icon-information {
+    background-position: -480px -144px;
+}
+
+.icon-menu {
+    background-position: -1153px -28px;
+}
+
+.icon-next {
+    background-position: -75px -356px;
+}
+
+.icon-notifications {
+    background-position: -787px -30px;
+}
+
+.icon-prev {
+    background-position: -29px -356px;
+}
+
+.icon-refresh {
+    background-position: -1096px -88px;
+}
+
+.icon-search {
+    background-position: -1040px -88px;
+}
+
+.icon-successful {
+    background-position: -1600px -256px;
+}
+
+.icon-user {
+    background-position: -816px -256px;
+}
+
+.icon-warning {
+    background-position: -592px -144px;
+}
+
+/* Menu's Icons */
+.icon-tongquan {
+    background-position: -30px -1628px;
+}
+
+.icon-tienmat {
+    background-position: -73px -1628px;
+}
+
+.icon-tiengui {
+    background-position: -117px -1628px;
+}
+
+.icon-muahang {
+    background-position: -161px -1628px;
+}
+
+.icon-banhang {
+    background-position: -204px -1628px;
+}
+
+.icon-quanlyhoadon {
+    background-position: -249px -1628px;
+}
+
+.icon-kho {
+    background-position: -291px -1628px;
+}
+
+.icon-congcudungcu {
+    background-position: -336px -1628px;
+}
+
+.icon-taisancodinh {
+    background-position: -378px -1628px;
+}
+
+.icon-thue {
+    background-position: -423px -1628px;
+}
+
+.icon-giathanh {
+    background-position: -467px -1628px;
+}
+
+.icon-tonghop {
+    background-position: -510px -1628px;
+}
+
+.icon-ngansach {
+    background-position: -378px -1660px;
+}
+
+.icon-baocao {
+    background-position: -547px -1628px;
+}
+
+.icon-phantichtaichinh {
+    background-position: -204px -1661px;
 }

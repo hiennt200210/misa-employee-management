@@ -1,0 +1,87 @@
+.m-tooltip {
+    --tooltip-background: rgba(0, 0, 0, 0.8);
+
+    /* Position */
+    position: absolute;
+    z-index: 99;
+
+    /* Size and display */
+    max-width: 250px;
+    min-height: 40px;
+    padding: 12px 16px;
+    white-space: nowrap;
+
+    /* Border and background */
+    border-radius: var(--default-border-radius);
+    background-color: var(--tooltip-background);
+
+    /* Content */
+    font-family: var(--default-font-family);
+    font-size: var(--default-font-size);
+    color: #fff;
+}
+
+.m-tooltip::after {
+    content: "";
+    position: absolute;
+}
+
+/* Tooltips hiển thị ở bên trên */
+.m-tooltip--align-top {
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.m-tooltip--align-top::after {
+    bottom: -5px;
+    left: calc(50% - 5px);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid var(--tooltip-background);
+}
+
+/* Tooltips hiển thị ở bên dưới */
+.m-tooltip--align-bottom {
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.m-tooltip--align-bottom::after {
+    top: -5px;
+    left: calc(50% - 5px);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid var(--tooltip-background);
+}
+
+/* Tooltips hiển thị ở bên trái */
+.m-tooltip--align-left {
+    top: 50%;
+    right: calc(100% + 10px);
+    transform: translateY(-50%);
+}
+
+.m-tooltip--align-left::after {
+    top: calc(50% - 5px);
+    right: -5px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid var(--tooltip-background);
+}
+
+/* Tooltips hiển thị ở bên phải */
+.m-tooltip--align-right {
+    top: 50%;
+    left: calc(100% + 10px);
+    transform: translateY(-50%);
+}
+
+.m-tooltip--align-right::after {
+    top: calc(50% - 5px);
+    left: -5px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 5px solid var(--tooltip-background);
+}

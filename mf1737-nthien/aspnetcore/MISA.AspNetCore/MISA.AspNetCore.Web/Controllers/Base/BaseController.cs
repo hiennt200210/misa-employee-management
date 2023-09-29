@@ -67,7 +67,7 @@ namespace MISA.AspNetCore.Web
         /// <returns>Số lượng đối tượng đã xóa</returns>
         /// CreatedBy: hiennt200210 (25/09/2023)
         [HttpDelete]
-        public async Task<int> DeleteMultipleAsync([FromBody] List<Guid> ids)
+        public async Task<int> DeleteMultipleAsync([FromQuery] List<Guid> ids)
         {
             var result = await BaseService.DeleteMultipleAsync(ids);
             return result;

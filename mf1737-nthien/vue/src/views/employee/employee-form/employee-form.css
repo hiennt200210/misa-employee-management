@@ -100,8 +100,8 @@
     outline: none;
     padding: 0 16px;
     color: var(--input-placeholder-color);
-    font-family: "Google Sans Regular", sans-serif;
-    font-size: 14px;
+    font-family: var(--default-font-family);
+    font-size: var(--default-font-size);
 }
 
 .m-dropdownlist select:hover {
@@ -117,8 +117,4 @@
 
 .m-dropdownlist select:active {
     background-color: var(--bgcolor-button-secondary-pressed);
-}
-
-#code {
-    width: 150px;
 }

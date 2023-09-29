@@ -2,35 +2,20 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import axios from "axios";
 import emitter from "tiny-emitter/instance";
-import MLabel from "./components/base/label/MLabel.vue";
-import MCheckbox from "./components/base/checkbox/MCheckbox.vue";
-import MSelect from "./components/base/dropdown/MSelect.vue";
-import MSelectWithLabel from "./components/base/dropdown/MSelectWithLabel.vue";
-import MISAEnum from "./scripts/MISAEnum";
-import MISAResource from "./scripts/MISAResource";
-import helpers from "./scripts/helpers";
-import constants from "./scripts/constants";
-import vueRouter from "./router/index";
+import enums from "./helpers/enums.js";
+import resources from "./helpers/resources.js";
+import helpers from "./helpers/helpers";
+import vueRouter from "./routers/index";
 
 const app = createApp(App);
 
-app.component("MLabel", MLabel);
-app.component("MCheckbox", MCheckbox);
-app.component("MSelect", MSelect);
-app.component("MSelectWithLabel", MSelectWithLabel);
-
-app.config.globalProperties.$MISAEnum = MISAEnum;
-app.config.globalProperties.$MISAResource = MISAResource;
-app.config.globalProperties.$helpers = helpers;
-app.config.globalProperties.$languageCode = "VN";
-app.config.globalProperties.$language = "VN";
 app.config.globalProperties.$axios = axios;
 app.config.globalProperties.$emitter = emitter;
-app.config.globalProperties.$Resource = MISAResource["$language"];
-app.config.globalProperties.$api = constants.Api;
+app.config.globalProperties.$enums = enums;
+app.config.globalProperties.$helpers = helpers;
+app.config.globalProperties.$langCode = "VN";
+app.config.globalProperties.$resx = resources;
 
 app.use(vueRouter);
 
 app.mount("#app");
-
-export default app;

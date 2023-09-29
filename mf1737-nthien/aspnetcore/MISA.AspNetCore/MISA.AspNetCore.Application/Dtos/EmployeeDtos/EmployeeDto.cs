@@ -98,6 +98,11 @@ namespace MISA.AspNetCore.Application
         /// </summary>
         public Guid? DepartmentId { get; set; }
 
+        /// <summary>
+        /// Tên phòng ban
+        /// </summary>
+        public string? DepartmentName { get; set; }
+
         #endregion
     }
 }

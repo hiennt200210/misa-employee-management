@@ -1,0 +1,36 @@
+.m-table-cell {
+    position: relative;
+    height: var(--table-row-height);
+    max-width: 300px;
+    padding: 0 16px;
+    overflow: visible;
+    white-space: nowrap;
+    border: 1px solid var(--default-border-color);
+    text-overflow: ellipsis;
+}
+
+.m-table-th {
+    border-top: none;
+    font-weight: 700;
+}
+
+.m-table-th:hover {
+    background-color: #eee;
+}
+
+.m-table-cell--checkbox {
+    border-left: none;
+    text-align: center;
+}
+
+.m-table-cell--text {
+    text-align: left;
+}
+
+.m-table-cell--date {
+    text-align: center;
+}
+
+.m-table-cell--number {
+    text-align: right;
+}

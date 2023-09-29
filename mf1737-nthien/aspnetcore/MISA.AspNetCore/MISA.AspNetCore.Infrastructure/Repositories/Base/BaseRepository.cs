@@ -33,7 +33,7 @@ namespace MISA.AspNetCore.Infrastructure
             var DbConnection = DbConnectionService.GetConnection();
 
             // Tạo câu truy vấn
-            var sql = $"SELECT * FROM {TableName}";
+            var sql = $"SELECT * FROM {TableName} ORDER BY CreatedDate";
 
             // Thực thi câu truy vấn
             var result = await DbConnection.QueryAsync<TEntity>(sql);
@@ -72,6 +72,25 @@ namespace MISA.AspNetCore.Infrastructure
             {
                 throw new NotFoundException();
             }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Lấy số lượng bản ghi
+        /// </summary>
+        /// <returns>Số lượng bản ghi</returns>
+        /// CreatedBy: hiennt200210 (16/09/2023)
+        public async Task<int> CountAsync()
+        {
+            // Tạo kết nối với database
+            var DbConnection = DbConnectionService.GetConnection();
+            
+            // Tạo câu truy vấn
+            var sql = $"SELECT COUNT(*) FROM {TableName}";
+
+            // Thực thi câu truy vấn
+            var result = await DbConnection.ExecuteScalarAsync<int>(sql);
 
             return result;
         }
@@ -263,8 +282,6 @@ namespace MISA.AspNetCore.Infrastructure
             }
 
             sql += ");";
-            
-            parameters.Add("@ids", ids);
 
             // Thực thi câu truy vấn
             var result = await DbConnection.ExecuteAsync(sql, parameters);

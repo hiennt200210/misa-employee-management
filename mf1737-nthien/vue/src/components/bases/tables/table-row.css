@@ -1,0 +1,7 @@
+.m-table-row:hover {
+    background-color: var(--color-table-row-hover);
+}
+
+.m-table-row--selected {
+    background-color: var(--color-table-row-selected);
+}

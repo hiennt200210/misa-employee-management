@@ -18,10 +18,11 @@ namespace MISA.AspNetCore.Web.Controllers
         /// <exception cref="NotFoundException">Không tìm thấy nhân viên nào theo bộ lọc</exception>
         /// CreatedBy: hiennt200210 (22/09/2023)
         [HttpGet]
-        [Route("Filter")]
-        public async Task<List<EmployeeDto>> GetByFilter([FromQuery] string specs)
+        [Route("Pagination")]
+        public async Task<PaginationDto> PagingAsync([FromQuery] int limit, [FromQuery] int offset, [FromQuery] string? employeeCode, [FromQuery] string? fullName, [FromQuery] string? phoneNumber, [FromQuery] List<string>? orders)
         {
-            throw new NotImplementedException();
+            var result = await (BaseService as IEmployeeService).PagingAsync(limit, offset, employeeCode, fullName, phoneNumber, orders);
+            return result;
         }
 
         /// <summary>

@@ -1,26 +1,19 @@
 <template>
     <div class="container">
         <TheHeader />
-        <TheMain>
-            <TheSidebar />
-            <TheContent />
-        </TheMain>
+        <TheMain />
     </div>
 </template>
 
 <script>
-import TheHeader from "./components/layouts/TheHeader.vue";
-import TheMain from "./components/layouts/TheMain.vue";
-import TheSidebar from "./components/layouts/TheSidebar.vue";
-import TheContent from "./components/layouts/TheContent.vue";
+import TheHeader from "@components/layouts/headers/TheHeader.vue";
+import TheMain from "@components/layouts/mains/TheMain.vue";
 
 export default {
     name: "App",
     components: {
         TheHeader,
         TheMain,
-        TheSidebar,
-        TheContent,
     },
 };
 </script>

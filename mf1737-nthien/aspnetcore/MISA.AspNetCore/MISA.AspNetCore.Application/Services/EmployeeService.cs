@@ -25,6 +25,38 @@ namespace MISA.AspNetCore.Application
         }
 
         /// <summary>
+        /// Lấy thông tin nhân viên theo bộ lọc, tìm kiếm, sắp xếp, phân trang
+        /// </summary>
+        /// <param name="limit">Số lượng bản ghi trên một trang</param>
+        /// <param name="offset">Vị trí bắt đầu lấy dữ liệu</param>
+        /// <returns>Danh sách nhân viên theo kết quá lọc, tìm kiếm, sắp xếp, phân trang</returns>
+        public async Task<PaginationDto> PagingAsync(int limit, int offset, string employeeCode, string fullName, string phoneNumber, List<string> orders)
+        {
+            // Lấy dữ liệu
+            var employees = await _employeeRepository.PagingAsync(limit, offset, employeeCode, fullName, phoneNumber, orders);
+
+            List<EmployeeDto> dtos = new List<EmployeeDto>();
+
+            for (int i = 0; i < employees.Count; i++)
+            {
+                var employee = employees[i];
+                var dto = await MapEntityToDto(employee);
+                dtos.Add(dto);
+            }
+
+            var paginationDto = new PaginationDto()
+            {
+                Total = dtos.Count,
+                PageCount = dtos.Count,
+                Limit = limit,
+                Offset = offset,
+                Data = dtos,
+            };
+
+            return dtos;
+        }
+
+        /// <summary>
         /// Lấy mã nhân viên mới
         /// </summary>
         /// <returns>Mã nhân viên mới</returns>
@@ -39,9 +71,28 @@ namespace MISA.AspNetCore.Application
         /// Chuyển đổi từ Employee sang EmployeeDto
         /// </summary>
         /// CreatedBy: hiennt200210 (16/09/2023)
-        public override EmployeeDto MapEntityToDto(Employee employee)
+        public override async Task<EmployeeDto> MapEntityToDto(Employee employee)
         {
             var employeeDto = _mapper.Map<EmployeeDto>(employee);
+
+            // Lấy tên phòng ban
+            var department = await _departmentRepository.GetByIdAsync(employee.DepartmentId);
+
+            if (department == null)
+            {
+                throw new BadRequestException()
+                {
+                    ErrorCode = ErrorCode.BadRequest,
+                    DevMessage = Domain.Resources.Errors.DepartmentNotFound,
+                    UserMessage = Domain.Resources.Errors.DepartmentNotFound,
+                    MoreInfo = "",
+                    TraceId = "",
+                    Errors = ""
+                };
+            }
+
+            employeeDto.DepartmentName = department.DepartmentName;
+
             return employeeDto;
         }
 

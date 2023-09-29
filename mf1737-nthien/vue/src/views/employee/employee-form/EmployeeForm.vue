@@ -7,62 +7,28 @@
                     <!-- Column Left -->
                     <div class="column-left">
                         <div class="row-1">
-                            <MTextfield
-                                v-model="employee.EmployeeCode"
-                                label="Mã"
-                                required
-                                ref="firstInput"
-                            />
-                            <MTextfield
-                                v-model="employee.FullName"
-                                label="Tên"
-                                required
-                            />
+                            <MTextfield v-model="employee.employeeCode" label="Mã" required ref="first-input" />
+                            <MTextfield v-model="employee.fullName" label="Tên" required />
                         </div>
 
                         <div class="row-2">
                             <MLabel label="Đơn vị" required />
-                            <VueMultiselect
-                                v-model="selected"
-                                :options="options"
-                                :searchable="false"
-                                :close-on-select="false"
-                                :show-labels="false"
-                                placeholder="Pick a value"
-                            ></VueMultiselect>
-                            <!-- <div class="m-dropdownlist">
-                                <select
-                                    @change="onChangeDepartment"
-                                    ref="changeDepartment"
-                                >
-                                    <option value="1">Phòng kế toán</option>
-                                    <option value="2">Phòng nhân sự</option>
-                                    <option value="2">Phòng sản xuất</option>
-                                    <option value="2">Phòng đào tạo</option>
-                                </select>
-                            </div> -->
+                            <MCombobox v-model="employee.departmentId" value="departmentId"
+                                url="https://localhost:44376/api/Departments" propValue="departmentId"
+                                propText="departmentName">
+                            </MCombobox>
                         </div>
 
                         <div class="row-3">
-                            <MTextfield
-                                v-model="employee.PositionName"
-                                label="Chức danh"
-                            />
+                            <MTextfield v-model="employee.positionName" label="Chức danh" />
                         </div>
                     </div>
 
                     <!-- Column Right -->
                     <div class="column-right">
                         <div class="row-1">
-                            <MDatePicker
-                                v-model="employee.DateOfBirth"
-                                label="Ngày sinh"
-                                id="birthdate"
-                            />
-                            <MRadioBox
-                                v-model="employee.Gender"
-                                label="Giới tính"
-                            >
+                            <MDatePicker v-model="employee.dateOfBirth" label="Ngày sinh" id="birthdate" />
+                            <MRadioBox v-model="employee.gender" label="Giới tính">
                                 <MRadio label="Nam" id="male" name="gender" />
                                 <MRadio label="Nữ" id="female" name="gender" />
                                 <MRadio label="Khác" id="other" name="gender" />
@@ -70,66 +36,31 @@
                         </div>
 
                         <div class="row-2">
-                            <MTextfield
-                                v-model="employee.IdentityNumber"
-                                label="Số CCCD"
-                                tooltip="Số căn cước công dân"
-                            />
-                            <MDatePicker
-                                v-model="employee.IdentityDate"
-                                label="Ngày cấp"
-                                id="identity-date"
-                            />
+                            <MTextfield v-model="employee.identityNumber" label="Số CCCD" tooltip="Số căn cước công dân" />
+                            <MDatePicker v-model="employee.identityDate" label="Ngày cấp" id="identity-date" />
                         </div>
 
                         <div class="row-3">
-                            <MTextfield
-                                v-model="employee.IdentityPlace"
-                                label="Nơi cấp"
-                            />
+                            <MTextfield v-model="employee.identityPlace" label="Nơi cấp" />
                         </div>
                     </div>
                 </div>
 
                 <div class="content-2">
                     <div class="row-1">
-                        <MTextfield
-                            v-model="employee.Address"
-                            label="Địa chỉ"
-                        />
+                        <MTextfield v-model="employee.address" label="Địa chỉ" />
                     </div>
 
                     <div class="row-2">
-                        <MTextfield
-                            v-model="employee.PhoneNumber"
-                            label="ĐT di động"
-                            tooltip="Điện thoại di động"
-                        />
-                        <MTextfield
-                            v-model="employee.Landline"
-                            label="ĐT cố định"
-                            tooltip="Điện thoại cố định"
-                        />
-                        <MTextfield
-                            v-model="employee.Email"
-                            label="Email"
-                            placeHolder="example@email.com"
-                        />
+                        <MTextfield v-model="employee.phoneNumber" label="ĐT di động" tooltip="Điện thoại di động" />
+                        <MTextfield v-model="employee.landlineNumber" label="ĐT cố định" tooltip="Điện thoại cố định" />
+                        <MTextfield v-model="employee.email" label="Email" placeHolder="example@email.com" />
                     </div>
 
                     <div class="row-3">
-                        <MTextfield
-                            label="Tài khoản ngân hàng"
-                            v-model="employee.BankAccount"
-                        />
-                        <MTextfield
-                            label="Tên ngân hàng"
-                            v-model="employee.BankName"
-                        />
-                        <MTextfield
-                            label="Chi nhánh"
-                            v-model="employee.BankBranch"
-                        />
+                        <MTextfield label="Tài khoản ngân hàng" v-model="employee.bankAccount" />
+                        <MTextfield label="Tên ngân hàng" v-model="employee.bankName" />
+                        <MTextfield label="Chi nhánh" v-model="employee.bankBranch" />
                     </div>
                 </div>
             </template>
@@ -138,78 +69,54 @@
             <template #action>
                 <div class="form-action">
                     <!-- Nút Hủy -->
-                    <MButton
-                        :type="$MISAEnum.Component.Button.Type.Secondary"
-                        :label="
-                            $MISAResource[$language].Component.Button.Label
-                                .Cancel
-                        "
-                        @click="onClickCancelButton"
-                    />
+                    <MButton :type="$enums.Button.Secondary" :label="$resx[$langCode].Component.Button.Label
+                        .Cancel
+                        " @clickButton="onClickCancelButton" />
 
                     <!-- Nút Cất -->
-                    <MButton
-                        :type="$MISAEnum.Component.Button.Type.Secondary"
-                        :label="
-                            $MISAResource[$language].Component.Button.Label
-                                .Store
-                        "
-                        @click="onSave"
-                    />
+                    <MButton :type="$enums.Button.Secondary" :label="$resx[$langCode].Component.Button.Label
+                        .Store
+                        " @clickButton="onSave" />
 
                     <!-- Nút Cất và thêm -->
-                    <MButton
-                        :type="$MISAEnum.Component.Button.Type.Primary"
-                        :label="
-                            $MISAResource[$language].Component.Button.Label
-                                .StoreAndAdd
-                        "
-                        @click="onSaveAndAdd"
-                    />
+                    <MButton :type="$enums.Button.Primary" :label="$resx[$langCode].Component.Button.Label
+                        .StoreAndAdd
+                        " @clickButton="onSaveAndAdd" />
                 </div>
             </template>
         </MForm>
 
         <!-- Dialog -->
-        <MDialog
-            v-if="showDialog"
-            :type="$MISAEnum.DialogType.Error"
-            :closeDialog="onCloseDialog"
-            :title="dialogTitle"
-            :description="dialogDescription"
-        >
-            <MButton
-                @click="onCloseDialog"
-                :type="$MISAEnum.ButtonType.Primary"
-                :label="$MISAResource[$languageCode].Close"
-            />
+        <MDialog v-if="dialog.display" :type="dialog.type" :title="dialog.title" :content="dialog.content"
+            @closeDialog="onCloseDialog">
+            <MButton @clickButton="onCloseDialog" :type="$enums.Button.Primary" :label="$resx[$langCode].Close" />
         </MDialog>
 
         <!-- Toast message -->
-        <MToastMessage
-            v-if="showToastMessage"
-            :toasts="[
-                {
-                    type: $MISAEnum.ToastMessageType.Successful,
-                    message: $MISAResource[$languageCode].EmployeeAdd,
-                    close: onCloseToastMessage,
-                },
-            ]"
-        />
+        <MToastMessage v-if="showToastMessage" :toasts="[
+            {
+                type: $enums.ToastMessageType.Success,
+                message: $resx[$langCode].EmployeeAdd,
+                close: onCloseToastMessage,
+            },
+        ]" />
     </div>
 </template>
 
 <script>
-import MButton from "@components/base/button/MButton.vue";
-import MLabel from "@components/base/label/MLabel.vue";
-import MTextfield from "@components/base/textfield/MTextfield.vue";
-import MDatePicker from "@components/base/date-picker/MDatePicker.vue";
-import MDialog from "@components/base/dialog/MDialog.vue";
-import MForm from "@components/base/form/MForm.vue";
-import MToastMessage from "@components/base/toast-message/MToastMessage.vue";
-import MRadioBox from "@components/base/radio/MRadioBox.vue";
-import MRadio from "@components/base/radio/MRadio.vue";
-import VueMultiselect from "vue-multiselect";
+import api from "@configs/api.js";
+import MButton from "@components/bases/buttons/MButton.vue";
+import MLabel from "@components/bases/labels/MLabel.vue";
+import MTextfield from "@components/bases/text-fields/MTextfield.vue";
+import MDatePicker from "@components/bases/date-pickers/MDatePicker.vue";
+import MDialog from "@components/bases/dialogs/MDialog.vue";
+import MForm from "@components/bases/forms/MForm.vue";
+import MToastMessage from "@components/bases/toast-message/MToastMessage.vue";
+import MRadioBox from "@components/bases/radios/MRadioBox.vue";
+import MRadio from "@components/bases/radios/MRadio.vue";
+import MCombobox from "@components/bases/combobox/MCombobox.vue";
+import department from "@services/department.js";
+import employee from "@services/employee.js";
 
 export default {
     name: "EmployeeDetail",
@@ -223,10 +130,28 @@ export default {
         MToastMessage,
         MRadioBox,
         MRadio,
-        VueMultiselect,
+        MCombobox,
     },
 
     props: ["form-data"],
+
+    data() {
+        return {
+            employee: {},
+            showDialog: false,
+            showToastMessage: false,
+            dialogTitle: "",
+            dialogDescription: "",
+            selected: null,
+            departmentOptions: [],
+            dialog: {
+                display: false,
+                type: `${this.$enums.DialogType.Error}`,
+                title: "",
+                content: "",
+            },
+        };
+    },
 
     methods: {
         /**
@@ -234,7 +159,7 @@ export default {
          * CreatedBy: hiennt200210 (20/08/2023)
          */
         onShowDialog() {
-            this.showDialog = true;
+            this.dialog.display = true;
         },
 
         /**
@@ -242,7 +167,7 @@ export default {
          * CreatedBy: hiennt200210 (20/08/2023)
          */
         onCloseDialog() {
-            this.showDialog = false;
+            this.dialog.display = false;
         },
 
         /**
@@ -282,6 +207,24 @@ export default {
         },
 
         /**
+         * Lấy mã nhân viên mới.
+         * CreatedBy: hiennt200210 (26/09/2023)
+         */
+        async getNewEmployeeCode() {
+            const response = await employee.getNewEmployeeCode();
+            return response.data;
+        },
+
+        /**
+         * Lấy danh sách phòng ban.
+         * CreatedBy: hiennt200210 (26/09/2023)
+         */
+        async getDepartmentOptions() {
+            const response = await employee.getAll();
+            return response.data;
+        },
+
+        /**
          * Xử lý lỗi.
          * CreatedBy: hiennt200210 (30/08/2023)
          */
@@ -295,20 +238,20 @@ export default {
             switch (statusCode) {
                 case 400:
                     this.dialogTitle =
-                        this.$MISAResource[this.$languageCode].BadRequest;
+                        this.$resx[this.$langCode].BadRequest;
                     break;
                 case 401:
                     this.dialogTitle =
-                        this.$MISAResource[this.$languageCode].UnAuthorized;
+                        this.$resx[this.$langCode].UnAuthorized;
                     break;
                 case 500:
                     this.dialogTitle =
-                        this.$MISAResource[
-                            this.$languageCode
+                        this.$resx[
+                            this.$langCode
                         ].InternalServerError;
                     this.dialogDescription =
-                        this.$MISAResource[
-                            this.$languageCode
+                        this.$resx[
+                            this.$langCode
                         ].InternalServerErrorMessage;
                     break;
             }
@@ -319,18 +262,9 @@ export default {
          * CreatedBy: hiennt200210 (30/08/2023)
          */
         onSave() {
-            this.$axios
-                .post(
-                    `${this.$api.BaseUrl}${this.$api.CreateEmployee}`,
-                    this.employee
-                )
-                .then((response) => {
-                    this.$emit("closeEmployeeForm");
-                    this.$emitter.emit("showToastMessage");
-                })
-                .catch((error) => {
-                    this.errorHandle(error);
-                });
+            employee.insert(this.employee);
+            this.$emit("closeEmployeeForm");
+            this.$emitter.emit("showToastMessage");
         },
 
         /**
@@ -338,69 +272,36 @@ export default {
          * CreatedBy: hiennt200210 (30/08/2023)
          */
         onSaveAndAdd() {
-            this.$axios
-                .post(
-                    `${this.$api.BaseUrl}${this.$api.CreateEmployee}`,
-                    this.employee
-                )
-                .then(() => {
-                    this.employee.EmployeeCode = "";
-                    this.employee.FullName = "";
-                    this.employee.DateOfBirth = "";
-                    this.employee.Gender = 0;
-                    this.employee.IdentityNumber = "";
-                    this.employee.IdentityDate = "";
-                    this.employee.IdentityPlace = "";
-                    this.employee.Address = "";
-                    this.employee.PhoneNumber = "";
-                    this.employee.Landline = "";
-                    this.employee.Email = "";
-                    this.employee.BankAccount = "";
-                    this.employee.BankName = "";
-                    this.employee.BankBranch = "";
-                    this.employee.PositionName = "";
-                })
-                .catch((error) => {
-                    this.errorHandle(error);
-                });
+            employee.insert(this.employee);
+            this.employee.employeeCode = "";
+            this.employee.fullName = "";
+            this.employee.dateOfBirth = "";
+            this.employee.gender = 0;
+            this.employee.identityNumber = "";
+            this.employee.identityDate = "";
+            this.employee.identityPlace = "";
+            this.employee.address = "";
+            this.employee.phoneNumber = "";
+            this.employee.landline = "";
+            this.employee.email = "";
+            this.employee.bankAccount = "";
+            this.employee.bankName = "";
+            this.employee.bankBranch = "";
+            this.employee.positionName = "";
         },
     },
 
-    data() {
-        return {
-            employee: {},
-            newEmployeeCode: "",
-            showDialog: false,
-            showToastMessage: false,
-            dialogTitle: "",
-            dialogDescription: "",
-            selected: null,
-            options: ["list", "of", "options"],
-        };
-    },
-
-    created() {
-        this.employee.DepartmentId = "4e272fc4-7875-78d6-7d32-6a1673ffca7c";
-        // Tải mã nhân viên mới
-        this.$axios
-            .get(`${this.$api.BaseUrl}${this.$api.NewEmployeeCode}`)
-            .then((response) => {
-                this.newEmployeeCode = response.data;
-                this.employee.EmployeeCode = this.newEmployeeCode;
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+    async created() {
+        // Lấy mã nhân viên mới
+        this.employee.employeeCode = await this.getNewEmployeeCode();
     },
 
     mounted() {
-        this.$refs["firstInput"].setWidth("150px");
-        this.$refs["firstInput"].focus();
+        this.$refs["first-input"].setWidth("150px");
+        this.$refs["first-input"].focus();
     },
 };
 </script>
-
-<style src="vue-multiselect/dist/vue-multiselect.css"></style>
 
 <style scoped>
 @import url(./employee-form.css);

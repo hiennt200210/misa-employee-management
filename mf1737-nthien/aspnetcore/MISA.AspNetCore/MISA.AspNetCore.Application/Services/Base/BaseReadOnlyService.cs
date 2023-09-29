@@ -25,7 +25,15 @@ namespace MISA.AspNetCore.Application
         public async Task<List<TDto>> GetAllAsync()
         {
             var entities = await BaseRepository.GetAllAsync();
-            var dtos = entities.Select(entity => MapEntityToDto(entity)).ToList();
+
+            List<TDto> dtos = new List<TDto>();
+            for (int i = 0; i < entities.Count; i++)
+            {
+                TEntity entity = entities[i];
+                var dto = await MapEntityToDto(entity);
+                dtos.Add(dto);
+            }
+
             return dtos;
         }
 
@@ -39,7 +47,7 @@ namespace MISA.AspNetCore.Application
         public async Task<TDto> GetByIdAsync(Guid id)
         {
             var entity = await BaseRepository.GetByIdAsync(id);
-            var dto = MapEntityToDto(entity);
+            var dto = await MapEntityToDto(entity);
             return dto;
         }
 
@@ -47,6 +55,6 @@ namespace MISA.AspNetCore.Application
         /// Chuyển đổi từ Employee sang EmployeeDto
         /// </summary>
         /// CreatedBy: hiennt200210 (20/09/2023)
-        public abstract TDto MapEntityToDto(TEntity entity);
+        public abstract Task<TDto> MapEntityToDto(TEntity entity);
     }
 }

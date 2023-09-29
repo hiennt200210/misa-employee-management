@@ -95,5 +95,96 @@ namespace MISA.AspNetCore.Infrastructure
 
             return newEmployeeCode;
         }
+
+        /// <summary>
+        /// Lấy thông tin nhân viên theo bộ lọc, tìm kiếm, sắp xếp, phân trang
+        /// </summary>
+        /// <param name="limit">Số lượng bản ghi trên một trang</param>
+        /// <param name="offset">Vị trí bắt đầu lấy dữ liệu</param>
+        /// <returns>Danh sách nhân viên theo kết quá lọc, tìm kiếm, sắp xếp, phân trang</returns>
+        public async Task<List<Employee>> PagingAsync(int limit, int offset, string employeeCode, string fullName, string phoneNumber, List<string> orders)
+        {
+            // Tạo dynamic parameter
+            var parameters = new DynamicParameters();
+            parameters.Add("@limit", limit);
+            parameters.Add("@offset", offset);
+
+            // Xử lý tham số tìm kiếm
+            var conditions = string.Empty;
+
+            if (employeeCode != null)
+            {
+                conditions += $"{base.TableName}Code LIKE @employeeCode AND ";
+                parameters.Add("@employeeCode", $"%{employeeCode}%");
+            }
+
+            if (fullName != null)
+            {
+                conditions += $"FullName LIKE @fullName AND ";
+                parameters.Add("@fullName", $"%{fullName}%");
+            }
+
+            if (phoneNumber != null)
+            {
+                conditions += $"PhoneNumber LIKE @phoneNumber AND ";
+                parameters.Add("@phoneNumber", $"%{phoneNumber}%");
+            }
+
+            // Xóa AND ở cuối chuỗi
+            if (conditions.Length > 0)
+            {
+                conditions = conditions.Remove(conditions.Length - 5);
+            }
+
+            // Xử lý tham số sắp xếp
+            var ordersString = string.Empty;
+
+            if (orders.Count == 0)
+            {
+                ordersString += $"{base.TableName}Code ASC";
+            }
+            else
+            {
+                // Xử lý chuỗi order
+                foreach (var order in orders)
+                {
+                    if (order.Contains('-'))
+                    {
+                        ordersString += $"{order.Replace("-", "")} DESC, ";
+                    }
+                    else
+                    {
+                        ordersString += $"{order.Replace("+", "")} ASC, ";
+                    }
+                }
+
+                ordersString = ordersString.Remove(ordersString.Length - 2);
+            }
+
+            // Tạo kết nối với database
+            var connection = base.DbConnectionService.GetConnection();
+
+            // Tạo câu truy vấn
+            var sql = $"SELECT * FROM {base.TableName} WHERE {conditions} ORDER BY {ordersString} LIMIT @limit OFFSET @offset;";
+
+            // Thực thi câu truy vấn
+            var result = connection.Query<Employee>(sql, parameters);
+
+            // Nếu không có kết quả thì báo lỗi
+            if (result == null)
+            {
+                throw new NotFoundException()
+                {
+                    ErrorCode = ErrorCode.NotFound,
+                    DevMessage = Domain.Resources.Errors.NotFound,
+                    UserMessage = Domain.Resources.Errors.NotFound,
+                    Errors = Domain.Resources.Errors.NotFound,
+                    TraceId = "",
+                    MoreInfo = "",
+                };
+            }
+
+            return result.ToList();
+        }
     }
 }

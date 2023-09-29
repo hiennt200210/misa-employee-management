@@ -61,7 +61,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Đầu vào không hợp lệ..
+        ///   Looks up a localized string similar to Đầu vào không hợp lệ.
         /// </summary>
         public static string BadRequest {
             get {
@@ -70,7 +70,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tài nguyên bị trùng..
+        ///   Looks up a localized string similar to Tài nguyên bị trùng.
         /// </summary>
         public static string Conflict {
             get {
@@ -79,7 +79,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tên phòng ban đã tồn tại..
+        ///   Looks up a localized string similar to Tên phòng ban đã tồn tại.
         /// </summary>
         public static string DepartmentNameDuplicated {
             get {
@@ -88,7 +88,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Không tìm thấy phòng ban..
+        ///   Looks up a localized string similar to Không tìm thấy phòng ban.
         /// </summary>
         public static string DepartmentNotFound {
             get {
@@ -97,7 +97,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mã nhân viên đã tồn tại..
+        ///   Looks up a localized string similar to Mã nhân viên đã tồn tại.
         /// </summary>
         public static string EmployeeCodeDuplicated {
             get {
@@ -106,7 +106,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quyền truy cập bị giới hạn..
+        ///   Looks up a localized string similar to Quyền truy cập bị giới hạn.
         /// </summary>
         public static string Forbidden {
             get {
@@ -115,7 +115,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lỗi hệ thống..
+        ///   Looks up a localized string similar to Lỗi hệ thống.
         /// </summary>
         public static string InternalServerError {
             get {
@@ -124,7 +124,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Không tìm thấy tài nguyên..
+        ///   Looks up a localized string similar to Không tìm thấy tài nguyên.
         /// </summary>
         public static string NotFound {
             get {
@@ -133,7 +133,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Xác thực không thành công..
+        ///   Looks up a localized string similar to Xác thực không thành công.
         /// </summary>
         public static string Unauthorized {
             get {

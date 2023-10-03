@@ -7,7 +7,8 @@
             :id="id"
             :label="label"
             :tooltip="tooltip"
-            :required="required" />
+            :required="required"
+        />
 
         <!-- Ô nhập -->
         <div :class="inputClass">
@@ -18,23 +19,21 @@
                 :placeholder="placeHolder"
                 :value="modelValue"
                 @input="emitValue"
-                @blur="validateInput" />
+            />
 
             <!-- Icon trên ô nhập -->
-            <span v-if="icon" class="material-symbols-rounded">{{ icon }}</span>
+            <div v-if="icon" :class="iconClass"></div>
         </div>
 
         <!-- Thông báo xác thực đầu vào -->
         <div v-if="showErrorMessage" class="error-message">
-            {{
-                `${label} ${$resx[$langCode].Component.Form.Warning.CannotBeEmpty}`
-            }}
+            {{ `${label} ${$resxLang.CannotBeEmpty}.` }}
         </div>
     </div>
 </template>
 
 <script>
-import MLabel from "../labels/MLabel.vue";
+import MLabel from "@components/bases/labels/MLabel.vue";
 
 export default {
     name: "MTextfield",
@@ -57,9 +56,10 @@ export default {
         modelValue: String,
 
         // Hàm xác thực dữ liệu đầu vào
-        validator: {
+        validate: {
             type: Function,
-        }
+            default: () => true,
+        },
     },
 
     data() {
@@ -86,7 +86,7 @@ export default {
          * CreatedBy: hiennt200210 (23/08/2023)
          */
         iconClass() {
-            return `fa-${this.icon.style} fa-${this.icon.name}`;
+            return `icon icon-${this.icon}`;
         },
     },
 
@@ -110,8 +110,7 @@ export default {
          * CreatedBy: hiennt200210 (24/08/2023)
          */
         validateInput() {
-            if (this.required)
-                this.showErrorMessage = this.value === "";
+            if (this.required) this.showErrorMessage = this.value === "";
         },
 
         /**
@@ -120,9 +119,7 @@ export default {
          */
         emitValue(e) {
             this.$emit("update:modelValue", e.target.value);
-
-            if (this.required)
-                this.showErrorMessage = e.target.value === "";
+            if (this.required) this.showErrorMessage = e.target.value === "";
         },
 
         /**

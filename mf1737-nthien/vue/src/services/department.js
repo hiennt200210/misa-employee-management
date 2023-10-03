@@ -8,12 +8,8 @@ export default {
      * CreatedBy: hiennt200210 (26/09/2023)
      */
     async getAll() {
-        try {
-            const response = await axios.get(api.baseUrl + "api/v1/departments");
-            return response;
-        } catch (error) {
-            this.handleError(error);
-        }
+        const response = await axios.get(api.baseUrl + "api/v1/departments");
+        return response;
     },
 
     /**
@@ -24,7 +20,9 @@ export default {
      */
     async getById(id) {
         try {
-            const response = await axios.get(api.baseUrl + "api/v1/departments/" + id);
+            const response = await axios.get(
+                api.baseUrl + "api/v1/departments/" + id
+            );
             return response;
         } catch (error) {
             this.handleError(error);
@@ -34,12 +32,15 @@ export default {
     /**
      * Thêm mới một phòng ban
      * @param {Object} department Thông tin phòng ban cần thêm mới
-     * @returns 
+     * @returns
      * CreatedBy: hiennt200210 (26/09/2023)
      */
     async insert(department) {
         try {
-            const response = await axios.post(api.baseUrl + "api/v1/departments", department);
+            const response = await axios.post(
+                api.baseUrl + "api/v1/departments",
+                department
+            );
             return response;
         } catch (error) {
             this.handleError(error);
@@ -50,12 +51,15 @@ export default {
      * Cập nhật thông tin phòng ban
      * @param {String} id ID của phòng ban cần cập nhật
      * @param {Object} department Thông tin phòng ban cần cập nhật
-     * @returns 
+     * @returns
      * CreatedBy: hiennt200210 (26/09/2023)
      */
     async update(id, department) {
         try {
-            const response = await axios.put(api.baseUrl + "api/v1/departments/" + id, department);
+            const response = await axios.put(
+                api.baseUrl + "api/v1/departments/" + id,
+                department
+            );
             return response;
         } catch (error) {
             this.handleError(error);
@@ -65,12 +69,14 @@ export default {
     /**
      * Xoá một phòng ban
      * @param {String} id ID của phòng ban cần xoá
-     * @returns 
+     * @returns
      * CreatedBy: hiennt200210 (26/09/2023)
      */
     async delete(id) {
         try {
-            const response = await axios.delete(api.baseUrl + "api/v1/departments/" + id);
+            const response = await axios.delete(
+                api.baseUrl + "api/v1/departments/" + id
+            );
             return response;
         } catch (error) {
             this.handleError(error);
@@ -80,12 +86,15 @@ export default {
     /**
      * Xoá nhiều phòng ban
      * @param {Array} ids Danh sách ID của những phòng ban cần xoá
-     * @returns 
+     * @returns
      * CreatedBy: hiennt200210 (26/09/2023)
      */
     async deleteMultiple(ids) {
         try {
-            const response = await axios.delete(api.baseUrl + "api/v1/departments/multiple", ids);
+            const response = await axios.delete(
+                api.baseUrl + "api/v1/departments/multiple",
+                ids
+            );
             return response;
         } catch (error) {
             this.handleError(error);

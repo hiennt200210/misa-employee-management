@@ -6,29 +6,29 @@
                 <MHeading type="h2" :title="title" />
 
                 <!-- Nút Close -->
-                <MButton :type="$enums.Button.TitleBar" icon="close" @clickButton="onClickCloseButton" />
+                <MButton
+                    :type="$enums.Button.TitleBar"
+                    icon="close"
+                    @clickButton="onClickCloseButton"
+                />
             </div>
 
             <!-- Nội dung của Dialog -->
             <div class="dialog-content">
                 <!-- Biểu tượng thông báo -->
-                <span :class="`icon-${icon} material-symbols-rounded`">
-                    {{ icon }}
-                </span>
+                <div :class="iconClass"></div>
 
                 <!-- Nội dung thông báo -->
-                <div class="content-text">
-                    {{ content }}
+                <div class="notification">
+                    <ul v-if="content.length > 1">
+                        <li v-for="item in content">{{ `${item}.` }}</li>
+                    </ul>
+                    <p v-else>{{ `${content[0]}.` }}</p>
                 </div>
             </div>
 
             <div class="dialog-action">
-                <div class="dialog-action__secondary-button">
-                    <slot name="secondary"></slot>
-                </div>
-                <div class="dialog-action__primary-button">
-                    <slot name="primary"></slot>
-                </div>
+                <slot></slot>
             </div>
         </div>
     </div>
@@ -60,8 +60,8 @@ export default {
         },
 
         content: {
-            type: String,
-            default: "",
+            type: Array,
+            default: [],
         },
     },
 
@@ -72,17 +72,25 @@ export default {
          */
         icon() {
             switch (this.type) {
-                case this.$enums.DialogType.Success:
+                case this.$enums.Dialog.Success:
                     return "check_circle";
-                case this.$enums.DialogType.Error:
+                case this.$enums.Dialog.Error:
                     return "cancel";
-                case this.$enums.DialogType.Warning:
+                case this.$enums.Dialog.Warning:
                     return "error";
-                case this.$enums.DialogType.Info:
+                case this.$enums.Dialog.Info:
                     return "info";
                 default:
                     return "error";
             }
+        },
+
+        /**
+         * Lấy class của icon.
+         * CreatedBy: hiennt200210 (20/08/2023)
+         */
+        iconClass() {
+            return `icon icon-${this.type}`;
         },
     },
 
@@ -97,6 +105,12 @@ export default {
     },
 };
 </script>
+
+<style>
+.dialog-action .m-button {
+    margin-left: 8px;
+}
+</style>
 
 <style scoped>
 @import url(dialog.css);

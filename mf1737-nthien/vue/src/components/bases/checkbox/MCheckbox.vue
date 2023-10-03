@@ -1,6 +1,11 @@
 <template>
-    <input type="checkbox" class="m-checkbox" :id="id" :checked="modelValue"
-        @change="$emit('update:modelValue', $event.target.checked)" />
+    <input
+        type="checkbox"
+        class="m-checkbox"
+        :id="id"
+        :checked="modelValue"
+        @change="$emit('update:modelValue', $event.target.checked)"
+    />
 </template>
 
 <script>

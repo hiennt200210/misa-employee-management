@@ -1,7 +1,14 @@
 <template>
     <div class="m-radio">
-        <input type="radio" :id="id" :name="name" />
-        <MLabel class="label" v-if="label" :label="label" :for="id" />
+        <input
+            type="radio"
+            :id="id"
+            :name="name"
+            :value="value"
+            :checked="checked"
+            @input="$emit('update:modelValue', Number($event.target.value))"
+        />
+        <MLabel v-if="label" :label="label" :for="id" />
     </div>
 </template>
 
@@ -13,7 +20,22 @@ export default {
     components: {
         MLabel,
     },
-    props: ["label", "id", "name"],
+    props: ["label", "id", "name", "value", "modelValue"],
+    data() {
+        return {
+            radioValue: this.modelValue,
+        };
+    },
+    computed: {
+        checked() {
+            return this.modelValue === this.value;
+        },
+    },
+    watch: {
+        modelValue(newValue) {
+            this.radioValue = newValue;
+        },
+    },
 };
 </script>
 
@@ -59,7 +81,8 @@ input[type="radio"]:checked:after {
     left: 2px;
 }
 
-.m-radio .label {
+.m-radio .m-label {
     font-family: var(--default-font-family);
+    font-weight: 400;
 }
 </style>

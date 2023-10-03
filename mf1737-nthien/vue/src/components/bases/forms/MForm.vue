@@ -3,7 +3,7 @@
         <div class="form-title">
             <slot name="title">
                 <!-- Tiêu đề Form -->
-                <MHeading type="h1" :title="title" />
+                <MHeading :type="$enums.Heading.Heading1" :title="title" />
             </slot>
         </div>
 

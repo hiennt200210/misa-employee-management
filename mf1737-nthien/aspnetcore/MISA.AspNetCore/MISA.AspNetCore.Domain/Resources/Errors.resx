@@ -117,11 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddressExceedMaxLength" xml:space="preserve">
+    <value>Địa chỉ không được dài hơn 255 ký tự</value>
+  </data>
   <data name="BadRequest" xml:space="preserve">
     <value>Đầu vào không hợp lệ</value>
   </data>
+  <data name="BankAccountExceedMaxLength" xml:space="preserve">
+    <value>Số tài khoản không được dài hơn 25 ký tự</value>
+  </data>
+  <data name="BankBranchExceedMaxLength" xml:space="preserve">
+    <value>Tên chi nhánh không được dài hơn 255 ký tự</value>
+  </data>
+  <data name="BankNameExceedMaxLength" xml:space="preserve">
+    <value>Tên ngân hàng không được dài hơn 255 ký tự</value>
+  </data>
   <data name="Conflict" xml:space="preserve">
     <value>Tài nguyên bị trùng</value>
+  </data>
+  <data name="DateOfBirthInvalid" xml:space="preserve">
+    <value>Ngày sinh không hợp lệ</value>
+  </data>
+  <data name="DepartmentCannotBeEmpty" xml:space="preserve">
+    <value>Đơn vị không được phép để trống</value>
   </data>
   <data name="DepartmentNameDuplicated" xml:space="preserve">
     <value>Tên phòng ban đã tồn tại</value>
@@ -129,17 +147,59 @@
   <data name="DepartmentNotFound" xml:space="preserve">
     <value>Không tìm thấy phòng ban</value>
   </data>
+  <data name="EmailExceedMaxLength" xml:space="preserve">
+    <value>Email không được dài hơn 100 ký tự</value>
+  </data>
+  <data name="EmailInvalid" xml:space="preserve">
+    <value>Email không đúng định dạng</value>
+  </data>
+  <data name="EmployeeCodeCannotBeEmpty" xml:space="preserve">
+    <value>Mã nhân viên không được phép để trống</value>
+  </data>
   <data name="EmployeeCodeDuplicated" xml:space="preserve">
     <value>Mã nhân viên đã tồn tại</value>
+  </data>
+  <data name="EmployeeCodeExceedMaxLength" xml:space="preserve">
+    <value>Mã nhân viên không được dài hơn 20 ký tự</value>
   </data>
   <data name="Forbidden" xml:space="preserve">
     <value>Quyền truy cập bị giới hạn</value>
   </data>
+  <data name="FullNameCannotBeEmpty" xml:space="preserve">
+    <value>Tên nhân viên không được phép để trống</value>
+  </data>
+  <data name="FullNameExceedMaxLength" xml:space="preserve">
+    <value>Tên nhân viên không được dài hơn 100 ký tự</value>
+  </data>
+  <data name="GenderInvalid" xml:space="preserve">
+    <value>Giới tính không hợp lệ</value>
+  </data>
+  <data name="IdentityDateInvalid" xml:space="preserve">
+    <value>Ngày cấp không hợp lệ</value>
+  </data>
+  <data name="IdentityNumberExceedMaxLength" xml:space="preserve">
+    <value>Số CCCD không được dài hơn 25 ký tự</value>
+  </data>
+  <data name="IdentityPlaceExceedMaxLength" xml:space="preserve">
+    <value>Nơi cấp không được dài hơn 255 ký tự</value>
+  </data>
   <data name="InternalServerError" xml:space="preserve">
     <value>Lỗi hệ thống</value>
   </data>
+  <data name="LandlineNumberExceedMaxLength" xml:space="preserve">
+    <value>Số điện thoại cố định không được dài hơn 50 ký tự</value>
+  </data>
   <data name="NotFound" xml:space="preserve">
     <value>Không tìm thấy tài nguyên</value>
+  </data>
+  <data name="PhoneNumberExceedMaxLength" xml:space="preserve">
+    <value>Số điện thoại di động không được dài hơn 50 ký tự</value>
+  </data>
+  <data name="PositionNameExceedMaxLength" xml:space="preserve">
+    <value>Chức vụ không được dài hơn 255 ký tự</value>
+  </data>
+  <data name="SalaryInvalid" xml:space="preserve">
+    <value>Mức lương không được phép âm</value>
   </data>
   <data name="Unauthorized" xml:space="preserve">
     <value>Xác thực không thành công</value>

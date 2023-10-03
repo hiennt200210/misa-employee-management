@@ -28,6 +28,7 @@ select {
 
 .m-combobox__input:focus,
 .m-combobox__input:focus ~ .m-combobox__button {
+    background-color: var(--secondary-color);
     border-color: var(--primary-color);
 }
 
@@ -57,6 +58,12 @@ select {
 .m-combobox__button:focus {
     background-color: var(--secondary-color--hover);
     color: var(--default-font-color);
+}
+
+.m-combobox__button .icon {
+    height: 16px;
+    width: 16px;
+    transition: all 0.3s ease;
 }
 
 .m-combobox__data {

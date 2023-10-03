@@ -31,6 +31,6 @@ namespace MISA.AspNetCore.Application
         /// <summary>
         /// Dữ liệu
         /// </summary>
-        public List<object>? Data { get; set; }
+        public dynamic? Data { get; set; }
     }
 }

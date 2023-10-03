@@ -1,11 +1,4 @@
-.component-wrapper {
-    height: 100%;
-    width: 100%;
-    position: relative;
-}
-
-/* Table Toolbar */
-
+/* Toolbar */
 .table-toolbar {
     height: 60px;
     width: 100%;
@@ -60,8 +53,6 @@
     margin-left: 12px;
 }
 
-/* Table */
-
 .table-wrapper {
     height: calc(100% - 48px - 60px);
     width: 100%;
@@ -87,13 +78,18 @@
     background-color: var(--secondary-color);
 }
 
-table {
+.table {
     border-collapse: collapse;
-    color: var(--default-font-color);
+    font-family: var(--default-font-family);
+}
+
+tr {
+    height: var(--table-row-height);
 }
 
 th,
 td {
+    height: 100%;
     max-width: 300px;
     padding: 0 16px;
     overflow: hidden;
@@ -104,12 +100,7 @@ td {
 }
 
 th {
-    font-weight:700;
-}
-
-tr {
-    height: var(--table-row-height);
-    display: table-row;
+    font-weight: 700;
 }
 
 tr > *:first-child {
@@ -138,6 +129,12 @@ th:hover {
     background-color: #eee;
 }
 
+th > .m-button {
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+}
+
 tbody tr {
     background-color: #fff;
 }
@@ -146,15 +143,22 @@ tbody tr:hover {
     background-color: #f2f2f2;
 }
 
-.text-align-left {
+.tr__checkbox {
+    background-color: inherit;
+    position: sticky;
+    left: 0;
+    text-align: center;
+}
+
+.text {
     text-align: left;
 }
 
-.text-align-right {
+.number {
     text-align: right;
 }
 
-.text-align-center {
+.date {
     text-align: center;
 }
 
@@ -164,12 +168,12 @@ tbody tr:hover {
 }
 
 .row-action {
+    position: absolute;
+    right: 0;
     height: var(--table-row-height);
     margin-right: 16px;
     display: flex;
     align-items: center;
-    position: absolute;
-    right: 0;
 }
 
 .row-action .m-button {
@@ -189,14 +193,7 @@ tbody tr:hover {
     margin-left: 8px;
 }
 
-.sticky-column-left {
-    background-color: inherit;
-    position: sticky;
-    left: 0;
-}
-
-/* Table Paging */
-
+/* Paging */
 .table-paging {
     height: 48px;
     width: 100%;

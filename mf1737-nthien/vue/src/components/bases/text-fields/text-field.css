@@ -42,7 +42,7 @@
 }
 
 .m-textfield .error-message {
-    max-width: 160px;
+    /* max-width: 160px; */
     margin-top: 8px;
     color: var(--danger-color);
     white-space: wrap;
@@ -50,33 +50,19 @@
 
 /* Textfield with icon */
 .m-textfield__input--icon input {
-    padding-right: 36px;
+    padding-left: 36px;
 }
 
-.m-textfield__input--icon i {
+.m-textfield__input--icon .icon {
     position: absolute;
     top: 6px;
-    right: 6px;
+    left: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 24px;
     width: 24px;
     font-size: 18px;
-    color: var(--input-placeholder-color);
-    text-align: center;
-}
-
-.m-textfield__input--icon span {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 24px;
-    width: 24px;
-    font-size: 24px;
     color: var(--input-placeholder-color);
     text-align: center;
 }

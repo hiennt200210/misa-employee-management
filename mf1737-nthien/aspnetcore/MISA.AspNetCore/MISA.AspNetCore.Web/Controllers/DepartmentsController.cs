@@ -4,7 +4,7 @@ using MISA.AspNetCore.Application;
 
 namespace MISA.AspNetCore.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class DepartmentsController : BaseController<DepartmentDto, DepartmentInsertDto, DepartmentUpdateDto>
     {

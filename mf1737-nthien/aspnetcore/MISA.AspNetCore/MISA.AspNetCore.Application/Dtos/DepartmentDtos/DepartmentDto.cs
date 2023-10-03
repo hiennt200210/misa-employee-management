@@ -8,8 +8,6 @@ namespace MISA.AspNetCore.Application
 {
     public class DepartmentDto : BaseDto
     {
-        #region Properties
-
         /// <summary>
         /// Định danh của phòng ban
         /// </summary>
@@ -19,7 +17,5 @@ namespace MISA.AspNetCore.Application
         /// Tên phòng ban
         /// </summary>
         public string? DepartmentName { get; set; }
-
-        #endregion
     }
 }

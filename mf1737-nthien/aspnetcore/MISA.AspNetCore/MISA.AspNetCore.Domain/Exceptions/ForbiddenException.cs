@@ -8,11 +8,10 @@ namespace MISA.AspNetCore.Domain.Exceptions
 {
     public class ForbiddenException : Exception
     {
-        #region Properties
         /// <summary>
         /// Mã lỗi nghiệp vụ
         /// </summary>
-        public ErrorCode? ErrorCode { get; set; }
+        public ErrorCode ErrorCode { get; set; }
 
         /// <summary>
         /// Thông báo cho lập trình viên
@@ -32,12 +31,11 @@ namespace MISA.AspNetCore.Domain.Exceptions
         /// <summary>
         /// Thông tin lỗi
         /// </summary>
-        public string? Errors { get; set; }
+        public object? Errors { get; set; }
 
         /// <summary>
         /// Thông tin bổ sung
         /// </summary>
         public string? MoreInfo { get; set; }
-        #endregion
     }
 }

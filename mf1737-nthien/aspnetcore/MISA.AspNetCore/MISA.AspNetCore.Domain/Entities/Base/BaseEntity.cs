@@ -8,8 +8,6 @@ namespace MISA.AspNetCore.Domain.Entities.Base
 {
     public abstract class BaseEntity
     {
-        #region Properties
-
         /// <summary>
         /// Ngày tạo
         /// </summary>
@@ -23,13 +21,11 @@ namespace MISA.AspNetCore.Domain.Entities.Base
         /// <summary>
         /// Ngày sửa đổi
         /// </summary>
-        public DateTime? ModifiedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
 
         /// <summary>
         /// Sửa đổi bởi
         /// </summary>
         public string? ModifiedBy { get; set; }
-
-        #endregion
     }
 }

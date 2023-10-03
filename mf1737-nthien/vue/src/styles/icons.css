@@ -11,6 +11,10 @@
     background-position: -29px -404px;
 }
 
+.icon-close {
+    background-position: -1172px -356px;
+}
+
 .icon-duplicate {
     background-position: -1545px -87px;
 }
@@ -19,16 +23,29 @@
     background-position: -1656px -88px;
 }
 
+.icon-error {
+    background-position: -752px -462px;
+}
+
+.icon-error-small {
+    background-position: -536px -144px;
+}
+
 .icon-excel-file {
     background-position: -1264px -88px;
 }
 
-.icon-filter {
-    background-position: -1601px -88px;
+.icon-expand {
+    background-position: -1796px -472px;
 }
 
-.icon-information {
-    background-position: -480px -144px;
+.icon-info {
+    background-position: -672px -462px;
+}
+
+.icon-info-small {
+    background-position: -678px -467px;
+    border-radius: 50%;
 }
 
 .icon-menu {
@@ -43,6 +60,10 @@
     background-position: -787px -30px;
 }
 
+.icon-other {
+    background-position: -568px -30px;
+}
+
 .icon-prev {
     background-position: -29px -356px;
 }
@@ -52,10 +73,18 @@
 }
 
 .icon-search {
-    background-position: -1040px -88px;
+    background-position: -313px -144px;
 }
 
-.icon-successful {
+.icon-sort {
+    background-position: -1727px -524px;
+}
+
+.icon-success {
+    background-position: -990px -462px;
+}
+
+.icon-success-small {
     background-position: -1600px -256px;
 }
 
@@ -64,6 +93,10 @@
 }
 
 .icon-warning {
+    background-position: -598px -463px;
+}
+
+.icon-warning-small {
     background-position: -592px -144px;
 }
 

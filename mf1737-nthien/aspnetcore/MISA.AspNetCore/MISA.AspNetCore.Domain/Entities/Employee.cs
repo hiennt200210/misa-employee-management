@@ -10,8 +10,6 @@ namespace MISA.AspNetCore.Domain
 {
     public class Employee : BaseEntity, TEntity
     {
-        #region Properties
-
         /// <summary>
         /// Định danh của nhân viên
         /// </summary>
@@ -30,7 +28,7 @@ namespace MISA.AspNetCore.Domain
         /// <summary>
         /// Giới tính
         /// </summary>
-        public Gender? Gender { get; set; }
+        public Gender Gender { get; set; }
 
         /// <summary>
         /// Ngày sinh
@@ -97,7 +95,10 @@ namespace MISA.AspNetCore.Domain
         /// </summary>
         public Guid DepartmentId { get; set; }
 
-        #endregion
+        /// <summary>
+        /// Mức lương
+        /// </summary>
+        public decimal Salary { get; set; }
     }
 }
 

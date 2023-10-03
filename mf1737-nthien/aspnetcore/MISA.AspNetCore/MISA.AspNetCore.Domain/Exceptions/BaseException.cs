@@ -9,11 +9,10 @@ namespace MISA.AspNetCore.Domain
 {
     public class BaseException
     {
-        #region Properties
         /// <summary>
         /// Mã lỗi nghiệp vụ
         /// </summary>
-        public ErrorCode? ErrorCode { get; set; }
+        public ErrorCode ErrorCode { get; set; }
 
         /// <summary>
         /// Thông báo cho lập trình viên
@@ -39,9 +38,7 @@ namespace MISA.AspNetCore.Domain
         /// Thông tin bổ sung
         /// </summary>
         public string? MoreInfo { get; set; }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// Override phương thức ToString() để trả về chuỗi JSON
         /// </summary>
@@ -49,7 +46,6 @@ namespace MISA.AspNetCore.Domain
         {
             return JsonSerializer.Serialize(this);
         }
-        #endregion
     }
 }
 

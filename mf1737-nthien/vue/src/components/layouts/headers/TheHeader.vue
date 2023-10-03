@@ -2,7 +2,11 @@
     <div class="header">
         <div class="header-left">
             <!-- Menu button -->
-            <MButton :type="$enums.Button.IconRounded" icon-sprites="menu" tooltip="Menu" />
+            <MButton
+                :type="$enums.Button.IconRounded"
+                icon="menu"
+                tooltip="Menu"
+            />
 
             <!-- Logo -->
             <a class="logo"></a>
@@ -10,8 +14,11 @@
 
         <div class="header-right">
             <!-- Nút Thông báo -->
-            <MButton :type="$enums.Button.IconRounded" icon-sprites="notifications"
-                :tooltip="$resx[$langCode].Tooltip.Notifications" />
+            <MButton
+                :type="$enums.Button.IconRounded"
+                icon="notifications"
+                :tooltip="$resxLang.Tooltip.Notifications"
+            />
 
             <!-- Nút Thông tin người dùng -->
             <div class="user">Nguyễn Thế Hiển</div>

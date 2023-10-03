@@ -11,8 +11,6 @@ namespace MISA.AspNetCore.Application
 {
     public class EmployeeDto : BaseDto
     {
-        #region Properties
-
         /// <summary>
         /// Định danh của nhân viên
         /// </summary>
@@ -31,7 +29,7 @@ namespace MISA.AspNetCore.Application
         /// <summary>
         /// Giới tính
         /// </summary>
-        public Gender? Gender { get; set; }
+        public Gender Gender { get; set; }
 
         /// <summary>
         /// Ngày sinh
@@ -96,13 +94,16 @@ namespace MISA.AspNetCore.Application
         /// <summary>
         /// Định danh của phòng ban
         /// </summary>
-        public Guid? DepartmentId { get; set; }
+        public Guid DepartmentId { get; set; }
 
         /// <summary>
         /// Tên phòng ban
         /// </summary>
         public string? DepartmentName { get; set; }
 
-        #endregion
+        /// <summary>
+        /// Mức lương
+        /// </summary>
+        public decimal Salary { get; set; }
     }
 }

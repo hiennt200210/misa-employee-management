@@ -26,13 +26,6 @@ namespace MISA.AspNetCore.Domain
         Task<TEntity> GetByIdAsync(Guid id);
 
         /// <summary>
-        /// Lấy số lượng bản ghi
-        /// </summary>
-        /// <returns>Số lượng bản ghi</returns>
-        /// CreatedBy: hiennt200210 (16/09/2023)
-        Task<int> CountAsync();
-
-        /// <summary>
         /// Thêm mới một bản ghi
         /// </summary>
         /// <param name="entity">Bản ghi cần thêm mới</param>

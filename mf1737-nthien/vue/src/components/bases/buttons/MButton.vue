@@ -1,18 +1,23 @@
 <template>
-    <button :class="buttonClass" @click="onClick" @mouseover="onMouseover" @mouseout="onMouseout">
+    <button
+        :class="buttonClass"
+        @click="onClick"
+        @mouseover="onMouseover"
+        @mouseout="onMouseout"
+    >
         <!-- Icon của nút -->
-        <span v-if="icon" :class="iconClass">
-            {{ icon }}
-        </span>
-
-        <!-- Icon của nút được lấy từ file sprites.svg -->
-        <div v-if="iconSprites" :class="iconSpritesClass"></div>
+        <div v-if="icon" :class="iconClass"></div>
 
         <!-- Nhãn của nút -->
         {{ label }}
 
         <!-- Tooltip của nút -->
-        <MTooltip v-if="tooltip" v-show="displayTooltip" ref="tooltip" :content="tooltip" />
+        <MTooltip
+            v-if="tooltip"
+            v-show="displayTooltip"
+            ref="tooltip"
+            :content="tooltip"
+        />
     </button>
 </template>
 
@@ -40,6 +45,7 @@ export default {
                     "icon-rounded",
                     "title-bar",
                     "link",
+                    "sort"
                 ].includes(value);
             },
         },
@@ -50,11 +56,6 @@ export default {
 
         // Icon của nút
         icon: {
-            type: String,
-        },
-
-        // Icon lấy từ sprites
-        iconSprites: {
             type: String,
         },
 
@@ -95,15 +96,7 @@ export default {
          * CreatedBy: hiennt200210 (23/08/2023)
          */
         iconClass() {
-            return "m-button__icon material-symbols-rounded";
-        },
-
-        /**
-         * Tạo các lớp CSS cho icon lấy từ sprites.
-         * CreatedBy: hiennt200210 (23/08/2023)
-         */
-        iconSpritesClass() {
-            return `icon icon-${this.iconSprites}`;
+            return `icon icon-${this.icon}`;
         },
     },
 

@@ -1,66 +1,142 @@
 <template>
     <div class="employee-detail">
-        <MForm title="Thông tin nhân viên">
+        <MForm :title="$resxLang.Heading.EmployeeDetail">
             <!-- Form Content -->
             <template #content>
                 <div class="content-1">
                     <!-- Column Left -->
                     <div class="column-left">
                         <div class="row-1">
-                            <MTextfield v-model="employee.employeeCode" label="Mã" required ref="first-input" />
-                            <MTextfield v-model="employee.fullName" label="Tên" required />
+                            <MTextfield
+                                v-model="employee.employeeCode"
+                                :label="$resxLang.Label.Code"
+                                required
+                                ref="first-input"
+                            />
+                            <MTextfield
+                                v-model="employee.fullName"
+                                :label="$resxLang.Label.Name"
+                                required
+                            />
                         </div>
 
                         <div class="row-2">
-                            <MLabel label="Đơn vị" required />
-                            <MCombobox v-model="employee.departmentId" value="departmentId"
-                                url="https://localhost:44376/api/Departments" propValue="departmentId"
-                                propText="departmentName">
+                            <MLabel
+                                :label="$resxLang.Label.Department"
+                                required
+                            />
+                            <MCombobox
+                                :url="departmentUrl"
+                                propValue="departmentId"
+                                propText="departmentName"
+                                :formValue="employee.departmentId"
+                                @getValue="getDepartmentOptions"
+                            >
                             </MCombobox>
                         </div>
 
                         <div class="row-3">
-                            <MTextfield v-model="employee.positionName" label="Chức danh" />
+                            <MTextfield
+                                v-model="employee.positionName"
+                                :label="$resxLang.Label.Position"
+                            />
                         </div>
                     </div>
 
                     <!-- Column Right -->
                     <div class="column-right">
                         <div class="row-1">
-                            <MDatePicker v-model="employee.dateOfBirth" label="Ngày sinh" id="birthdate" />
-                            <MRadioBox v-model="employee.gender" label="Giới tính">
-                                <MRadio label="Nam" id="male" name="gender" />
-                                <MRadio label="Nữ" id="female" name="gender" />
-                                <MRadio label="Khác" id="other" name="gender" />
+                            <MDatePicker
+                                v-model="employee.dateOfBirth"
+                                :label="$resxLang.Label.DateOfBirth"
+                                id="date-of-birth"
+                            />
+                            <MRadioBox :label="$resxLang.Label.Gender">
+                                <MRadio
+                                    v-model="employee.gender"
+                                    :label="$resxLang.Gender.Male"
+                                    id="male"
+                                    name="gender"
+                                    :value="$enums.Gender.Male"
+                                />
+                                <MRadio
+                                    v-model="employee.gender"
+                                    :label="$resxLang.Gender.Female"
+                                    id="female"
+                                    name="gender"
+                                    :value="$enums.Gender.Female"
+                                />
+                                <MRadio
+                                    v-model="employee.gender"
+                                    :label="$resxLang.Gender.Other"
+                                    id="other"
+                                    name="gender"
+                                    :value="$enums.Gender.Other"
+                                />
                             </MRadioBox>
                         </div>
 
                         <div class="row-2">
-                            <MTextfield v-model="employee.identityNumber" label="Số CCCD" tooltip="Số căn cước công dân" />
-                            <MDatePicker v-model="employee.identityDate" label="Ngày cấp" id="identity-date" />
+                            <MTextfield
+                                v-model="employee.identityNumber"
+                                :label="$resxLang.Label.IdentityNumber"
+                                :tooltip="$resxLang.Tooltip.IdentityNumber"
+                            />
+                            <MDatePicker
+                                v-model="employee.identityDate"
+                                :label="$resxLang.Label.IdentityDate"
+                                id="identity-date"
+                            />
                         </div>
 
                         <div class="row-3">
-                            <MTextfield v-model="employee.identityPlace" label="Nơi cấp" />
+                            <MTextfield
+                                v-model="employee.identityPlace"
+                                :label="$resxLang.Label.IdentityPlace"
+                            />
                         </div>
                     </div>
                 </div>
 
                 <div class="content-2">
                     <div class="row-1">
-                        <MTextfield v-model="employee.address" label="Địa chỉ" />
+                        <MTextfield
+                            v-model="employee.address"
+                            :label="$resxLang.Label.Address"
+                        />
                     </div>
 
                     <div class="row-2">
-                        <MTextfield v-model="employee.phoneNumber" label="ĐT di động" tooltip="Điện thoại di động" />
-                        <MTextfield v-model="employee.landlineNumber" label="ĐT cố định" tooltip="Điện thoại cố định" />
-                        <MTextfield v-model="employee.email" label="Email" placeHolder="example@email.com" />
+                        <MTextfield
+                            v-model="employee.phoneNumber"
+                            :label="$resxLang.Label.PhoneNumber"
+                            :tooltip="$resxLang.Tooltip.PhoneNumber"
+                        />
+                        <MTextfield
+                            v-model="employee.landlineNumber"
+                            :label="$resxLang.Label.LandlineNumber"
+                            :tooltip="$resxLang.Tooltip.LandlineNumber"
+                        />
+                        <MTextfield
+                            v-model="employee.email"
+                            :label="$resxLang.Label.Email"
+                            :placeHolder="$resxLang.PlaceHolder.Email"
+                        />
                     </div>
 
                     <div class="row-3">
-                        <MTextfield label="Tài khoản ngân hàng" v-model="employee.bankAccount" />
-                        <MTextfield label="Tên ngân hàng" v-model="employee.bankName" />
-                        <MTextfield label="Chi nhánh" v-model="employee.bankBranch" />
+                        <MTextfield
+                            :label="$resxLang.Label.BankAccount"
+                            v-model="employee.bankAccount"
+                        />
+                        <MTextfield
+                            :label="$resxLang.Label.BankName"
+                            v-model="employee.bankName"
+                        />
+                        <MTextfield
+                            :label="$resxLang.Label.BankBranch"
+                            v-model="employee.bankBranch"
+                        />
                     </div>
                 </div>
             </template>
@@ -69,54 +145,79 @@
             <template #action>
                 <div class="form-action">
                     <!-- Nút Hủy -->
-                    <MButton :type="$enums.Button.Secondary" :label="$resx[$langCode].Component.Button.Label
-                        .Cancel
-                        " @clickButton="onClickCancelButton" />
+                    <MButton
+                        :type="$enums.Button.Secondary"
+                        :label="$resxLang.Label.Cancel"
+                        @clickButton="onClickCancelButton"
+                    />
 
                     <!-- Nút Cất -->
-                    <MButton :type="$enums.Button.Secondary" :label="$resx[$langCode].Component.Button.Label
-                        .Store
-                        " @clickButton="onSave" />
+                    <MButton
+                        :type="$enums.Button.Secondary"
+                        :label="$resxLang.Label.Store"
+                        @clickButton="onSave"
+                    />
 
                     <!-- Nút Cất và thêm -->
-                    <MButton :type="$enums.Button.Primary" :label="$resx[$langCode].Component.Button.Label
-                        .StoreAndAdd
-                        " @clickButton="onSaveAndAdd" />
+                    <MButton
+                        :type="$enums.Button.Primary"
+                        :label="$resxLang.Label.StoreAndAdd"
+                        @clickButton="onSaveAndAdd"
+                    />
                 </div>
             </template>
         </MForm>
 
         <!-- Dialog -->
-        <MDialog v-if="dialog.display" :type="dialog.type" :title="dialog.title" :content="dialog.content"
-            @closeDialog="onCloseDialog">
-            <MButton @clickButton="onCloseDialog" :type="$enums.Button.Primary" :label="$resx[$langCode].Close" />
+        <!-- Dialog thông báo -->
+        <MDialog
+            v-if="dialog.display"
+            :type="dialog.type"
+            :title="dialog.title"
+            :content="dialog.content"
+            @closeDialog="onCloseDialog"
+        >
+            <!-- Nút phụ -->
+            <MButton
+                v-if="dialog.buttons.secondary"
+                :type="this.$enums.Button.Secondary"
+                :label="dialog.buttons.secondary"
+                @clickButton="onClickDialogSecondaryButton"
+            />
+
+            <!-- Nút chính -->
+            <MButton
+                :type="$enums.Button.Primary"
+                :label="dialog.buttons.primary"
+                @clickButton="onClickDialogPrimaryButton"
+            />
         </MDialog>
 
         <!-- Toast message -->
-        <MToastMessage v-if="showToastMessage" :toasts="[
-            {
-                type: $enums.ToastMessageType.Success,
-                message: $resx[$langCode].EmployeeAdd,
-                close: onCloseToastMessage,
-            },
-        ]" />
+        <MToast
+            v-if="toast.display"
+            :type="toast.type"
+            :message="toast.message"
+            :link="toast.link"
+            :action="toast.action"
+            @closeToastMessage="onCloseToastMessage"
+        />
     </div>
 </template>
 
 <script>
-import api from "@configs/api.js";
 import MButton from "@components/bases/buttons/MButton.vue";
 import MLabel from "@components/bases/labels/MLabel.vue";
 import MTextfield from "@components/bases/text-fields/MTextfield.vue";
 import MDatePicker from "@components/bases/date-pickers/MDatePicker.vue";
 import MDialog from "@components/bases/dialogs/MDialog.vue";
 import MForm from "@components/bases/forms/MForm.vue";
-import MToastMessage from "@components/bases/toast-message/MToastMessage.vue";
+import MToast from "@components/bases/toast-message/MToast.vue";
 import MRadioBox from "@components/bases/radios/MRadioBox.vue";
 import MRadio from "@components/bases/radios/MRadio.vue";
 import MCombobox from "@components/bases/combobox/MCombobox.vue";
-import department from "@services/department.js";
 import employee from "@services/employee.js";
+import api from "@configs/api.js";
 
 export default {
     name: "EmployeeDetail",
@@ -127,38 +228,60 @@ export default {
         MDatePicker,
         MDialog,
         MForm,
-        MToastMessage,
+        MToast,
         MRadioBox,
         MRadio,
         MCombobox,
     },
 
-    props: ["form-data"],
+    props: {
+        mode: {
+            type: Number,
+            default: 0,
+        },
+        data: {
+            type: Object,
+            default: {},
+        },
+    },
 
     data() {
         return {
             employee: {},
             showDialog: false,
             showToastMessage: false,
-            dialogTitle: "",
-            dialogDescription: "",
-            selected: null,
-            departmentOptions: [],
+            departmentUrl: `${api.baseUrl}api/v1/departments`,
+            toast: {
+                display: false,
+                type: "",
+                message: "",
+            },
             dialog: {
                 display: false,
-                type: `${this.$enums.DialogType.Error}`,
+                type: "",
                 title: "",
                 content: "",
+                buttons: {
+                    secondary: "",
+                    primary: "",
+                },
             },
         };
     },
 
     methods: {
         /**
-         * Hiển thị dialog.
+         * Hiển thị dialog thông báo.
+         * @param {*} dialog Thông tin thông báo
          * CreatedBy: hiennt200210 (20/08/2023)
          */
-        onShowDialog() {
+        onShowDialog(dialog) {
+            this.dialog.type = dialog.type;
+            this.dialog.title = dialog.title;
+            this.dialog.content = dialog.content;
+            this.dialog.buttons = dialog.buttons;
+            this.onClickDialogSecondaryButton = dialog.secondaryAction;
+            this.onClickDialogPrimaryButton = dialog.primaryAction;
             this.dialog.display = true;
         },
 
@@ -168,6 +291,22 @@ export default {
          */
         onCloseDialog() {
             this.dialog.display = false;
+        },
+
+        /**
+         * Xử lý sự kiện click secondary button trên dialog.
+         * CreatedBy: hiennt200210 (20/08/2023)
+         */
+        onClickDialogSecondaryButton() {
+            this.dialog.display = false;
+        },
+
+        /**
+         * Xử lý sự kiện click primary button trên dialog.
+         * CreatedBy: hiennt200210 (20/08/2023)
+         */
+        onClickDialogPrimaryButton() {
+            // Chưa gán hành động nào
         },
 
         /**
@@ -182,9 +321,16 @@ export default {
          * Hiển thị toast message trong 5 giây, sau đó ẩn.
          * CreatedBy: hiennt200210 (20/08/2023)
          */
-        onShowToastMessage() {
-            this.showDialog = false;
-            this.showToastMessage = true;
+        onShowToastMessage(toast) {
+            this.toast.type = toast.type;
+            this.toast.message = toast.message;
+            this.toast.link = toast.link;
+            this.toast.action = toast.action;
+            this.toast.close = toast.close;
+            this.toast.display = true;
+            setTimeout(() => {
+                this.toast.display = false;
+            }, 5000);
         },
 
         /**
@@ -192,18 +338,7 @@ export default {
          * CreatedBy: hiennt200210 (20/08/2023)
          */
         onCloseToastMessage() {
-            this.showToastMessage = false;
-            this.showEmployeeDetail = false;
-        },
-
-        /**
-         * Kiểm tra các trường dữ liệu bắt buộc có bị trống hay không.
-         * CreatedBy: hiennt200210 (24/08/2023)
-         */
-        validateData() {
-            if (this.employee.code === "" || this.employee.fullName === "") {
-                this.onShowDialog();
-            }
+            this.toast.display = false;
         },
 
         /**
@@ -225,75 +360,179 @@ export default {
         },
 
         /**
-         * Xử lý lỗi.
-         * CreatedBy: hiennt200210 (30/08/2023)
-         */
-        errorHandle(error) {
-            const statusCode = error.response.status;
-            let userMessage = error.response.MoreInfo;
-
-            this.dialogDescription = userMessage;
-            this.showDialog = true;
-
-            switch (statusCode) {
-                case 400:
-                    this.dialogTitle =
-                        this.$resx[this.$langCode].BadRequest;
-                    break;
-                case 401:
-                    this.dialogTitle =
-                        this.$resx[this.$langCode].UnAuthorized;
-                    break;
-                case 500:
-                    this.dialogTitle =
-                        this.$resx[
-                            this.$langCode
-                        ].InternalServerError;
-                    this.dialogDescription =
-                        this.$resx[
-                            this.$langCode
-                        ].InternalServerErrorMessage;
-                    break;
-            }
-        },
-
-        /**
          * Lưu dữ liệu khi nhấn Cất.
          * CreatedBy: hiennt200210 (30/08/2023)
          */
-        onSave() {
-            employee.insert(this.employee);
-            this.$emit("closeEmployeeForm");
-            this.$emitter.emit("showToastMessage");
+        async onSave() {
+            if (this.mode == this.$enums.Form.Edit) {
+                try {
+                    const response = await employee.update(
+                        this.employee.employeeId,
+                        this.employee
+                    );
+                    console.log(response);
+                    this.$emit("updateSuccess");
+                } catch (error) {
+                    console.log(error);
+                    this.onShowDialog({
+                        type: this.$enums.Dialog.Error,
+                        title: error.response.data.UserMessage,
+                        content: error.response.data.Errors,
+                        buttons: {
+                            primary: this.$resxLang.Label.Close,
+                        },
+                        primaryAction: this.onCloseDialog,
+                    });
+                }
+            } else {
+                try {
+                    const response = await employee.insert(this.employee);
+                    console.log(response);
+                    this.$emit("insertSuccess");
+                } catch (error) {
+                    console.log(error);
+                    this.onShowDialog({
+                        type: "error",
+                        title: error.response.data.UserMessage,
+                        content: error.response.data.Errors,
+                        buttons: {
+                            primary: this.$resxLang.Label.Close,
+                        },
+                        primaryAction: this.onCloseDialog,
+                    });
+                }
+            }
         },
 
         /**
          * Lưu dữ liệu và reset form khi nhấn Cất và thêm.
          * CreatedBy: hiennt200210 (30/08/2023)
          */
-        onSaveAndAdd() {
-            employee.insert(this.employee);
-            this.employee.employeeCode = "";
-            this.employee.fullName = "";
-            this.employee.dateOfBirth = "";
-            this.employee.gender = 0;
-            this.employee.identityNumber = "";
-            this.employee.identityDate = "";
-            this.employee.identityPlace = "";
-            this.employee.address = "";
-            this.employee.phoneNumber = "";
-            this.employee.landline = "";
-            this.employee.email = "";
-            this.employee.bankAccount = "";
-            this.employee.bankName = "";
-            this.employee.bankBranch = "";
-            this.employee.positionName = "";
+        async onSaveAndAdd() {
+            if (this.mode == this.$enums.Form.Edit) {
+                try {
+                    const response = await employee.update(
+                        this.employee.employeeId,
+                        this.employee
+                    );
+                    console.log(response);
+                    // Hiển thị toast message
+                    this.onShowToastMessage({
+                        type: this.$enums.Toast.Success,
+                        message: this.$resxLang.EmployeeUpdate,
+                    });
+                    // Lấy mã nhân viên mới
+                    try {
+                        this.employee.employeeCode =
+                            await this.getNewEmployeeCode();
+                    } catch (error) {
+                        this.employee.employeeCode = "";
+                    }
+                    this.$refs["first-input"].focus();
+                    this.employee.fullName = "";
+                    this.employee.dateOfBirth = "";
+                    this.employee.gender = 0;
+                    this.employee.identityNumber = "";
+                    this.employee.identityDate = "";
+                    this.employee.identityPlace = "";
+                    this.employee.address = "";
+                    this.employee.phoneNumber = "";
+                    this.employee.landline = "";
+                    this.employee.email = "";
+                    this.employee.bankAccount = "";
+                    this.employee.bankName = "";
+                    this.employee.bankBranch = "";
+                    this.employee.positionName = "";
+                    this.employee.departmentId = "";
+                } catch (error) {
+                    console.log(error);
+                    this.onShowDialog({
+                        type: this.$enums.Dialog.Error,
+                        title: error.response.data.UserMessage,
+                        content: error.response.data.Errors,
+                        buttons: {
+                            primary: this.$resxLang.Label.Close,
+                        },
+                        primaryAction: this.onCloseDialog,
+                    });
+                }
+            } else {
+                try {
+                    const response = await employee.insert(this.employee);
+                    console.log(response);
+                    // Hiển thị toast message
+                    this.onShowToastMessage({
+                        type: this.$enums.Toast.Success,
+                        message: this.$resxLang.EmployeeAdd,
+                    });
+                    // Lấy mã nhân viên mới
+                    try {
+                        this.employee.employeeCode =
+                            await this.getNewEmployeeCode();
+                    } catch (error) {
+                        this.employee.employeeCode = "";
+                    }
+                    this.$refs["first-input"].focus();
+                    this.employee.fullName = "";
+                    this.employee.dateOfBirth = "";
+                    this.employee.gender = 0;
+                    this.employee.identityNumber = "";
+                    this.employee.identityDate = "";
+                    this.employee.identityPlace = "";
+                    this.employee.address = "";
+                    this.employee.phoneNumber = "";
+                    this.employee.landline = "";
+                    this.employee.email = "";
+                    this.employee.bankAccount = "";
+                    this.employee.bankName = "";
+                    this.employee.bankBranch = "";
+                    this.employee.positionName = "";
+                    this.employee.departmentId = "";
+                } catch (error) {
+                    console.log(error);
+                    this.onShowDialog({
+                        type: this.$enums.Dialog.Error,
+                        title: error.response.data.UserMessage,
+                        content: error.response.data.Errors,
+                        buttons: {
+                            primary: this.$resxLang.Label.Close,
+                        },
+                        primaryAction: this.onCloseDialog,
+                    });
+                }
+            }
+        },
+
+        /**
+         * Lấy giá trị của phòng ban.
+         * CreatedBy: hiennt200210 (26/09/2023)
+         */
+        getDepartmentOptions(value, text) {
+            this.employee.departmentId = value;
         },
     },
 
     async created() {
-        // Lấy mã nhân viên mới
-        this.employee.employeeCode = await this.getNewEmployeeCode();
+        if (this.mode === this.$enums.Form.Edit) {
+            console.log(this.data);
+            this.employee = this.data;
+            this.employee.dateOfBirth = new Date(this.employee.dateOfBirth);
+        } else if (this.mode === this.$enums.Form.Duplicate) {
+            this.employee = this.data;
+            // Lấy mã nhân viên mới
+            try {
+                this.employee.employeeCode = await this.getNewEmployeeCode();
+            } catch (error) {
+                this.employee.employeeCode = "";
+            }
+        } else {
+            // Lấy mã nhân viên mới
+            try {
+                this.employee.employeeCode = await this.getNewEmployeeCode();
+            } catch (error) {
+                this.employee.employeeCode = "";
+            }
+        }
     },
 
     mounted() {

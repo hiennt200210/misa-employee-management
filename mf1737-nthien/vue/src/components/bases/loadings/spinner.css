@@ -8,6 +8,7 @@
     justify-content: center;
     height: 100%;
     width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 #loading-bar-spinner.spinner {

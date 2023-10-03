@@ -9,15 +9,11 @@ namespace MISA.AspNetCore.Application
 {
     public class DepartmentUpdateDto : BaseDto
     {
-        #region Properties
-
         /// <summary>
         /// Tên phòng ban
         /// </summary>
         [Required]
         [MaxLength(255)]
         public string? DepartmentName { get; set; }
-
-        #endregion
     }
 }

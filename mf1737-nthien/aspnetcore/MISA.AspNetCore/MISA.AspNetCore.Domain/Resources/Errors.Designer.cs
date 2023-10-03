@@ -61,6 +61,15 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Địa chỉ không được dài hơn 255 ký tự.
+        /// </summary>
+        public static string AddressExceedMaxLength {
+            get {
+                return ResourceManager.GetString("AddressExceedMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đầu vào không hợp lệ.
         /// </summary>
         public static string BadRequest {
@@ -70,11 +79,56 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Số tài khoản không được dài hơn 25 ký tự.
+        /// </summary>
+        public static string BankAccountExceedMaxLength {
+            get {
+                return ResourceManager.GetString("BankAccountExceedMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên chi nhánh không được dài hơn 255 ký tự.
+        /// </summary>
+        public static string BankBranchExceedMaxLength {
+            get {
+                return ResourceManager.GetString("BankBranchExceedMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên ngân hàng không được dài hơn 255 ký tự.
+        /// </summary>
+        public static string BankNameExceedMaxLength {
+            get {
+                return ResourceManager.GetString("BankNameExceedMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tài nguyên bị trùng.
         /// </summary>
         public static string Conflict {
             get {
                 return ResourceManager.GetString("Conflict", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày sinh không hợp lệ.
+        /// </summary>
+        public static string DateOfBirthInvalid {
+            get {
+                return ResourceManager.GetString("DateOfBirthInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đơn vị không được phép để trống.
+        /// </summary>
+        public static string DepartmentCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("DepartmentCannotBeEmpty", resourceCulture);
             }
         }
         
@@ -97,11 +151,47 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email không được dài hơn 100 ký tự.
+        /// </summary>
+        public static string EmailExceedMaxLength {
+            get {
+                return ResourceManager.GetString("EmailExceedMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email không đúng định dạng.
+        /// </summary>
+        public static string EmailInvalid {
+            get {
+                return ResourceManager.GetString("EmailInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã nhân viên không được phép để trống.
+        /// </summary>
+        public static string EmployeeCodeCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("EmployeeCodeCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mã nhân viên đã tồn tại.
         /// </summary>
         public static string EmployeeCodeDuplicated {
             get {
                 return ResourceManager.GetString("EmployeeCodeDuplicated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã nhân viên không được dài hơn 20 ký tự.
+        /// </summary>
+        public static string EmployeeCodeExceedMaxLength {
+            get {
+                return ResourceManager.GetString("EmployeeCodeExceedMaxLength", resourceCulture);
             }
         }
         
@@ -115,6 +205,60 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tên nhân viên không được phép để trống.
+        /// </summary>
+        public static string FullNameCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("FullNameCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên nhân viên không được dài hơn 100 ký tự.
+        /// </summary>
+        public static string FullNameExceedMaxLength {
+            get {
+                return ResourceManager.GetString("FullNameExceedMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giới tính không hợp lệ.
+        /// </summary>
+        public static string GenderInvalid {
+            get {
+                return ResourceManager.GetString("GenderInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày cấp không hợp lệ.
+        /// </summary>
+        public static string IdentityDateInvalid {
+            get {
+                return ResourceManager.GetString("IdentityDateInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số CCCD không được dài hơn 25 ký tự.
+        /// </summary>
+        public static string IdentityNumberExceedMaxLength {
+            get {
+                return ResourceManager.GetString("IdentityNumberExceedMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nơi cấp không được dài hơn 255 ký tự.
+        /// </summary>
+        public static string IdentityPlaceExceedMaxLength {
+            get {
+                return ResourceManager.GetString("IdentityPlaceExceedMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lỗi hệ thống.
         /// </summary>
         public static string InternalServerError {
@@ -124,11 +268,47 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Số điện thoại cố định không được dài hơn 50 ký tự.
+        /// </summary>
+        public static string LandlineNumberExceedMaxLength {
+            get {
+                return ResourceManager.GetString("LandlineNumberExceedMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Không tìm thấy tài nguyên.
         /// </summary>
         public static string NotFound {
             get {
                 return ResourceManager.GetString("NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số điện thoại di động không được dài hơn 50 ký tự.
+        /// </summary>
+        public static string PhoneNumberExceedMaxLength {
+            get {
+                return ResourceManager.GetString("PhoneNumberExceedMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chức vụ không được dài hơn 255 ký tự.
+        /// </summary>
+        public static string PositionNameExceedMaxLength {
+            get {
+                return ResourceManager.GetString("PositionNameExceedMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mức lương không được phép âm.
+        /// </summary>
+        public static string SalaryInvalid {
+            get {
+                return ResourceManager.GetString("SalaryInvalid", resourceCulture);
             }
         }
         

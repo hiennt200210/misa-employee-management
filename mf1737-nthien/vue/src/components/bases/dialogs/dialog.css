@@ -18,7 +18,7 @@
     width: 400px;
     padding: 24px;
     position: relative;
-    bottom: 3%;
+    bottom: 5%;
 }
 
 .m-dialog > *:not(:first-child) {
@@ -37,45 +37,25 @@
     align-items: flex-start;
 }
 
-.material-symbols-rounded {
-  font-variation-settings:
-  'FILL' 1,
-  'wght' 500,
-  'GRAD' 0,
-  'opsz' 24
-}
-
-.dialog-content span {
+.dialog-content .icon {
     height: 36px;
-    width: 36px;
-    font-weight: 600;
-    font-size: 36px;
-    margin-right: 8px;
+    width: 40px;
+    margin-right: 12px;
 }
 
-.icon-cancel {
-    color: var(--danger-color);
-}
-
-.icon-error {
-    color: var(--warning-color);
-}
-
-.icon-info {
-    color: var(--information-color);
-}
-
-.content-text {
+.dialog-content .notification {
+    height: fit-content;
+    width: calc(100% - 40px);
     font-family: var(--default-font-family);
     font-size: var(--default-font-size);
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
-.dialog-action {
+.dialog-content .notification ul {
+    list-style: none;
+}
+
+.dialog-action {    
     display: flex;
     justify-content: flex-end;
-}
-
-.dialog-action > *:not(:first-child) {
-    margin-left: 8px;
 }

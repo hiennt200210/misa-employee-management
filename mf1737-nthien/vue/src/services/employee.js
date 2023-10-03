@@ -16,13 +16,24 @@ export default {
         }
     },
 
-    async getByFilter(limit, offset) {
-        const url =
+    async getByFilter(limit, offset, order, search) {
+        let url =
             api.baseUrl +
-            "api/v1/employees?limit=" +
+            "api/v1/employees/pagination?limit=" +
             limit +
             "&offset=" +
-            offset;
+            offset +
+            "&orders=" +
+            order;
+        if (search) {
+            url +=
+                "&FullName=" +
+                search +
+                "&EmployeeCode=" +
+                search +
+                "&PhoneNumber=" +
+                search;
+        }
         const response = await axios.get(url);
         return response;
     },
@@ -46,14 +57,10 @@ export default {
      * CreatedBy: hiennt200210 (26/09/2023)
      */
     async getNewEmployeeCode() {
-        try {
-            const response = await axios.get(
-                api.baseUrl + "api/v1/employees/newEmployeeCode"
-            );
-            return response;
-        } catch (error) {
-            this.handleError(error);
-        }
+        const response = await axios.get(
+            api.baseUrl + "api/v1/employees/newEmployeeCode"
+        );
+        return response;
     },
 
     /**
@@ -63,15 +70,11 @@ export default {
      * CreatedBy: hiennt200210 (26/09/2023)
      */
     async insert(employee) {
-        try {
-            const response = await axios.post(
-                api.baseUrl + "api/v1/employees",
-                employee
-            );
-            return response;
-        } catch (error) {
-            this.handleError(error);
-        }
+        const response = await axios.post(
+            api.baseUrl + "api/v1/employees",
+            employee
+        );
+        return response;
     },
 
     /**
@@ -82,15 +85,11 @@ export default {
      * CreatedBy: hiennt200210 (26/09/2023)
      */
     async update(id, employee) {
-        try {
-            const response = await axios.put(
-                api.baseUrl + "api/v1/employees/" + id,
-                employee
-            );
-            return response;
-        } catch (error) {
-            this.handleError(error);
-        }
+        const response = await axios.put(
+            api.baseUrl + "api/v1/employees/" + id,
+            employee
+        );
+        return response;
     },
 
     /**
@@ -107,7 +106,7 @@ export default {
             return response;
         } catch (error) {
             // this.$helpers.handleError(error);
-            console.log(error.response.data);
+            // console.log(error.response.data);
         }
     },
 
@@ -118,16 +117,11 @@ export default {
      * CreatedBy: hiennt200210 (26/09/2023)
      */
     async deleteMultiple(ids) {
-        try {
-            let url = api.baseUrl + "api/v1/employees?";
-            ids.forEach((id) => {
-                url += `ids=${id}&`;
-            });
-            const response = await axios.delete(url);
-            return response;
-        } catch (error) {
-            // $helpers.handleError(error);
-            console.log(error.response.data);
-        }
+        let url = api.baseUrl + "api/v1/employees?";
+        ids.forEach((id) => {
+            url += `ids=${id}&`;
+        });
+        const response = await axios.delete(url);
+        return response;
     },
 };

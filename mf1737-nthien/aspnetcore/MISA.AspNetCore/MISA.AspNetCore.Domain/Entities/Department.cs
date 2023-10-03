@@ -9,8 +9,6 @@ namespace MISA.AspNetCore.Domain
 {
     public class Department : BaseEntity, TEntity
     {
-        #region Properties
-
         /// <summary>
         /// Định danh của phòng ban
         /// </summary>
@@ -20,17 +18,5 @@ namespace MISA.AspNetCore.Domain
         /// Tên phòng ban
         /// </summary>
         public string? DepartmentName { get; set; }
-
-        public Guid GetId()
-        {
-            return DepartmentId;
-        }
-
-        public void SetId(Guid id)
-        {
-            DepartmentId = id;
-        }
-
-        #endregion
     }
 }

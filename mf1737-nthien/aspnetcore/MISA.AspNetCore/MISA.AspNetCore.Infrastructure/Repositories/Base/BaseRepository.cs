@@ -40,7 +40,15 @@ namespace MISA.AspNetCore.Infrastructure
 
             if (result == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException()
+                {
+                    ErrorCode = ErrorCode.NotFound,
+                    DevMessage = Domain.Resources.Errors.NotFound,
+                    UserMessage = Domain.Resources.Errors.NotFound,
+                    MoreInfo = "",
+                    TraceId = "",
+                    Errors = new List<string>() { Domain.Resources.Errors.NotFound }
+                };
             }
 
             return result.ToList();
@@ -72,25 +80,6 @@ namespace MISA.AspNetCore.Infrastructure
             {
                 throw new NotFoundException();
             }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Lấy số lượng bản ghi
-        /// </summary>
-        /// <returns>Số lượng bản ghi</returns>
-        /// CreatedBy: hiennt200210 (16/09/2023)
-        public async Task<int> CountAsync()
-        {
-            // Tạo kết nối với database
-            var DbConnection = DbConnectionService.GetConnection();
-            
-            // Tạo câu truy vấn
-            var sql = $"SELECT COUNT(*) FROM {TableName}";
-
-            // Thực thi câu truy vấn
-            var result = await DbConnection.ExecuteScalarAsync<int>(sql);
 
             return result;
         }

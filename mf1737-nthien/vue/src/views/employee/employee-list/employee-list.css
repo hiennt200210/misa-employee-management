@@ -25,6 +25,7 @@
 /* Page Content */
 
 .page-content {
+    position: relative;
     height: calc(100% - 48px);
     width: 100%;
     border-radius: var(--default-border-radius);

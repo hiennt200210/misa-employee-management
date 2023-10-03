@@ -9,12 +9,10 @@ namespace MISA.AspNetCore.Application
 {
     public class BaseDto
     {
-        #region Properties
-
         /// <summary>
         /// Ngày tạo
         /// </summary>
-        public DateTime? CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         /// <summary>
         /// Tạo bởi
@@ -25,14 +23,12 @@ namespace MISA.AspNetCore.Application
         /// <summary>
         /// Ngày sửa đổi
         /// </summary>
-        public DateTime? ModifiedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
 
         /// <summary>
         /// Sửa đổi bởi
         /// </summary>
         [MaxLength(255)]
         public string? ModifiedBy { get; set; }
-
-        #endregion
     }
 }

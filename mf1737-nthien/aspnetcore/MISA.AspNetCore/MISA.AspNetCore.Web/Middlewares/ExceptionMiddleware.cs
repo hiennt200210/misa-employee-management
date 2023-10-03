@@ -50,17 +50,18 @@ namespace MISA.AspNetCore.Web
                     }.ToString() ?? ""
                 );
             }
-            else if (exception is ValidationException)
+            else if (exception is ValidationException validationException)
             {
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
 
                 await context.Response.WriteAsync(
                     text: new BaseException()
                     {
+                        ErrorCode = ErrorCode.BadRequest,
                         UserMessage = Domain.Resources.Errors.BadRequest,
                         DevMessage = exception.Message,
                         TraceId = context.TraceIdentifier,
-                        Errors = "Hello",
+                        Errors = "",
                         MoreInfo = exception.HelpLink
                     }.ToString() ?? ""
                 );
@@ -136,6 +137,7 @@ namespace MISA.AspNetCore.Web
                 await context.Response.WriteAsync(
                     text: new BaseException()
                     {
+                        ErrorCode = ErrorCode.InternalServerError,
                         UserMessage = Domain.Resources.Errors.InternalServerError,
                         DevMessage = exception.Message,
                         TraceId = context.TraceIdentifier,

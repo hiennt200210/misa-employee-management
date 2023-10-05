@@ -16,6 +16,8 @@ export default {
         MLabel,
     },
     props: ["label"],
+
+    
 };
 </script>
 

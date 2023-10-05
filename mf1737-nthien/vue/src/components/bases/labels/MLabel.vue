@@ -2,8 +2,10 @@
     <label
         class="m-label"
         :for="id"
+        @click="onClick"
         @mouseover="onShowTooltip"
-        @mouseout="onHideTooltip">
+        @mouseout="onHideTooltip"
+    >
         {{ label }}
 
         <!-- Dấu sao của các trường bắt buộc -->
@@ -39,8 +41,16 @@ export default {
 
     methods: {
         /**
+         * Xử lý sự kiện click vào nhãn.
+         * CreatedBy: hiennt200210 (07/09/2023)
+         */
+        onClick() {
+            this.$emit("clickLabel");
+        },
+        
+        /**
          * Hiển thị tooltip.
-         * CreatedBy: hiennt200210 (2023/09/07)
+         * CreatedBy: hiennt200210 (07/09/2023)
          */
         onShowTooltip() {
             this.showTooltip = true;
@@ -48,7 +58,7 @@ export default {
 
         /**
          * Ẩn tooltip.
-         * CreatedBy: hiennt200210 (2023/09/07)
+         * CreatedBy: hiennt200210 (07/09/2023)
          */
         onHideTooltip() {
             this.showTooltip = false;

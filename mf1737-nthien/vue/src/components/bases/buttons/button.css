@@ -13,6 +13,14 @@
     cursor: pointer;
 }
 
+.m-button:focus {
+    outline: 2px solid black;
+}
+
+.m-button:active {
+    outline: none;
+}
+
 /* CSS cho primary button */
 .m-button--primary {
     min-width: 80px;
@@ -24,10 +32,6 @@
 
 .m-button--primary:hover {
     background-color: var(--primary-color--hover);
-}
-
-.m-button--primary:focus {
-    /* outline: var(--default-outline-size) solid var(--primary-color--focus); */
 }
 
 .m-button--primary:active {
@@ -48,10 +52,6 @@
 
 .m-button--primary-icon:hover {
     background-color: var(--primary-color--hover);
-}
-
-.m-button--primary-icon:focus {
-    /* outline: var(--default-outline-size) solid var(--primary-color--focus); */
 }
 
 .m-button--primary-icon:active {
@@ -82,10 +82,6 @@
     background-color: var(--secondary-color--hover);
 }
 
-.m-button--secondary:focus {
-    /* outline: var(--default-outline-size) solid var(--secondary-color--focus); */
-}
-
 .m-button--secondary:active {
     background-color: var(--secondary-color--active);
 }
@@ -106,10 +102,6 @@
     background-color: var(--secondary-color--hover);
 }
 
-.m-button--secondary-icon:focus {
-    /* outline: var(--default-outline-size) solid var(--secondary-color--focus); */
-}
-
 .m-button--secondary-icon:active {
     background-color: var(--secondary-color--active);
 }
@@ -127,10 +119,6 @@
 
 .m-button--icon:hover {
     background-color: var(--secondary-color--hover);
-}
-
-.m-button--icon:focus {
-    /* outline: var(--default-outline-size) solid var(--secondary-color--focus); */
 }
 
 .m-button--icon:active {
@@ -156,10 +144,6 @@
 
 .m-button--icon-rounded:hover {
     background-color: var(--secondary-color--hover);
-}
-
-.m-button--icon-rounded:focus {
-    /* outline: var(--default-outline-size) solid var(--secondary-color--focus); */
 }
 
 .m-button--icon-rounded:active {
@@ -206,19 +190,6 @@
 
 .m-button--link:active {
     color: var(--primary-color--active);
-}
-
-/* CSS cho button sort */
-.m-button--sort {
-    height: 20px;
-    width: 20px;
-    border: none;
-    background-color: transparent;
-}
-
-.m-button--sort .icon {
-    height: 16px;
-    width: 16px;
 }
 
 /* Disabled buttons */

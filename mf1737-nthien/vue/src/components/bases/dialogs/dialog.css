@@ -11,7 +11,7 @@
     z-index: 4;
 }
 
-.m-dialog {
+.dialog {
     background-color: var(--secondary-color);
     border-radius: var(--default-border-radius);
     height: fit-content;
@@ -21,7 +21,7 @@
     bottom: 5%;
 }
 
-.m-dialog > *:not(:first-child) {
+.dialog > *:not(:first-child) {
     margin-top: 24px;
 }
 

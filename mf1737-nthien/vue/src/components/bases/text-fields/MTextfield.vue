@@ -8,6 +8,7 @@
             :label="label"
             :tooltip="tooltip"
             :required="required"
+            @clickLabel="focus"
         />
 
         <!-- Ô nhập -->
@@ -19,6 +20,7 @@
                 :placeholder="placeHolder"
                 :value="modelValue"
                 @input="emitValue"
+                @blur="validateInput"
             />
 
             <!-- Icon trên ô nhập -->
@@ -27,12 +29,17 @@
 
         <!-- Thông báo xác thực đầu vào -->
         <div v-if="showErrorMessage" class="error-message">
-            {{ `${label} ${$resxLang.CannotBeEmpty}.` }}
+            {{ `${label} ${message}` }}
         </div>
     </div>
 </template>
 
 <script>
+import {
+    validateEmpty,
+    validateMaxLength,
+    validateEmail,
+} from "@helpers/helpers";
 import MLabel from "@components/bases/labels/MLabel.vue";
 
 export default {
@@ -54,11 +61,12 @@ export default {
         placeHolder: String,
         icon: String,
         modelValue: String,
+        maxLength: Number,
 
         // Hàm xác thực dữ liệu đầu vào
         validate: {
             type: Function,
-            default: () => true,
+            default: validateEmail,
         },
     },
 
@@ -66,6 +74,7 @@ export default {
         return {
             value: "",
             showErrorMessage: false,
+            message: "",
         };
     },
 
@@ -103,14 +112,50 @@ export default {
          */
         focus() {
             this.$refs["input"].focus();
+            this.$refs["input"].select();
         },
 
         /**
          * Kiểm tra dữ liệu hợp lệ.
          * CreatedBy: hiennt200210 (24/08/2023)
          */
-        validateInput() {
-            if (this.required) this.showErrorMessage = this.value === "";
+        validateInput(e) {
+            if (this.required) {
+                if (!validateEmpty(e.target.value)) {
+                    this.message = this.$resx.CannotBeEmpty;
+                    this.showErrorMessage = true;
+                } else {
+                    if (!validateMaxLength(e.target.value, this.maxLength)) {
+                        this.message = `${this.$resx.MaxLengthExceeded} ${this.maxLength} ${this.$resx.Character}`;
+                        this.showErrorMessage = true;
+                    } else {
+                        const result = this.validate(e.target.value);
+                        if (this.label === "Email") {
+                            if (result !== "") {
+                                this.message = result;
+                                this.showErrorMessage = true;
+                            }
+                        } else {
+                            this.showErrorMessage = false;
+                        }
+                    }
+                }
+            } else {
+                if (!validateMaxLength(e.target.value, this.maxLength)) {
+                    this.message = `${this.$resx.MaxLengthExceeded} ${this.maxLength} ${this.$resx.Character}`;
+                    this.showErrorMessage = true;
+                } else {
+                    const result = this.validate(e.target.value);
+                    if (this.label === "Email") {
+                        if (result !== "") {
+                            this.message = result;
+                            this.showErrorMessage = true;
+                        }
+                    } else {
+                        this.showErrorMessage = false;
+                    }
+                }
+            }
         },
 
         /**
@@ -119,7 +164,15 @@ export default {
          */
         emitValue(e) {
             this.$emit("update:modelValue", e.target.value);
-            if (this.required) this.showErrorMessage = e.target.value === "";
+            this.validateInput(e);
+        },
+
+        /**
+         * Xác thực dữ liệu được nhập cho input khi mất focus.
+         * CreatedBy: hiennt200210 (24/08/2023)
+         */
+        onBlur(e) {
+            // this.validateInput(e.target.value);
         },
 
         /**

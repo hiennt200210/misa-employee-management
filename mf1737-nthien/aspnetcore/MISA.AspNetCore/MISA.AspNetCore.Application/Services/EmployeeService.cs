@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MISA.AspNetCore.Domain;
 using MISA.AspNetCore.Domain.Entities.Base;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,185 @@ namespace MISA.AspNetCore.Application
             _employeeRepository = employeeRepository;
             _departmentRepository = departmentRepository;
             _mapper = mapper;
+        }
+
+        /// <summary>
+        /// Xuất file danh sách nhân viên theo bộ lọc
+        /// </summary>
+        /// <param name="search">Từ khoá tìm kiếm (Mã nhân viên, Họ và tên, Số điện thoại)</param>
+        /// <param name="orders">Sắp xếp theo các trường (VD: EmployeeCode, +FullName, -PhoneNumber)</param>
+        /// <returns>File danh sách nhân viên theo kết quả lọc</returns>
+        /// CreatedBy: hiennt200210 (02/10/2023)
+        public async Task<EmployeeExportDto> ExportAsync(string? search, List<string>? orders)
+        {
+            // Lấy dữ liệu
+            var paginationDto = await PagingAsync(0, 0, search, search, search, orders);
+
+            var employeeDtos = paginationDto.Data;
+
+            //var employeeExportExcelTasks = employeeDtos.Select(async (employee, index) => await MapEmployeeToEmployeeExportExcel(employee, index));
+
+            List<EmployeeExportExcelDto> employeeExportExcelTasks = new();
+
+            for (int i = 0; i < employeeDtos.Count; i++)
+            {
+                var employee = employeeDtos[i];
+                var employeeExportExcel = await MapEmployeeToEmployeeExportExcel(employee, i);
+                employeeExportExcelTasks.Add(employeeExportExcel);
+            }
+
+            var data = employeeExportExcelTasks;
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add(Domain.Resources.Employee.EmployeesUpperCase);
+
+                // Thiết lập độ rộng cột
+                var columnWidths = new double[] { 5, 20, 30, 15, 20, 25, 25, 20, 30 };
+                for (int i = 0; i < columnWidths.Length; i++)
+                {
+                    worksheet.Column(i + 1).Width = columnWidths[i];
+                }
+
+                // Định dạng cho tên cột và dòng tiêu đề
+                var columnHeaderStyle = worksheet.Cells["A3:I3"].Style;
+                columnHeaderStyle.Font.Bold = true;
+                columnHeaderStyle.Font.Size = 12;
+                columnHeaderStyle.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                columnHeaderStyle.VerticalAlignment = ExcelVerticalAlignment.Center;
+                columnHeaderStyle.Fill.PatternType = ExcelFillStyle.Solid;
+                columnHeaderStyle.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+
+                // Merge hai dòng tiêu đề đầu
+                var headerRow = worksheet.Cells["A1:I1"];
+                worksheet.Row(1).Height = 25;
+                headerRow.Merge = true;
+                headerRow.Value = Domain.Resources.Employee.EmployeesUpperCase;
+                headerRow.Style.Font.Size = 16;
+                headerRow.Style.Font.Bold = true;
+                headerRow.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                headerRow.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                var headerRow2 = worksheet.Cells["A2:I2"];
+                worksheet.Row(2).Height = 25;
+                headerRow2.Merge = true;
+                headerRow2.Value = String.Empty;
+                headerRow2.Style.Font.Size = 16;
+                headerRow2.Style.Font.Bold = true;
+                headerRow2.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                headerRow2.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                // Định dạng cho border
+                var dataRange = worksheet.Cells["A3:I3"].LoadFromCollection(data, true);
+                dataRange.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                dataRange.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                dataRange.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                dataRange.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+
+                // Căn giữa các cột
+                worksheet.Cells["A3:A" + (data.Count + 3)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                worksheet.Cells["E3:E" + (data.Count + 3)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                //// Đặt phông chữ
+                //var fontArial = worksheet.Cells.Style.Font;
+                //fontArial.Name = "Arial";
+                //worksheet.Cells["A1:I3"].Style.Font = fontArial;
+
+                //var fontTimesNewRoman = worksheet.Cells.Style.Font;
+                //fontTimesNewRoman.Name = "Times New Roman";
+                //worksheet.Cells["A4:A"].Style.Font = fontTimesNewRoman;
+
+                // Chuyển đổi tệp Excel thành mảng byte và trả về 
+                var fileBytes = package.GetAsByteArray();
+                var result = new EmployeeExportDto()
+                {
+                    File = fileBytes,
+                    MimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    FileName = "DanhSachNhanVien.xlsx"
+                };
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Chuyển đổi Employee sang EmployeeExportExcelDto
+        /// </summary>
+        /// <param name="employee">Nhân viên</param>
+        /// <param name="index">indexx</param>
+        /// <returns>EmployeeExportExcelDto</returns>
+        private async Task<EmployeeExportExcelDto> MapEmployeeToEmployeeExportExcel(EmployeeDto employee, int index)
+        {
+            var dateOfBirthFormat = "";
+            var identityDateFormat = "";
+            var genderFormat = "";
+
+            if (employee.DateOfBirth.HasValue)
+            {
+                dateOfBirthFormat = employee.DateOfBirth.Value.ToString("dd/MM/yyyy");
+            }
+            else
+            {
+                dateOfBirthFormat = string.Empty;
+            }
+
+
+            if (employee.IdentityDate.HasValue)
+            {
+                identityDateFormat = employee.IdentityDate.Value.ToString("dd/MM/yyyy");
+            }
+            else
+            {
+                identityDateFormat = string.Empty;
+            }
+
+
+            if (employee.Gender == Gender.Male)
+            {
+                genderFormat = Domain.Resources.Employee.Male;
+            }
+            else if (employee.Gender == Gender.Female)
+            {
+                genderFormat = Domain.Resources.Employee.Female;
+            }
+            else if (employee.Gender == Gender.Other)
+            {
+                genderFormat = Domain.Resources.Employee.Other;
+            }
+            else
+            {
+                genderFormat = "";
+            }
+
+            // Lấy tên phòng ban
+            var department = await _departmentRepository.GetByIdAsync(employee.DepartmentId);
+
+            if (department == null)
+            {
+                throw new BadRequestException()
+                {
+                    ErrorCode = ErrorCode.BadRequest,
+                    DevMessage = Domain.Resources.Errors.DepartmentNotFound,
+                    UserMessage = Domain.Resources.Errors.DepartmentNotFound,
+                    MoreInfo = "",
+                    TraceId = "",
+                    Errors = ""
+                };
+            }
+
+            var employeeExportExcel = new EmployeeExportExcelDto()
+            {
+                NumericalOrder = index + 1,
+                EmployeeCode = employee.EmployeeCode,
+                FullName = employee.FullName,
+                Gender = genderFormat,
+                DateOfBirth = dateOfBirthFormat,
+                PositionName = employee.PositionName,
+                DepartmentName = department.DepartmentName,
+                BankAccount = employee.BankAccount,
+                BankName = employee.BankName,
+            };
+
+            return employeeExportExcel;
         }
 
         /// <summary>
@@ -115,7 +296,7 @@ namespace MISA.AspNetCore.Application
         public override Employee MapInsertDtoToEntity(EmployeeInsertDto insertDto)
         {
             var employee = _mapper.Map<Employee>(insertDto);
-            
+
             // Validate input
             var errors = new List<string>();
 
@@ -139,7 +320,8 @@ namespace MISA.AspNetCore.Application
                 errors.Add(new string(Domain.Resources.Errors.FullNameCannotBeEmpty));
             }
 
-            if (!Enum.IsDefined(typeof(Gender), employee.Gender)) {
+            if (!Enum.IsDefined(typeof(Gender), employee.Gender))
+            {
                 errors.Add(new string(Domain.Resources.Errors.GenderInvalid));
             }
 

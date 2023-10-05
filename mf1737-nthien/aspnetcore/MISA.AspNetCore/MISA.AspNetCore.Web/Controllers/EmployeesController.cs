@@ -37,5 +37,20 @@ namespace MISA.AspNetCore.Web.Controllers
             var result = await (BaseService as IEmployeeService).GetNewEmployeeCodeAsync();
             return result;
         }
+
+        /// <summary>
+        /// Xuất file danh sách nhân viên theo bộ lọc
+        /// </summary>
+        /// <param name="search">Từ khoá tìm kiếm (Mã nhân viên, Họ và tên, Số điện thoại)</param>
+        /// <param name="orders">Sắp xếp theo các trường (VD: EmployeeCode, +FullName, -PhoneNumber)</param>
+        /// <returns>File danh sách nhân viên theo kết quả lọc</returns>
+        /// CreatedBy: hiennt200210 (02/10/2023)
+        [HttpGet]
+        [Route("Export")]
+        public async Task<IActionResult> ExportAsync([FromQuery] string? search, [FromQuery] List<string>? orders)
+        {
+            var result = await (BaseService as IEmployeeService).ExportAsync(search, orders);
+            return File(result.File, result.MimeType, result.FileName);
+        }
     }
 }

@@ -18,6 +18,19 @@ namespace MISA.AspNetCore.Infrastructure
         }
 
         /// <summary>
+        /// Xuất file excel danh sách nhân viên theo bộ lọc
+        /// </summary>
+        /// <param name="search">Từ khoá tìm kiếm (Mã nhân viên, Họ và tên, Số điện thoại)</param>
+        /// <param name="orders">Sắp xếp theo các trường (VD: EmployeeCode, +FullName, -PhoneNumber)</param>
+        /// <returns>File danh sách nhân viên theo kết quả lọc</returns>
+        /// CreatedBy: hiennt200210 (02/10/2023)
+        //public async Task<Export> ExportAsync(string? search, List<string>? orders)
+        //{
+        //    // Lấy danh sách nhân viên theo bộ lọc
+        //    var employees = await PagingAsync(0, 0, search, search, search, orders);
+        //}
+
+        /// <summary>
         /// Lấy thông tin nhân viên theo bộ lọc, tìm kiếm, sắp xếp, phân trang
         /// </summary>
         /// <param name="limit">Số lượng bản ghi trên một trang</param>
@@ -51,10 +64,15 @@ namespace MISA.AspNetCore.Infrastructure
                 parameters.Add("@phoneNumber", $"%{phoneNumber}%");
             }
 
-            // Xóa AND ở cuối chuỗi
-            if (conditions.Length > 0)
+            // Xóa OR ở cuối chuỗi
+            if (conditions.Length > 6)
             {
                 conditions = conditions.Remove(conditions.Length - 4);
+            }
+
+            if (conditions == "WHERE ")
+            {
+                conditions = "";
             }
 
             // Xử lý tham số sắp xếp
@@ -87,6 +105,11 @@ namespace MISA.AspNetCore.Infrastructure
 
             // Tạo câu truy vấn
             var sql = $"SELECT * FROM {base.TableName} {conditions} ORDER BY {ordersString} LIMIT @limit OFFSET @offset;";
+
+            if (limit == 0)
+            {
+                sql = $"SELECT * FROM {base.TableName} {conditions} ORDER BY {ordersString};";
+            }
 
             // Thực thi câu truy vấn
             var result = await connection.QueryAsync<Employee>(sql, parameters);

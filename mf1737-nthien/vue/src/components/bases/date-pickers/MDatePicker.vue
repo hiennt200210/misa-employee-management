@@ -1,7 +1,8 @@
 <template>
     <div class="m-date-picker">
-        <MLabel :label="label" :forInput="id" />
+        <MLabel :label="label" :forInput="id" @clickLabel="focus" />
         <input
+            ref="input"
             type="date"
             :id="id"
             :value="dateString"
@@ -23,7 +24,9 @@ export default {
     props: ["label", "id", "modelValue"],
     emits: ["update:modelValue"],
     data() {
-        value: this.modelValue;
+        return {
+            value: this.modelValue,
+        };
     },
     computed: {
         dateString() {
@@ -36,6 +39,13 @@ export default {
         },
     },
     methods: {
+        /**
+         * Focus vào input
+         * CreatedBy: hiennt2002106 (04/10/2023)
+         */
+        focus() {
+            this.$refs["input"].focus();
+        },
         /**
          * Định dạng lại ngày tháng năm
          * @param {String} dateString Ngày tháng năm

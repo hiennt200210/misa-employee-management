@@ -1,6 +1,7 @@
 <template>
     <div class="m-radio">
         <input
+            ref="input"
             type="radio"
             :id="id"
             :name="name"
@@ -8,7 +9,7 @@
             :checked="checked"
             @input="$emit('update:modelValue', Number($event.target.value))"
         />
-        <MLabel v-if="label" :label="label" :for="id" />
+        <MLabel v-if="label" :label="label" :for="id" @clickLabel="focus" />
     </div>
 </template>
 
@@ -34,6 +35,15 @@ export default {
     watch: {
         modelValue(newValue) {
             this.radioValue = newValue;
+        },
+    },
+    methods: {
+        /**
+         * Focus vào input
+         * CreatedBy: hiennt2002106 (04/10/2023)
+         */
+        focus() {
+            this.$refs["input"].focus();
         },
     },
 };

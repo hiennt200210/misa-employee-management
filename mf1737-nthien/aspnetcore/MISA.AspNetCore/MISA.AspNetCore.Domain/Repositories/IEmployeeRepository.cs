@@ -9,6 +9,15 @@ namespace MISA.AspNetCore.Domain
     public interface IEmployeeRepository : IBaseRepository<Employee>
     {
         /// <summary>
+        /// Xuất file excel danh sách nhân viên theo bộ lọc
+        /// </summary>
+        /// <param name="search">Từ khoá tìm kiếm (Mã nhân viên, Họ và tên, Số điện thoại)</param>
+        /// <param name="orders">Sắp xếp theo các trường (VD: EmployeeCode, +FullName, -PhoneNumber)</param>
+        /// <returns>File danh sách nhân viên theo kết quả lọc</returns>
+        /// CreatedBy: hiennt200210 (02/10/2023)
+        // Task<Export> ExportAsync(string? search, List<string>? orders);
+
+        /// <summary>
         /// Lấy thông tin nhân viên theo bộ lọc, tìm kiếm, sắp xếp, phân trang
         /// </summary>
         /// <param name="limit">Số lượng bản ghi trên một trang</param>

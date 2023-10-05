@@ -1,7 +1,19 @@
 <template>
+    <!-- Nhãn -->
+    <MLabel
+        v-if="label"
+        class="m-textfield__label"
+        :id="id"
+        :label="label"
+        :tooltip="tooltip"
+        :required="required"
+        @clickLabel="focus"
+    />
+
     <div class="m-combobox">
         <!-- Ô nhập của combobox -->
         <input
+            ref="input"
             :value="textInput"
             type="text"
             class="m-combobox__input"
@@ -58,6 +70,7 @@
 </template>
 
 <script>
+import MLabel from "@components/bases/labels/MLabel.vue";
 /* eslint-disable */
 /**
  * Gán sự kiện nhấn click chuột ra ngoài combobox data (ẩn data list đi)
@@ -133,11 +146,23 @@ const keyCode = {
 
 export default {
     name: "MCombobox",
+
+    components: {
+        MLabel,
+    },
+
     directives: {
         clickoutside,
     },
 
     props: {
+        // Props cho nhãn
+        id: String,
+        label: String,
+        tooltip: String,
+        required: Boolean,
+
+        // Props cho ô nhập
         url: String,
         propValue: String,
         propText: String,
@@ -158,6 +183,14 @@ export default {
     },
 
     methods: {
+        /**
+         * Focus vào input.
+         * CreatedBy: hiennt200210 (04/10/2023)
+         */
+        focus() {
+            this.$refs["input"].focus();
+            this.$refs["input"].select();
+        },
         /**
          * Lưu lại index của item đã focus
          * NVMANH (31/07/2022)
@@ -181,8 +214,13 @@ export default {
          */
         btnSelectDataOnClick() {
             this.dataFilter = this.data;
-            this.isShowListData = !this.showListData;
-            this.$refs.icon.style.transform = "rotate(180deg)";
+            // this.isShowListData = !this.showListData;
+            this.isShowListData = !this.isShowListData;
+            if (this.isShowListData) {
+                this.$refs.icon.style.transform = "rotate(180deg)";
+            } else {
+                this.$refs.icon.style.transform = "rotate(0deg)";
+            }
         },
 
         /**

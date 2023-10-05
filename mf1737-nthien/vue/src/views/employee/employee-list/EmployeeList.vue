@@ -5,14 +5,14 @@
             <!-- Tiêu đề -->
             <MHeading
                 :type="$enums.Heading.Heading1"
-                :title="this.$resxLang.Heading.Employee"
+                :title="this.$resx.Employee"
             />
 
             <div class="page-title-right">
                 <!-- Nút Thêm mới -->
                 <MButton
                     :type="$enums.Button.PrimaryWithIcon"
-                    :label="$resxLang.Label.Add"
+                    :label="$resx.Add"
                     icon="add"
                     @clickButton="onClickAddEmployeeButton"
                 />
@@ -26,13 +26,13 @@
                 <template #toolbar-left>
                     <div v-if="numberSelectedRows > 0" class="selected-rows">
                         <div>
-                            {{ $resxLang.Selected }}
+                            {{ $resx.Selected }}
                             <span>{{ numberSelectedRows }}</span>
                         </div>
                         <MButton
                             @clickButton="unSelectAll"
                             :type="$enums.Button.Link"
-                            :label="$resxLang.Label.Unselect"
+                            :label="$resx.Unselect"
                         />
                     </div>
 
@@ -41,7 +41,7 @@
                         <MButton
                             id="delete-button"
                             :type="$enums.Button.Secondary"
-                            :label="$resxLang.Label.Delete"
+                            :label="$resx.Delete"
                             @clickButton="onClickDeleteButton"
                         />
                     </div>
@@ -52,7 +52,7 @@
                     <MTextfield
                         v-model="searchText"
                         id="search-textfield"
-                        :placeHolder="$resxLang.PlaceHolder.Search"
+                        :placeHolder="$resx.Search"
                         icon="search"
                         @input="onChangeSearchText"
                     />
@@ -61,14 +61,15 @@
                     <MButton
                         :type="$enums.Button.Icon"
                         icon="excel-file"
-                        :tooltip="$resxLang.Tooltip.Button.Export"
+                        :tooltip="$resx.Export"
+                        @clickButton="onClickExportButton"
                     />
 
                     <!-- Nút Tải lại -->
                     <MButton
                         :type="$enums.Button.Icon"
                         icon="refresh"
-                        :tooltip="$resxLang.Tooltip.Button.Reload"
+                        :tooltip="$resx.Reload"
                         @clickButton="onClickReloadButton"
                     />
                 </template>
@@ -101,7 +102,6 @@
                         :class="{ 'selected-row': item.isSelected }"
                         @mouseover="item.showRowAction = true"
                         @mouseout="item.showRowAction = false"
-                        @dblclick="onClickEditButton(item)"
                     >
                         <td class="tr__checkbox">
                             <MCheckbox v-model="item.isSelected" />
@@ -110,6 +110,8 @@
                             v-for="cell in columns"
                             :key="cell.name"
                             :class="cell.type"
+                            :title="cell.format(item[cell.name])"
+                            @dblclick="onClickEditButton(item)"
                         >
                             {{ cell.format(item[cell.name]) }}
                         </td>
@@ -119,7 +121,7 @@
                             <MButton
                                 :type="$enums.Button.Icon"
                                 icon="edit"
-                                :tooltip="$resxLang.Tooltip.Edit"
+                                :tooltip="$resx.Edit"
                                 @clickButton="onClickEditButton(item)"
                             />
 
@@ -127,7 +129,7 @@
                             <MButton
                                 :type="$enums.Button.Icon"
                                 icon="duplicate"
-                                :tooltip="$resxLang.Tooltip.Duplicate"
+                                :tooltip="$resx.Duplicate"
                                 @clickButton="onClickDuplicateButton(item)"
                             />
                         </div>
@@ -135,14 +137,14 @@
                 </template>
 
                 <template #paging-left>
-                    {{ $resxLang.Label.Total }}
+                    {{ $resx.Total }}
                     <span class="number">{{ total }}</span>
-                    {{ $resxLang.Label.RecordLowerCase }}
+                    {{ $resx.RecordLowerCase }}
                 </template>
 
                 <template #paging-right>
                     <div class="record-per-page">
-                        {{ $resxLang.Label.RecordPerPage }}
+                        {{ $resx.RecordPerPage }}
                         <div class="m-dropdownlist" @change="onChangeLimit">
                             <select name="limit" v-model="limit">
                                 <option value="10">10</option>
@@ -150,10 +152,11 @@
                                 <option value="50">50</option>
                                 <option value="100">100</option>
                             </select>
+                            <div ref="icon" class="icon icon-expand"></div>
                         </div>
                     </div>
                     <div>
-                        {{ $resxLang.Label.Record }} {{ Number(offset) + 1 }}-{{
+                        {{ $resx.Record }} {{ Number(offset) + 1 }}-{{
                             lastIndex
                         }}
                     </div>
@@ -186,6 +189,7 @@
             @closeEmployeeForm="onCloseEmployeeForm"
             @insertSuccess="onInsertSuccess"
             @updateSuccess="onUpdateSuccess"
+            @keydownEsc="onCloseEmployeeForm"
         />
 
         <!-- Dialog thông báo -->
@@ -194,7 +198,9 @@
             :type="dialog.type"
             :title="dialog.title"
             :content="dialog.content"
-            @closeDialog="onCloseDialog"
+            :primary-button-label="dialog.buttons.primary"
+            @click-close-button="onCloseDialog"
+            @click-primary-button="onClickDialogPrimaryButton"
         >
             <!-- Nút phụ -->
             <MButton
@@ -202,14 +208,6 @@
                 :type="this.$enums.Button.Secondary"
                 :label="dialog.buttons.secondary"
                 @clickButton="onClickDialogSecondaryButton"
-            />
-
-            <!-- Nút chính -->
-            <MButton
-                v-if="dialog.buttons.primary"
-                :type="$enums.Button.Primary"
-                :label="dialog.buttons.primary"
-                @clickButton="onClickDialogPrimaryButton"
             />
         </MDialog>
 
@@ -226,7 +224,12 @@
 </template>
 
 <script>
-import employee from "@services/employee";
+import {
+    getEmployeesByFilter,
+    deleteEmployees,
+    exportEmployeesToExcel,
+} from "@services/employee";
+import { formatGender, formatDate, formatNumber } from "@helpers/helpers";
 import EmployeeForm from "@views/employee/employee-form/EmployeeForm.vue";
 import MButton from "@components/bases/buttons/MButton.vue";
 import MCheckbox from "@components/bases/checkbox/MCheckbox.vue";
@@ -260,83 +263,83 @@ export default {
         return {
             columns: [
                 {
-                    title: this.$resxLang.Title.EmployeeCode,
+                    title: this.$resx.EmployeeCode,
                     name: "employeeCode",
                     type: "text",
                     format: (value) => value,
                 },
                 {
-                    title: this.$resxLang.Title.FullName,
+                    title: this.$resx.FullName,
                     name: "fullName",
                     type: "text",
                     format: (value) => value,
                 },
                 {
-                    title: this.$resxLang.Title.Gender,
+                    title: this.$resx.Gender,
                     name: "gender",
                     type: "text",
-                    format: this.$helpers.formatGender,
+                    format: formatGender,
                 },
                 {
-                    title: this.$resxLang.Title.DateOfBirth,
+                    title: this.$resx.DateOfBirth,
                     name: "dateOfBirth",
                     type: "date",
-                    format: this.$helpers.formatDate,
+                    format: formatDate,
                 },
                 {
-                    title: this.$resxLang.Title.IdentityNumber,
-                    tooltip: this.$resxLang.Tooltip.IdentityNumber,
+                    title: this.$resx.IdentityNumberAbbr,
+                    tooltip: this.$resx.IdentityNumber,
                     type: "text",
                     name: "identityNumber",
                     format: (value) => value,
                 },
                 {
-                    title: this.$resxLang.Title.IdentityDate,
+                    title: this.$resx.IdentityDate,
                     type: "date",
                     name: "identityDate",
-                    format: this.$helpers.formatDate,
+                    format: formatDate,
                 },
                 {
-                    title: this.$resxLang.Title.IdentityPlace,
+                    title: this.$resx.IdentityPlace,
                     name: "identityPlace",
                     type: "text",
                     format: (value) => value,
                 },
                 {
-                    title: this.$resxLang.Title.PositionName,
+                    title: this.$resx.PositionName,
                     name: "positionName",
                     type: "text",
                     format: (value) => value,
                 },
                 {
-                    title: this.$resxLang.Title.DepartmentName,
+                    title: this.$resx.Department,
                     name: "departmentName",
                     type: "text",
                     format: (value) => value,
                 },
                 {
-                    title: this.$resxLang.Title.BankAccount,
+                    title: this.$resx.BankAccount,
                     name: "bankAccount",
                     type: "text",
                     format: (value) => value,
                 },
                 {
-                    title: this.$resxLang.Title.BankName,
+                    title: this.$resx.BankName,
                     name: "bankName",
                     type: "text",
                     format: (value) => value,
                 },
                 {
-                    title: this.$resxLang.Title.BankBranch,
+                    title: this.$resx.BankBranch,
                     name: "bankBranch",
                     type: "text",
                     format: (value) => value,
                 },
                 {
-                    title: this.$resxLang.Title.Salary,
+                    title: this.$resx.Salary,
                     name: "salary",
                     type: "number",
-                    format: this.$helpers.formatNumber,
+                    format: formatNumber,
                 },
             ],
 
@@ -370,7 +373,7 @@ export default {
             total: 0,
             limit: 20,
             offset: 0,
-            order: "-EmployeeCode",
+            orders: ["-EmployeeCode"],
             searchText: "",
             prevDisabled: true,
             nextDisabled: false,
@@ -420,16 +423,16 @@ export default {
          * Lấy dữ liệu từ API.
          * CreatedBy: hiennt200210 (30/8/2023)
          */
-        async loadData(limit, offset, order, search) {
+        async loadData(limit, offset, orders, search) {
             // Hiển thị spinner
             this.displaySpinner = true;
 
             // Lấy dữ liệu
             try {
-                const response = await employee.getByFilter(
+                const response = await getEmployeesByFilter(
                     limit,
                     offset,
-                    order,
+                    orders,
                     search
                 );
                 this.employees = response.data.data;
@@ -448,7 +451,13 @@ export default {
          */
         onCloseEmployeeForm() {
             this.displayEmployeeForm = false;
-            this.loadData(this.limit, this.offset, this.order, this.searchText);
+            this.searchText = "";
+            this.loadData(
+                this.limit,
+                this.offset,
+                this.orders,
+                this.searchText
+            );
         },
 
         /**
@@ -461,10 +470,18 @@ export default {
             // Hiển thị toast message
             this.onShowToastMessage({
                 type: this.$enums.Toast.Success,
-                message: this.$resxLang.EmployeeAdd,
+                message: this.$resx.EmployeeAdd,
             });
 
-            this.loadData(this.limit, this.offset, this.order, this.searchText);
+            // Loại bỏ bộ lọc tìm kiếm
+            this.searchText = "";
+
+            this.loadData(
+                this.limit,
+                this.offset,
+                this.orders,
+                this.searchText
+            );
         },
 
         /**
@@ -477,10 +494,15 @@ export default {
             // Hiển thị toast message
             this.onShowToastMessage({
                 type: this.$enums.Toast.Success,
-                message: this.$resxLang.EmployeeUpdate,
+                message: this.$resx.EmployeeUpdate,
             });
 
-            this.loadData(this.limit, this.offset, this.order, this.searchText);
+            this.loadData(
+                this.limit,
+                this.offset,
+                this.orders,
+                this.searchText
+            );
         },
 
         /**
@@ -497,7 +519,12 @@ export default {
          * CreatedBy: hiennt200210 (20/08/2023)
          */
         onClickReloadButton() {
-            this.loadData(this.limit, this.offset, this.order, this.searchText);
+            this.loadData(
+                this.limit,
+                this.offset,
+                this.orders,
+                this.searchText
+            );
         },
 
         /**
@@ -595,13 +622,13 @@ export default {
 
             this.onShowDialog({
                 type: this.$enums.Dialog.Warning,
-                title: this.$resxLang.DeleteEmployee,
+                title: this.$resx.DeleteEmployee,
                 content: [
-                    `${this.$resxLang.DeleteEmployee1} ${selectedEmployees.length} ${this.$resxLang.DeleteEmployee2}`,
+                    `${this.$resx.DeleteEmployee1} ${selectedEmployees.length} ${this.$resx.DeleteEmployee2}`,
                 ],
                 buttons: {
-                    secondary: this.$resxLang.Label.Cancel,
-                    primary: this.$resxLang.Label.Delete,
+                    secondary: this.$resx.Cancel,
+                    primary: this.$resx.Delete,
                 },
                 secondaryAction: this.onCloseDialog,
                 primaryAction: this.onClickDeleteDialogPrimaryButton,
@@ -625,7 +652,7 @@ export default {
             );
 
             try {
-                const response = await employee.deleteMultiple(employeeIds);
+                const response = await deleteEmployees(employeeIds);
             } catch (error) {
                 console.log(error);
             }
@@ -633,12 +660,12 @@ export default {
             this.displaySpinner = false;
 
             // Load lại dữ liệu
-            this.loadData(this.limit, this.offset, this.order);
+            this.loadData(this.limit, this.offset, this.orders);
 
             // Hiển thị toast message
             this.onShowToastMessage({
                 type: this.$enums.Toast.Success,
-                message: `${this.$resxLang.DeleteEmployee3} ${selectedEmployees.length} ${this.$resxLang.DeleteEmployee4}`,
+                message: `${this.$resx.DeleteEmployee3} ${selectedEmployees.length} ${this.$resx.DeleteEmployee4}`,
             });
         },
 
@@ -667,7 +694,12 @@ export default {
          * CreatedBy: hiennt200210 (01/09/2023)
          */
         onChangeLimit() {
-            this.loadData(this.limit, this.offset, this.order, this.searchText);
+            this.loadData(
+                this.limit,
+                this.offset,
+                this.orders,
+                this.searchText
+            );
         },
 
         /**
@@ -684,7 +716,7 @@ export default {
                 this.loadData(
                     this.limit,
                     this.offset,
-                    this.order,
+                    this.orders,
                     this.searchText
                 );
                 this.prevDisabled = false;
@@ -705,7 +737,7 @@ export default {
                 this.loadData(
                     this.limit,
                     this.offset,
-                    this.order,
+                    this.orders,
                     this.searchText
                 );
                 this.prevDisabled = false;
@@ -721,7 +753,7 @@ export default {
                 this.loadData(
                     this.limit,
                     this.offset,
-                    this.order,
+                    this.orders,
                     this.searchText
                 );
             };
@@ -729,11 +761,25 @@ export default {
             clearTimeout(this.debounceTimer);
             this.debounceTimer = setTimeout(load, 500);
         },
+
+        /**
+         * Xử lý khi nhấn nút Xuất.
+         * CreatedBy: hiennt200210 (04/10/2023)
+         */
+        async onClickExportButton() {
+            try {
+                const response = await exportEmployeesToExcel(
+                    this.orders,
+                    this.searchText
+                );
+            } catch (error) {
+                console.log(error);
+            }
+        },
     },
 
     async created() {
-        // Lấy dữ liệu
-        await this.loadData(this.limit, this.offset, this.order);
+        await this.loadData(this.limit, this.offset, this.orders);
     },
 };
 </script>

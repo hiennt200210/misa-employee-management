@@ -83,15 +83,15 @@ export default {
         label() {
             switch (this.type) {
                 case this.$enums.Toast.Success:
-                    return this.$resxLang.Label.Success;
+                    return this.$resx.Success;
                 case this.$enums.Toast.Error:
-                    return this.$resxLang.Label.Error;
+                    return this.$resx.Error;
                 case this.$enums.Toast.Warning:
-                    return this.$resxLang.Label.Warning;
+                    return this.$resx.Warning;
                 case this.$enums.Toast.Info:
-                    return this.$resxLang.Label.Info;
+                    return this.$resx.Info;
                 default:
-                    return this.$resxLang.Label.Error;
+                    return this.$resx.Error;
             }
         },
     },

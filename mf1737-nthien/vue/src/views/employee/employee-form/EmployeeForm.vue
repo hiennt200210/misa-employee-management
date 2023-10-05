@@ -1,6 +1,6 @@
 <template>
-    <div class="employee-detail">
-        <MForm :title="$resxLang.Heading.EmployeeDetail">
+    <div class="employee-detail" @keydown="onKeydown">
+        <MForm :title="$resx.EmployeeDetail">
             <!-- Form Content -->
             <template #content>
                 <div class="content-1">
@@ -9,24 +9,24 @@
                         <div class="row-1">
                             <MTextfield
                                 v-model="employee.employeeCode"
-                                :label="$resxLang.Label.Code"
+                                :label="$resx.Code"
                                 required
                                 ref="first-input"
+                                :max-length="20"
                             />
                             <MTextfield
                                 v-model="employee.fullName"
-                                :label="$resxLang.Label.Name"
+                                :label="$resx.Name"
                                 required
+                                :max-length="100"
                             />
                         </div>
 
                         <div class="row-2">
-                            <MLabel
-                                :label="$resxLang.Label.Department"
-                                required
-                            />
                             <MCombobox
-                                :url="departmentUrl"
+                                :label="$resx.Department"
+                                required
+                                url="https://localhost:44376/api/v1/Departments"
                                 propValue="departmentId"
                                 propText="departmentName"
                                 :formValue="employee.departmentId"
@@ -38,7 +38,8 @@
                         <div class="row-3">
                             <MTextfield
                                 v-model="employee.positionName"
-                                :label="$resxLang.Label.Position"
+                                :label="$resx.Position"
+                                :max-length="255"
                             />
                         </div>
                     </div>
@@ -48,27 +49,27 @@
                         <div class="row-1">
                             <MDatePicker
                                 v-model="employee.dateOfBirth"
-                                :label="$resxLang.Label.DateOfBirth"
+                                :label="$resx.DateOfBirth"
                                 id="date-of-birth"
                             />
-                            <MRadioBox :label="$resxLang.Label.Gender">
+                            <MRadioBox :label="$resx.Gender">
                                 <MRadio
                                     v-model="employee.gender"
-                                    :label="$resxLang.Gender.Male"
+                                    :label="$resx.Male"
                                     id="male"
                                     name="gender"
                                     :value="$enums.Gender.Male"
                                 />
                                 <MRadio
                                     v-model="employee.gender"
-                                    :label="$resxLang.Gender.Female"
+                                    :label="$resx.Female"
                                     id="female"
                                     name="gender"
                                     :value="$enums.Gender.Female"
                                 />
                                 <MRadio
                                     v-model="employee.gender"
-                                    :label="$resxLang.Gender.Other"
+                                    :label="$resx.Other"
                                     id="other"
                                     name="gender"
                                     :value="$enums.Gender.Other"
@@ -79,12 +80,13 @@
                         <div class="row-2">
                             <MTextfield
                                 v-model="employee.identityNumber"
-                                :label="$resxLang.Label.IdentityNumber"
-                                :tooltip="$resxLang.Tooltip.IdentityNumber"
+                                :label="$resx.IdentityNumberAbbr"
+                                :tooltip="$resx.IdentityNumber"
+                                :max-length="25"
                             />
                             <MDatePicker
                                 v-model="employee.identityDate"
-                                :label="$resxLang.Label.IdentityDate"
+                                :label="$resx.IdentityDate"
                                 id="identity-date"
                             />
                         </div>
@@ -92,7 +94,8 @@
                         <div class="row-3">
                             <MTextfield
                                 v-model="employee.identityPlace"
-                                :label="$resxLang.Label.IdentityPlace"
+                                :label="$resx.IdentityPlace"
+                                :max-length="255"
                             />
                         </div>
                     </div>
@@ -102,40 +105,48 @@
                     <div class="row-1">
                         <MTextfield
                             v-model="employee.address"
-                            :label="$resxLang.Label.Address"
+                            :label="$resx.Address"
+                            :max-length="255"
                         />
                     </div>
 
                     <div class="row-2">
                         <MTextfield
                             v-model="employee.phoneNumber"
-                            :label="$resxLang.Label.PhoneNumber"
-                            :tooltip="$resxLang.Tooltip.PhoneNumber"
+                            :label="$resx.PhoneNumberAbbr"
+                            :tooltip="$resx.PhoneNumber"
+                            :max-length="50"
                         />
                         <MTextfield
                             v-model="employee.landlineNumber"
-                            :label="$resxLang.Label.LandlineNumber"
-                            :tooltip="$resxLang.Tooltip.LandlineNumber"
+                            :label="$resx.LandlineNumberAbbr"
+                            :tooltip="$resx.LandlineNumber"
+                            :max-length="50"
                         />
                         <MTextfield
                             v-model="employee.email"
-                            :label="$resxLang.Label.Email"
-                            :placeHolder="$resxLang.PlaceHolder.Email"
+                            :label="$resx.Email"
+                            :placeHolder="$resx.ExampleEmail"
+                            :max-length="100"
+                            :validate="validateEmail"
                         />
                     </div>
 
                     <div class="row-3">
                         <MTextfield
-                            :label="$resxLang.Label.BankAccount"
+                            :label="$resx.BankAccount"
                             v-model="employee.bankAccount"
+                            :max-length="25"
                         />
                         <MTextfield
-                            :label="$resxLang.Label.BankName"
+                            :label="$resx.BankName"
                             v-model="employee.bankName"
+                            :max-length="255"
                         />
                         <MTextfield
-                            :label="$resxLang.Label.BankBranch"
+                            :label="$resx.BankBranch"
                             v-model="employee.bankBranch"
+                            :max-length="255"
                         />
                     </div>
                 </div>
@@ -147,35 +158,37 @@
                     <!-- Nút Hủy -->
                     <MButton
                         :type="$enums.Button.Secondary"
-                        :label="$resxLang.Label.Cancel"
+                        :label="$resx.Cancel"
                         @clickButton="onClickCancelButton"
                     />
 
                     <!-- Nút Cất -->
                     <MButton
                         :type="$enums.Button.Secondary"
-                        :label="$resxLang.Label.Store"
+                        :label="$resx.Store"
                         @clickButton="onSave"
                     />
 
                     <!-- Nút Cất và thêm -->
                     <MButton
                         :type="$enums.Button.Primary"
-                        :label="$resxLang.Label.StoreAndAdd"
+                        :label="$resx.StoreAndAdd"
                         @clickButton="onSaveAndAdd"
+                        @keydown="onKeydownStoreAndAdd"
                     />
                 </div>
             </template>
         </MForm>
 
-        <!-- Dialog -->
         <!-- Dialog thông báo -->
         <MDialog
             v-if="dialog.display"
             :type="dialog.type"
             :title="dialog.title"
             :content="dialog.content"
-            @closeDialog="onCloseDialog"
+            :primary-button-label="dialog.buttons.primary"
+            @click-close-button="onCloseDialog"
+            @click-primary-button="onClickDialogPrimaryButton"
         >
             <!-- Nút phụ -->
             <MButton
@@ -183,13 +196,6 @@
                 :type="this.$enums.Button.Secondary"
                 :label="dialog.buttons.secondary"
                 @clickButton="onClickDialogSecondaryButton"
-            />
-
-            <!-- Nút chính -->
-            <MButton
-                :type="$enums.Button.Primary"
-                :label="dialog.buttons.primary"
-                @clickButton="onClickDialogPrimaryButton"
             />
         </MDialog>
 
@@ -206,6 +212,13 @@
 </template>
 
 <script>
+import {
+    generateEmployeeCode,
+    createEmployee,
+    updateEmployee,
+} from "@services/employee";
+import { departmentUrl } from "@configs/constants";
+import { validateEmail } from "@helpers/helpers";
 import MButton from "@components/bases/buttons/MButton.vue";
 import MLabel from "@components/bases/labels/MLabel.vue";
 import MTextfield from "@components/bases/text-fields/MTextfield.vue";
@@ -216,8 +229,6 @@ import MToast from "@components/bases/toast-message/MToast.vue";
 import MRadioBox from "@components/bases/radios/MRadioBox.vue";
 import MRadio from "@components/bases/radios/MRadio.vue";
 import MCombobox from "@components/bases/combobox/MCombobox.vue";
-import employee from "@services/employee.js";
-import api from "@configs/api.js";
 
 export default {
     name: "EmployeeDetail",
@@ -250,7 +261,6 @@ export default {
             employee: {},
             showDialog: false,
             showToastMessage: false,
-            departmentUrl: `${api.baseUrl}api/v1/departments`,
             toast: {
                 display: false,
                 type: "",
@@ -270,6 +280,26 @@ export default {
     },
 
     methods: {
+        /**
+         * Lấy mã nhân viên mới.
+         *
+         * CreatedBy: hiennt200210 (26/09/2023)
+         */
+        async getNewEmployeeCode() {
+            try {
+                const response = await generateEmployeeCode();
+                return response.data;
+            } catch {
+                // Thông báo không lấy được mã nhân viên mới bằng toast message
+                this.onShowToastMessage({
+                    type: this.$enums.Toast.Error,
+                    message: this.$resx.CannotGetNewEmployeeCode,
+                });
+
+                return "";
+            }
+        },
+
         /**
          * Hiển thị dialog thông báo.
          * @param {*} dialog Thông tin thông báo
@@ -342,15 +372,6 @@ export default {
         },
 
         /**
-         * Lấy mã nhân viên mới.
-         * CreatedBy: hiennt200210 (26/09/2023)
-         */
-        async getNewEmployeeCode() {
-            const response = await employee.getNewEmployeeCode();
-            return response.data;
-        },
-
-        /**
          * Lấy danh sách phòng ban.
          * CreatedBy: hiennt200210 (26/09/2023)
          */
@@ -366,37 +387,33 @@ export default {
         async onSave() {
             if (this.mode == this.$enums.Form.Edit) {
                 try {
-                    const response = await employee.update(
+                    const response = await updateEmployee(
                         this.employee.employeeId,
                         this.employee
                     );
-                    console.log(response);
                     this.$emit("updateSuccess");
                 } catch (error) {
-                    console.log(error);
                     this.onShowDialog({
                         type: this.$enums.Dialog.Error,
                         title: error.response.data.UserMessage,
                         content: error.response.data.Errors,
                         buttons: {
-                            primary: this.$resxLang.Label.Close,
+                            primary: this.$resx.Close,
                         },
                         primaryAction: this.onCloseDialog,
                     });
                 }
             } else {
                 try {
-                    const response = await employee.insert(this.employee);
-                    console.log(response);
+                    const response = await createEmployee(this.employee);
                     this.$emit("insertSuccess");
                 } catch (error) {
-                    console.log(error);
                     this.onShowDialog({
                         type: "error",
                         title: error.response.data.UserMessage,
                         content: error.response.data.Errors,
                         buttons: {
-                            primary: this.$resxLang.Label.Close,
+                            primary: this.$resx.Close,
                         },
                         primaryAction: this.onCloseDialog,
                     });
@@ -411,23 +428,19 @@ export default {
         async onSaveAndAdd() {
             if (this.mode == this.$enums.Form.Edit) {
                 try {
-                    const response = await employee.update(
+                    const response = await updateEmployee(
                         this.employee.employeeId,
                         this.employee
                     );
-                    console.log(response);
                     // Hiển thị toast message
                     this.onShowToastMessage({
                         type: this.$enums.Toast.Success,
-                        message: this.$resxLang.EmployeeUpdate,
+                        message: this.$resx.EmployeeUpdate,
                     });
+
                     // Lấy mã nhân viên mới
-                    try {
-                        this.employee.employeeCode =
-                            await this.getNewEmployeeCode();
-                    } catch (error) {
-                        this.employee.employeeCode = "";
-                    }
+                    this.employee.employeeCode =
+                        await this.getNewEmployeeCode();
                     this.$refs["first-input"].focus();
                     this.employee.fullName = "";
                     this.employee.dateOfBirth = "";
@@ -445,33 +458,28 @@ export default {
                     this.employee.positionName = "";
                     this.employee.departmentId = "";
                 } catch (error) {
-                    console.log(error);
                     this.onShowDialog({
                         type: this.$enums.Dialog.Error,
                         title: error.response.data.UserMessage,
                         content: error.response.data.Errors,
                         buttons: {
-                            primary: this.$resxLang.Label.Close,
+                            primary: this.$resx.Close,
                         },
                         primaryAction: this.onCloseDialog,
                     });
                 }
             } else {
                 try {
-                    const response = await employee.insert(this.employee);
-                    console.log(response);
+                    const response = await createEmployee(this.employee);
                     // Hiển thị toast message
                     this.onShowToastMessage({
                         type: this.$enums.Toast.Success,
-                        message: this.$resxLang.EmployeeAdd,
+                        message: this.$resx.EmployeeAdd,
                     });
+
                     // Lấy mã nhân viên mới
-                    try {
-                        this.employee.employeeCode =
-                            await this.getNewEmployeeCode();
-                    } catch (error) {
-                        this.employee.employeeCode = "";
-                    }
+                    this.employee.employeeCode =
+                        await this.getNewEmployeeCode();
                     this.$refs["first-input"].focus();
                     this.employee.fullName = "";
                     this.employee.dateOfBirth = "";
@@ -489,13 +497,12 @@ export default {
                     this.employee.positionName = "";
                     this.employee.departmentId = "";
                 } catch (error) {
-                    console.log(error);
                     this.onShowDialog({
                         type: this.$enums.Dialog.Error,
                         title: error.response.data.UserMessage,
                         content: error.response.data.Errors,
                         buttons: {
-                            primary: this.$resxLang.Label.Close,
+                            primary: this.$resx.Close,
                         },
                         primaryAction: this.onCloseDialog,
                     });
@@ -510,28 +517,34 @@ export default {
         getDepartmentOptions(value, text) {
             this.employee.departmentId = value;
         },
+
+        /**
+         * Xử lý sự kiện nhấn phím ESC.
+         * CreatedBy: hiennt200210 (04/10/2023)
+         */
+        onKeydown(event) {
+            if (event.key === "Escape" || event.keyCode === 27) {
+                this.$emit("keydownEsc");
+            }
+        },
+
+        onKeydownStoreAndAdd(event) {
+            if (event.key === "Tab" && !event.shiftKey) {
+                event.preventDefault();
+                this.$refs["first-input"].focus();
+            }
+        },
     },
 
     async created() {
         if (this.mode === this.$enums.Form.Edit) {
-            console.log(this.data);
             this.employee = this.data;
             this.employee.dateOfBirth = new Date(this.employee.dateOfBirth);
-        } else if (this.mode === this.$enums.Form.Duplicate) {
-            this.employee = this.data;
-            // Lấy mã nhân viên mới
-            try {
-                this.employee.employeeCode = await this.getNewEmployeeCode();
-            } catch (error) {
-                this.employee.employeeCode = "";
-            }
         } else {
-            // Lấy mã nhân viên mới
-            try {
-                this.employee.employeeCode = await this.getNewEmployeeCode();
-            } catch (error) {
-                this.employee.employeeCode = "";
+            if (this.mode === this.$enums.Form.Duplicate) {
+                this.employee = this.data;
             }
+            this.employee.employeeCode = await this.getNewEmployeeCode();
         }
     },
 

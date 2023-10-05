@@ -17,7 +17,7 @@
             <MButton
                 :type="$enums.Button.IconRounded"
                 icon="notifications"
-                :tooltip="$resxLang.Tooltip.Notifications"
+                :tooltip="$resx.Notifications"
             />
 
             <!-- Nút Thông tin người dùng -->

@@ -1,5 +1,6 @@
 <template>
     <button
+        ref="button"
         :class="buttonClass"
         @click="onClick"
         @mouseover="onMouseover"
@@ -22,10 +23,11 @@
 </template>
 
 <script>
-import MTooltip from "../tooltips/MTooltip.vue";
+import MTooltip from "@components/bases/tooltips/MTooltip.vue";
 
 export default {
     name: "MButton",
+
     components: {
         MTooltip,
     },
@@ -37,42 +39,33 @@ export default {
             default: "primary",
             validator: (value) => {
                 return [
-                    "primary",
-                    "primary-icon",
-                    "secondary",
-                    "secondary-icon",
-                    "icon",
-                    "icon-rounded",
-                    "title-bar",
-                    "link",
-                    "sort"
+                    "primary", // Nút chính
+                    "primary-icon", // Nút chính có icon
+                    "secondary", // Nút phụ
+                    "secondary-icon", // Nút phụ có icon
+                    "icon", // Nút chỉ có icon
+                    "icon-rounded", // Nút chỉ có icon tròn
+                    "title-bar", // Nút trên thanh tiêu đề (Minimize, Maximize, Close)
+                    "link", // Nút dạng link
                 ].includes(value);
             },
         },
+
         // Nhãn của nút
-        label: {
-            type: String,
-        },
+        label: String,
 
         // Icon của nút
-        icon: {
-            type: String,
-        },
+        icon: String,
 
         // Trạng thái disabled của nút
-        disabled: {
-            type: Boolean,
-        },
+        disabled: Boolean,
 
         // Tooltip của nút
-        tooltip: {
-            type: String,
-        },
+        tooltip: String,
     },
 
     data() {
         return {
-            // Trạng thái hiển thị của tooltip.
             displayTooltip: false,
         };
     },
@@ -80,6 +73,7 @@ export default {
     computed: {
         /**
          * Tạo các lớp CSS cho button.
+         *
          * CreatedBy: hiennt200210 (23/08/2023)
          */
         buttonClass() {
@@ -93,6 +87,7 @@ export default {
 
         /**
          * Tạo các lớp CSS cho icon.
+         *
          * CreatedBy: hiennt200210 (23/08/2023)
          */
         iconClass() {
@@ -102,7 +97,17 @@ export default {
 
     methods: {
         /**
-         * Xử lý sự kiện click.
+         * Focus vào nút.
+         *
+         * CreatedBy: hiennt200210 (23/08/2023)
+         */
+        focus() {
+            this.$refs.button.focus();
+        },
+
+        /**
+         * Xử lý sự kiện khi nhấn nút.
+         *
          * CreatedBy: hiennt200210 (23/08/2023)
          */
         onClick() {
@@ -110,7 +115,8 @@ export default {
         },
 
         /**
-         * Xử lý sự kiện mouseover.
+         * Xử lý sự kiện khi di chuột vào nút.
+         *
          * CreatedBy: hiennt200210 (23/08/2023)
          */
         onMouseover() {
@@ -118,7 +124,8 @@ export default {
         },
 
         /**
-         * Xử lý sự kiện mouseout.
+         * Xử lý sự kiện khi di chuột ra khỏi nút.
+         *
          * CreatedBy: hiennt200210 (23/08/2023)
          */
         onMouseout() {

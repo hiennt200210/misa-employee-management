@@ -1,6 +1,6 @@
 <template>
     <div class="dialog-container">
-        <div class="m-dialog">
+        <div class="dialog">
             <div class="dialog-header">
                 <!-- Tiêu đề của Dialog -->
                 <MHeading type="h2" :title="title" />
@@ -28,65 +28,62 @@
             </div>
 
             <div class="dialog-action">
+                <!-- Các nút thực hiện hành động phụ -->
                 <slot></slot>
+
+                <!-- Nút thực hiện hành động chính -->
+                <MButton
+                    ref="primary-button"
+                    :type="$enums.Button.Primary"
+                    :label="this.primaryButtonLabel"
+                    @clickButton="onClickPrimaryButton"
+                />
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import MButton from "../buttons/MButton.vue";
-import MHeading from "../headings/MHeading.vue";
+import MButton from "@components/bases/buttons/MButton.vue";
+import MHeading from "@components/bases/headings/MHeading.vue";
 
 export default {
     name: "MDialog",
+
     components: {
         MButton,
         MHeading,
     },
 
     props: {
+        // Loại dialog
         type: {
             type: String,
             default: "error",
             validator: (value) => {
-                return ["success", "error", "warning", "info"].includes(value);
+                return [
+                    "success", // Thành công
+                    "error", // Lỗi
+                    "warning", // Cảnh báo
+                    "info", // Thông tin
+                ].includes(value);
             },
         },
 
-        title: {
-            type: String,
-            default: "Thông báo",
-        },
+        // Tiêu đề của dialog
+        title: String,
 
-        content: {
-            type: Array,
-            default: [],
-        },
+        // Nội dung thông báo của dialog
+        content: Array,
+
+        // Nhãn của nút thực hiện hành động chính
+        primaryButtonLabel: String,
     },
 
     computed: {
         /**
-         * Lấy icon của Dialog.
-         * CreatedBy: hiennt200210 (20/08/2023)
-         */
-        icon() {
-            switch (this.type) {
-                case this.$enums.Dialog.Success:
-                    return "check_circle";
-                case this.$enums.Dialog.Error:
-                    return "cancel";
-                case this.$enums.Dialog.Warning:
-                    return "error";
-                case this.$enums.Dialog.Info:
-                    return "info";
-                default:
-                    return "error";
-            }
-        },
-
-        /**
          * Lấy class của icon.
+         *
          * CreatedBy: hiennt200210 (20/08/2023)
          */
         iconClass() {
@@ -97,11 +94,26 @@ export default {
     methods: {
         /**
          * Xử lý sự kiện click nút Close.
+         *
          * CreatedBy: hiennt200210 (20/08/2023)
          */
         onClickCloseButton() {
-            this.$emit("closeDialog");
+            this.$emit("clickCloseButton");
         },
+
+        /**
+         * Xử lý sự kiện click nút thực hiện hành động chính.
+         *
+         * CreatedBy: hiennt200210 (20/08/2023)
+         */
+        onClickPrimaryButton() {
+            this.$emit("clickPrimaryButton");
+        },
+    },
+
+    mounted() {
+        // Focus vào nút thực hiện hành động chính khi dialog được hiển thị
+        this.$refs["primary-button"].focus();
     },
 };
 </script>

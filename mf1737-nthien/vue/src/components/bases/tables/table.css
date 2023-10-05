@@ -168,10 +168,9 @@ tbody tr:hover {
 }
 
 .row-action {
-    position: absolute;
-    right: 0;
+    position: sticky;
+    right: 16px;
     height: var(--table-row-height);
-    margin-right: 16px;
     display: flex;
     align-items: center;
 }
@@ -227,12 +226,6 @@ tbody tr:hover {
     align-items: center;
 }
 
-.paging-right .record-per-page select {
-    color: var(--color-label);
-    padding: 0 8px;
-    margin-left: 8px;
-}
-
 .paging-button {
     display: flex;
     align-items: center;
@@ -242,8 +235,14 @@ tbody tr:hover {
     margin-right: 8px;
 }
 
+.m-dropdownlist {
+    position: relative;
+    display: flex;
+}
+
 .m-dropdownlist select {
     height: 36px;
+    width: 55px;
     border: 1px solid #e0e1e4;
     border-radius: 4px;
     min-width: 30px;
@@ -268,4 +267,28 @@ tbody tr:hover {
 
 .m-dropdownlist select:active {
     background-color: var(--bgcolor-button-secondary-pressed);
+}
+
+.m-dropdownlist option {
+    height: 36px;
+    color: var(--input-placeholder-color);
+    font-family: var(--default-font-family);
+    font-size: var(--default-font-size);
+}
+
+.paging-right .record-per-page select {
+    color: var(--color-label);
+    padding: 0 8px;
+    margin-left: 8px;
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+}
+
+.paging-right .record-per-page .icon {
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    height: 16px;
+    width: 16px;
+    transition: all 0.3s ease;
 }

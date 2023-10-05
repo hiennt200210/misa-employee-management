@@ -26,7 +26,7 @@ namespace MISA.AspNetCore.Application
         {
             var entities = await BaseRepository.GetAllAsync();
 
-            List<TDto> dtos = new List<TDto>();
+            List<TDto> dtos = new();
             for (int i = 0; i < entities.Count; i++)
             {
                 TEntity entity = entities[i];

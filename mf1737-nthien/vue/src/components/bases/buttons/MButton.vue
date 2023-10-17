@@ -111,6 +111,9 @@ export default {
          * CreatedBy: hiennt200210 (23/08/2023)
          */
         onClick() {
+            if (this.disabled) {
+                return;
+            }
             this.$emit("clickButton");
         },
 

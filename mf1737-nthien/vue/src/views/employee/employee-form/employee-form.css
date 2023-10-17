@@ -29,6 +29,10 @@
     display: flex;
 }
 
+.content-1 .column-left .row-1 > *:first-child {
+    width: fit-content;
+}
+
 .content-1 .column-left .row-1 > *:not(:first-child) {
     margin-left: 16px;
 }
@@ -57,8 +61,20 @@
     display: flex;
 }
 
+.content-1 .column-right .row-1 > *:first-child {
+    width: 152px;
+}
+
 .content-1 .column-right .row-2 {
     display: flex;
+}
+
+.content-1 .column-right .row-2 > *:last-child {
+    width: 152px;
+}
+
+.content-1 .column-right .row-2 > *:not(:last-child) {
+    width: 100%;
 }
 
 .content-1 .column-right .row-1 > *:not(:first-child),

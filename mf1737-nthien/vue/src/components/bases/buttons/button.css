@@ -13,14 +13,6 @@
     cursor: pointer;
 }
 
-.m-button:focus {
-    outline: 2px solid black;
-}
-
-.m-button:active {
-    outline: none;
-}
-
 /* CSS cho primary button */
 .m-button--primary {
     min-width: 80px;
@@ -32,6 +24,11 @@
 
 .m-button--primary:hover {
     background-color: var(--primary-color--hover);
+}
+
+.m-button--primary:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
 }
 
 .m-button--primary:active {
@@ -52,6 +49,11 @@
 
 .m-button--primary-icon:hover {
     background-color: var(--primary-color--hover);
+}
+
+.m-button--primary-icon:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
 }
 
 .m-button--primary-icon:active {
@@ -82,6 +84,11 @@
     background-color: var(--secondary-color--hover);
 }
 
+.m-button--secondary:focus {
+    outline: 2px solid var(--default-border-color);
+    outline-offset: 1px;
+}
+
 .m-button--secondary:active {
     background-color: var(--secondary-color--active);
 }
@@ -102,6 +109,11 @@
     background-color: var(--secondary-color--hover);
 }
 
+.m-button--secondary-icon:focus {
+    outline: 2px solid var(--default-border-color);
+    outline-offset: 1px;
+}
+
 .m-button--secondary-icon:active {
     background-color: var(--secondary-color--active);
 }
@@ -119,6 +131,11 @@
 
 .m-button--icon:hover {
     background-color: var(--secondary-color--hover);
+}
+
+.m-button--icon:focus {
+    outline: 2px solid var(--default-border-color);
+    outline-offset: 1px;
 }
 
 .m-button--icon:active {
@@ -188,6 +205,11 @@
     color: var(--primary-color--hover);
 }
 
+.m-button--link:focus {
+    outline: 2px solid var(--default-border-color);
+    outline-offset: 1px;
+}
+
 .m-button--link:active {
     color: var(--primary-color--active);
 }
@@ -196,6 +218,7 @@
 
 .m-button--disable {
     opacity: var(--disable-opacity);
+    z-index: 999;
 }
 
 .m-button--disable:hover {

@@ -4,7 +4,7 @@ import EmployeeList from "@views/employee/employee-list/EmployeeList.vue";
 
 const routes = [
     { path: "/", name: "HomeRouter", component: HomePage },
-    { path: "/employee", name: "EmployeeRouter", component: EmployeeList },
+    { path: "/employees", name: "EmployeeRouter", component: EmployeeList },
 ];
 
 const vueRouter = createRouter({

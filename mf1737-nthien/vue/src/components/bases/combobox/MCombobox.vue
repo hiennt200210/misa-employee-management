@@ -19,6 +19,7 @@
             class="m-combobox__input"
             @input="onInput"
             @keydown="onUpDown"
+            @blur="onBlur"
         />
 
         <!-- Nút hiển thị danh sách -->
@@ -66,6 +67,10 @@
                 <span>{{ item[this.propText] }}</span>
             </a>
         </div>
+    </div>
+
+    <div v-if="showErrorMessages" class="error-message">
+        {{ `${label} ${message}` }}
     </div>
 </template>
 
@@ -179,6 +184,8 @@ export default {
             isShowListData: false, // Hiển thị list data hay không
             indexItemFocus: null, // Index của item focus hiện tại
             indexItemSelected: null, // Index của item được selected
+            showErrorMessages: false,
+            message: "",
         };
     },
 
@@ -233,6 +240,7 @@ export default {
             this.textInput = text; // Hiển thị text lên input.
             this.indexItemSelected = index;
             this.isShowListData = false;
+            this.$refs.icon.style.transform = "rotate(0deg)";
             this.$emit("getValue", value, text, item);
         },
 
@@ -303,6 +311,19 @@ export default {
                     break;
                 default:
                     break;
+            }
+        },
+
+        /**
+         * 
+         */
+        onBlur() {
+            if (this.textInput == "") {
+                this.hideListData();
+                this.message = this.$resx.CannotBeEmpty;
+                this.showErrorMessages = true;
+            } else {
+                this.showErrorMessages = false;
             }
         },
     },

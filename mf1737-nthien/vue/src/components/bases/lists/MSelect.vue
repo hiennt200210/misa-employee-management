@@ -8,11 +8,7 @@
                 class="m-select-item"
                 v-for="(option, i) of options"
                 :key="i"
-                @click="
-                    selected = option;
-                    open = false;
-                    $emit('input', option);
-                "
+                @click="onClick(option)"
             >
                 {{ option }}
             </div>
@@ -34,6 +30,13 @@ export default {
             selected: this.options.length > 0 ? this.options[0] : null,
             open: false,
         };
+    },
+    methods: {
+        onClick(option) {
+            this.selected = option;
+            this.open = false;
+            this.$emit("input", option);
+        },
     },
     mounted() {
         this.$emit("input", this.selected);

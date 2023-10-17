@@ -1,6 +1,6 @@
 <template>
     <div class="employee-detail" @keydown="onKeydown">
-        <MForm :title="$resx.EmployeeDetail">
+        <MForm :title="formTitle">
             <!-- Form Content -->
             <template #content>
                 <div class="content-1">
@@ -9,26 +9,26 @@
                         <div class="row-1">
                             <MTextfield
                                 v-model="employee.employeeCode"
-                                :label="$resx.Code"
-                                required
                                 ref="first-input"
+                                required
+                                :label="$resx.Code"
                                 :max-length="20"
                             />
                             <MTextfield
                                 v-model="employee.fullName"
-                                :label="$resx.Name"
                                 required
+                                :label="$resx.Name"
                                 :max-length="100"
                             />
                         </div>
 
                         <div class="row-2">
                             <MCombobox
-                                :label="$resx.Department"
                                 required
                                 url="https://localhost:44376/api/v1/Departments"
                                 propValue="departmentId"
                                 propText="departmentName"
+                                :label="$resx.Department"
                                 :formValue="employee.departmentId"
                                 @getValue="getDepartmentOptions"
                             >
@@ -125,6 +125,7 @@
                         />
                         <MTextfield
                             v-model="employee.email"
+                            type="email"
                             :label="$resx.Email"
                             :placeHolder="$resx.ExampleEmail"
                             :max-length="100"
@@ -217,8 +218,7 @@ import {
     createEmployee,
     updateEmployee,
 } from "@services/employee";
-import { departmentUrl } from "@configs/constants";
-import { validateEmail } from "@helpers/helpers";
+import { validateEmail } from "@utils/validate";
 import MButton from "@components/bases/buttons/MButton.vue";
 import MLabel from "@components/bases/labels/MLabel.vue";
 import MTextfield from "@components/bases/text-fields/MTextfield.vue";
@@ -259,8 +259,6 @@ export default {
     data() {
         return {
             employee: {},
-            showDialog: false,
-            showToastMessage: false,
             toast: {
                 display: false,
                 type: "",
@@ -277,6 +275,23 @@ export default {
                 },
             },
         };
+    },
+
+    computed: {
+        /**
+         * Tiêu đề của form Thông tin nhân viên.
+         *
+         * CreatedBy: hiennt200210 (09/10/2023)
+         */
+        formTitle() {
+            if (this.mode === this.$enums.Form.Add) {
+                return this.$resx.AddEmployee;
+            } else if (this.mode === this.$enums.Form.Edit) {
+                return this.$resx.EditEmployee;
+            } else if (this.mode === this.$enums.Form.Duplicate) {
+                return this.$resx.AddEmployee;
+            }
+        },
     },
 
     methods: {
@@ -372,15 +387,6 @@ export default {
         },
 
         /**
-         * Lấy danh sách phòng ban.
-         * CreatedBy: hiennt200210 (26/09/2023)
-         */
-        async getDepartmentOptions() {
-            const response = await employee.getAll();
-            return response.data;
-        },
-
-        /**
          * Lưu dữ liệu khi nhấn Cất.
          * CreatedBy: hiennt200210 (30/08/2023)
          */
@@ -432,6 +438,7 @@ export default {
                         this.employee.employeeId,
                         this.employee
                     );
+
                     // Hiển thị toast message
                     this.onShowToastMessage({
                         type: this.$enums.Toast.Success,
@@ -442,21 +449,21 @@ export default {
                     this.employee.employeeCode =
                         await this.getNewEmployeeCode();
                     this.$refs["first-input"].focus();
-                    this.employee.fullName = "";
-                    this.employee.dateOfBirth = "";
-                    this.employee.gender = 0;
-                    this.employee.identityNumber = "";
-                    this.employee.identityDate = "";
-                    this.employee.identityPlace = "";
-                    this.employee.address = "";
-                    this.employee.phoneNumber = "";
-                    this.employee.landline = "";
-                    this.employee.email = "";
-                    this.employee.bankAccount = "";
-                    this.employee.bankName = "";
-                    this.employee.bankBranch = "";
-                    this.employee.positionName = "";
-                    this.employee.departmentId = "";
+                    // this.employee.fullName = "";
+                    // this.employee.dateOfBirth = "";
+                    // this.employee.gender = 0;
+                    // this.employee.identityNumber = "";
+                    // this.employee.identityDate = "";
+                    // this.employee.identityPlace = "";
+                    // this.employee.address = "";
+                    // this.employee.phoneNumber = "";
+                    // this.employee.landlineNumber = "";
+                    // this.employee.email = "";
+                    // this.employee.bankAccount = "";
+                    // this.employee.bankName = "";
+                    // this.employee.bankBranch = "";
+                    // this.employee.positionName = "";
+                    // this.employee.departmentId = "";
                 } catch (error) {
                     this.onShowDialog({
                         type: this.$enums.Dialog.Error,
@@ -477,25 +484,28 @@ export default {
                         message: this.$resx.EmployeeAdd,
                     });
 
+                    this.employee = {};
+                    this.employee.departmentId = "";
+
                     // Lấy mã nhân viên mới
                     this.employee.employeeCode =
                         await this.getNewEmployeeCode();
-                    this.$refs["first-input"].focus();
-                    this.employee.fullName = "";
-                    this.employee.dateOfBirth = "";
-                    this.employee.gender = 0;
-                    this.employee.identityNumber = "";
-                    this.employee.identityDate = "";
-                    this.employee.identityPlace = "";
-                    this.employee.address = "";
-                    this.employee.phoneNumber = "";
-                    this.employee.landline = "";
-                    this.employee.email = "";
-                    this.employee.bankAccount = "";
-                    this.employee.bankName = "";
-                    this.employee.bankBranch = "";
-                    this.employee.positionName = "";
-                    this.employee.departmentId = "";
+                    // this.$refs["first-input"].focus();
+                    // this.employee.fullName = "";
+                    // this.employee.dateOfBirth = "";
+                    // this.employee.gender = 0;
+                    // this.employee.identityNumber = "";
+                    // this.employee.identityDate = "";
+                    // this.employee.identityPlace = "";
+                    // this.employee.address = "";
+                    // this.employee.phoneNumber = "";
+                    // this.employee.landlineNumber = "";
+                    // this.employee.email = "";
+                    // this.employee.bankAccount = "";
+                    // this.employee.bankName = "";
+                    // this.employee.bankBranch = "";
+                    // this.employee.positionName = "";
+                    // this.employee.departmentId = "";
                 } catch (error) {
                     this.onShowDialog({
                         type: this.$enums.Dialog.Error,
@@ -528,6 +538,10 @@ export default {
             }
         },
 
+        /**
+         * Quay lại input đầu tiên khi nhấn phím Tab (focus tại nút Cất và thêm).
+         * CreatedBy: hiennt200210 (04/10/2023)
+         */
         onKeydownStoreAndAdd(event) {
             if (event.key === "Tab" && !event.shiftKey) {
                 event.preventDefault();
@@ -549,7 +563,7 @@ export default {
     },
 
     mounted() {
-        this.$refs["first-input"].setWidth("150px");
+        this.$refs["first-input"].setWidth("152px");
         this.$refs["first-input"].focus();
     },
 };

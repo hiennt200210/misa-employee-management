@@ -1,4 +1,5 @@
 .m-textfield {
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -42,7 +43,7 @@
 }
 
 .m-textfield .error-message {
-    /* max-width: 160px; */
+    width: 100%;
     margin-top: 8px;
     color: var(--danger-color);
     white-space: wrap;

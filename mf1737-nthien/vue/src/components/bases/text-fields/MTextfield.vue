@@ -20,15 +20,15 @@
                 :placeholder="placeHolder"
                 :value="modelValue"
                 @input="emitValue"
-                @blur="validateInput"
+                @blur="onBlur"
             />
 
             <!-- Icon trên ô nhập -->
             <div v-if="icon" :class="iconClass"></div>
         </div>
 
-        <!-- Thông báo xác thực đầu vào -->
-        <div v-if="showErrorMessage" class="error-message">
+        <!-- Thông báo lỗi khi validate dữ liệu -->
+        <div v-if="showErrorMessages" class="error-message">
             {{ `${label} ${message}` }}
         </div>
     </div>
@@ -39,7 +39,7 @@ import {
     validateEmpty,
     validateMaxLength,
     validateEmail,
-} from "@helpers/helpers";
+} from "@utils/validate";
 import MLabel from "@components/bases/labels/MLabel.vue";
 
 export default {
@@ -58,22 +58,25 @@ export default {
         required: Boolean,
 
         // Props cho ô nhập
+        type: {
+            type: String,
+            default: "text",
+        },
         placeHolder: String,
         icon: String,
         modelValue: String,
         maxLength: Number,
 
-        // Hàm xác thực dữ liệu đầu vào
         validate: {
             type: Function,
-            default: validateEmail,
+            default: () => "",
         },
     },
 
     data() {
         return {
             value: "",
-            showErrorMessage: false,
+            showErrorMessages: false,
             message: "",
         };
     },
@@ -123,36 +126,38 @@ export default {
             if (this.required) {
                 if (!validateEmpty(e.target.value)) {
                     this.message = this.$resx.CannotBeEmpty;
-                    this.showErrorMessage = true;
+                    this.showErrorMessages = true;
                 } else {
                     if (!validateMaxLength(e.target.value, this.maxLength)) {
                         this.message = `${this.$resx.MaxLengthExceeded} ${this.maxLength} ${this.$resx.Character}`;
-                        this.showErrorMessage = true;
+                        this.showErrorMessages = true;
                     } else {
-                        const result = this.validate(e.target.value);
-                        if (this.label === "Email") {
-                            if (result !== "") {
-                                this.message = result;
-                                this.showErrorMessage = true;
+                        if (this.type === "email") {
+                            if (e.target.value !== "" && !validateEmail(e.target.value)) {
+                                this.message = this.$resx.EmailInvalid;
+                                this.showErrorMessages = true;
+                            } else {
+                                this.showErrorMessages = false;
                             }
                         } else {
-                            this.showErrorMessage = false;
+                            this.showErrorMessages = false;
                         }
                     }
                 }
             } else {
                 if (!validateMaxLength(e.target.value, this.maxLength)) {
                     this.message = `${this.$resx.MaxLengthExceeded} ${this.maxLength} ${this.$resx.Character}`;
-                    this.showErrorMessage = true;
+                    this.showErrorMessages = true;
                 } else {
-                    const result = this.validate(e.target.value);
-                    if (this.label === "Email") {
-                        if (result !== "") {
-                            this.message = result;
-                            this.showErrorMessage = true;
+                    if (this.type === "email") {
+                        if (e.target.value !== "" && !validateEmail(e.target.value)) {
+                            this.message = this.$resx.EmailInvalid;
+                            this.showErrorMessages = true;
+                        } else {
+                            this.showErrorMessages = false;
                         }
                     } else {
-                        this.showErrorMessage = false;
+                        this.showErrorMessages = false;
                     }
                 }
             }
@@ -172,7 +177,7 @@ export default {
          * CreatedBy: hiennt200210 (24/08/2023)
          */
         onBlur(e) {
-            // this.validateInput(e.target.value);
+            this.validateInput(e);
         },
 
         /**

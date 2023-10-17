@@ -1,8 +1,8 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import enums from "@helpers/enums";
-import resources from "@helpers/resources";
-import vueRouter from "@routers/index";
+import enums from "@constants/enums";
+import resources from "@constants/resources";
+import vueRouter from "@router/index";
 
 const app = createApp(App);
 

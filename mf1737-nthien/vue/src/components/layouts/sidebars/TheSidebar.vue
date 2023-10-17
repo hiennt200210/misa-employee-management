@@ -1,11 +1,14 @@
 <template>
     <div class="sidebar">
+        <!-- List items -->
         <div class="sidebar__menu">
-            <MMenuItem v-for="item in items" :key="item.id" :item="item" />
+            <MMenuItem v-for="(item, index) in menus" :item="item" />
         </div>
+
+        <!-- Sidebar footer -->
         <div class="sidebar__footer">
             <div class="icon icon-arrow-left"></div>
-            Rút gọn
+            {{ $resx.Shrink }}
         </div>
     </div>
 </template>
@@ -20,66 +23,76 @@ export default {
     },
     data() {
         return {
-            items: [
+            menus: [
                 {
-                    title: "Tổng quan",
-                    icon: "tongquan",
+                    title: this.$resx.Overview,
+                    icon: "overview",
                     path: "/",
                     isActived: true,
                 },
                 {
-                    title: "Tiền mặt",
-                    icon: "tienmat",
-                    path: "/employee",
+                    title: this.$resx.Cash,
+                    icon: "cash",
+                    path: "/employees",
                     isActived: false,
                 },
                 {
-                    title: "Tiền gửi",
-                    icon: "tiengui",
+                    title: this.$resx.Deposits,
+                    icon: "deposits",
                     path: "/",
                     isActived: false,
                 },
                 {
-                    title: "Mua hàng",
-                    icon: "muahang",
+                    title: this.$resx.Purchase,
+                    icon: "purchase",
                     path: "/",
                     isActived: false,
                 },
                 {
-                    title: "Bán hàng",
-                    icon: "banhang",
+                    title: this.$resx.Sales,
+                    icon: "sales",
                     path: "/",
                     isActived: false,
                 },
                 {
-                    title: "Quản lý hóa đơn",
-                    icon: "quanlyhoadon",
-                    path: "/",
-                    isActived: false,
-                },
-                { title: "Kho", icon: "kho", path: "/", isActived: false },
-                {
-                    title: "Công cụ dụng cụ",
-                    icon: "congcudungcu",
+                    title: this.$resx.ManageInvoices,
+                    icon: "manage-invoices",
                     path: "/",
                     isActived: false,
                 },
                 {
-                    title: "Tài sản cố định",
-                    icon: "taisancodinh",
-                    path: "/",
-                    isActived: false,
-                },
-                { title: "Thuế", icon: "thue", path: "/", isActived: false },
-                {
-                    title: "Giá thành",
-                    icon: "giathanh",
+                    title: this.$resx.Warehouse,
+                    icon: "warehouse",
                     path: "/",
                     isActived: false,
                 },
                 {
-                    title: "Tổng hợp",
-                    icon: "tonghop",
+                    title: this.$resx.Tools,
+                    icon: "tools",
+                    path: "/",
+                    isActived: false,
+                },
+                {
+                    title: this.$resx.FixedAssets,
+                    icon: "fixed-assets",
+                    path: "/",
+                    isActived: false,
+                },
+                {
+                    title: this.$resx.Tax,
+                    icon: "tax",
+                    path: "/",
+                    isActived: false,
+                },
+                {
+                    title: this.$resx.Prices,
+                    icon: "prices",
+                    path: "/",
+                    isActived: false,
+                },
+                {
+                    title: this.$resx.Summarization,
+                    icon: "summarization",
                     path: "/",
                     isActived: false,
                 },

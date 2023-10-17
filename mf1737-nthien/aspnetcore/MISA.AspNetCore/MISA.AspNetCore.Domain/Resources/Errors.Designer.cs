@@ -61,7 +61,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Địa chỉ không được dài hơn 255 ký tự.
+        ///   Looks up a localized string similar to Địa chỉ không được dài hơn 255 ký tự..
         /// </summary>
         public static string AddressExceedMaxLength {
             get {
@@ -79,7 +79,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Số tài khoản không được dài hơn 25 ký tự.
+        ///   Looks up a localized string similar to Số tài khoản không được dài hơn 25 ký tự..
         /// </summary>
         public static string BankAccountExceedMaxLength {
             get {
@@ -88,7 +88,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tên chi nhánh không được dài hơn 255 ký tự.
+        ///   Looks up a localized string similar to Tên chi nhánh không được dài hơn 255 ký tự..
         /// </summary>
         public static string BankBranchExceedMaxLength {
             get {
@@ -97,7 +97,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tên ngân hàng không được dài hơn 255 ký tự.
+        ///   Looks up a localized string similar to Tên ngân hàng không được dài hơn 255 ký tự..
         /// </summary>
         public static string BankNameExceedMaxLength {
             get {
@@ -115,7 +115,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ngày sinh không hợp lệ.
+        ///   Looks up a localized string similar to Ngày sinh không được lớn hơn ngày hiện tại..
         /// </summary>
         public static string DateOfBirthInvalid {
             get {
@@ -124,7 +124,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Đơn vị không được phép để trống.
+        ///   Looks up a localized string similar to Đơn vị không được phép để trống..
         /// </summary>
         public static string DepartmentCannotBeEmpty {
             get {
@@ -133,7 +133,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tên phòng ban đã tồn tại.
+        ///   Looks up a localized string similar to Tên phòng ban đã tồn tại..
         /// </summary>
         public static string DepartmentNameDuplicated {
             get {
@@ -142,7 +142,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Không tìm thấy phòng ban.
+        ///   Looks up a localized string similar to Không tìm thấy phòng ban..
         /// </summary>
         public static string DepartmentNotFound {
             get {
@@ -151,7 +151,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email không được dài hơn 100 ký tự.
+        ///   Looks up a localized string similar to Email không được dài hơn 100 ký tự..
         /// </summary>
         public static string EmailExceedMaxLength {
             get {
@@ -160,7 +160,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email không đúng định dạng.
+        ///   Looks up a localized string similar to Email không đúng định dạng..
         /// </summary>
         public static string EmailInvalid {
             get {
@@ -169,7 +169,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mã nhân viên không được phép để trống.
+        ///   Looks up a localized string similar to Mã nhân viên không được phép để trống..
         /// </summary>
         public static string EmployeeCodeCannotBeEmpty {
             get {
@@ -178,7 +178,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mã nhân viên đã tồn tại.
+        ///   Looks up a localized string similar to Mã nhân viên đã tồn tại..
         /// </summary>
         public static string EmployeeCodeDuplicated {
             get {
@@ -187,7 +187,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mã nhân viên không được dài hơn 20 ký tự.
+        ///   Looks up a localized string similar to Mã nhân viên không được dài hơn 20 ký tự..
         /// </summary>
         public static string EmployeeCodeExceedMaxLength {
             get {
@@ -205,7 +205,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tên nhân viên không được phép để trống.
+        ///   Looks up a localized string similar to Tên nhân viên không được phép để trống..
         /// </summary>
         public static string FullNameCannotBeEmpty {
             get {
@@ -214,7 +214,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tên nhân viên không được dài hơn 100 ký tự.
+        ///   Looks up a localized string similar to Tên nhân viên không được dài hơn 100 ký tự..
         /// </summary>
         public static string FullNameExceedMaxLength {
             get {
@@ -223,7 +223,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Giới tính không hợp lệ.
+        ///   Looks up a localized string similar to Giới tính không hợp lệ..
         /// </summary>
         public static string GenderInvalid {
             get {
@@ -232,7 +232,16 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ngày cấp không hợp lệ.
+        ///   Looks up a localized string similar to Ngày cấp không được nhỏ hơn ngày sinh..
+        /// </summary>
+        public static string IdentityDateCannotBiggerThanDateOfBirth {
+            get {
+                return ResourceManager.GetString("IdentityDateCannotBiggerThanDateOfBirth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày cấp không được lớn hơn ngày hiện tại..
         /// </summary>
         public static string IdentityDateInvalid {
             get {
@@ -241,7 +250,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Số CCCD không được dài hơn 25 ký tự.
+        ///   Looks up a localized string similar to Số CCCD không được dài hơn 25 ký tự..
         /// </summary>
         public static string IdentityNumberExceedMaxLength {
             get {
@@ -250,7 +259,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nơi cấp không được dài hơn 255 ký tự.
+        ///   Looks up a localized string similar to Nơi cấp không được dài hơn 255 ký tự..
         /// </summary>
         public static string IdentityPlaceExceedMaxLength {
             get {
@@ -268,7 +277,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Số điện thoại cố định không được dài hơn 50 ký tự.
+        ///   Looks up a localized string similar to Số điện thoại cố định không được dài hơn 50 ký tự..
         /// </summary>
         public static string LandlineNumberExceedMaxLength {
             get {
@@ -286,7 +295,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Số điện thoại di động không được dài hơn 50 ký tự.
+        ///   Looks up a localized string similar to Số điện thoại di động không được dài hơn 50 ký tự..
         /// </summary>
         public static string PhoneNumberExceedMaxLength {
             get {
@@ -295,7 +304,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chức vụ không được dài hơn 255 ký tự.
+        ///   Looks up a localized string similar to Chức vụ không được dài hơn 255 ký tự..
         /// </summary>
         public static string PositionNameExceedMaxLength {
             get {
@@ -304,7 +313,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mức lương không được phép âm.
+        ///   Looks up a localized string similar to Mức lương không được phép âm..
         /// </summary>
         public static string SalaryInvalid {
             get {

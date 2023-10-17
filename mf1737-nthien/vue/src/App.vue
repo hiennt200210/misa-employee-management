@@ -19,8 +19,7 @@ export default {
 </script>
 
 <style>
-@import url(./assets/fontawesome/css/all.min.css);
-@import url(./styles/style.css);
+@import url(@assets/styles/style.css);
 
 .container {
     position: relative;

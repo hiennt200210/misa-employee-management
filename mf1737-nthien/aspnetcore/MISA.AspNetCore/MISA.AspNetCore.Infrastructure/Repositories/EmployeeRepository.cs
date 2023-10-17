@@ -8,6 +8,7 @@ using Dapper;
 using MySqlConnector;
 using static Dapper.SqlMapper;
 using System.Resources;
+using System.Text.RegularExpressions;
 
 namespace MISA.AspNetCore.Infrastructure
 {
@@ -264,7 +265,6 @@ namespace MISA.AspNetCore.Infrastructure
         /// CreatedBy: hiennt200210 (22/09/2023)
         public static string GenerateNewCode(string maxEmployeeCode)
         {
-            // Sinh mã nhân viên mới
             string? newEmployeeCode;
 
             if (maxEmployeeCode == null)
@@ -273,9 +273,23 @@ namespace MISA.AspNetCore.Infrastructure
             }
             else
             {
-                var oldCodeNumber = maxEmployeeCode[3..];
-                var newCodeNumber = (int.Parse(oldCodeNumber) + 1).ToString().PadLeft(3, '0');
-                newEmployeeCode = $"NV-{newCodeNumber}";
+                Match match = Regex.Match(maxEmployeeCode, @"\d+");
+
+                if (match.Success)
+                {
+                    string numberPart = match.Value;
+                    int number = int.Parse(numberPart);
+
+                    number++;
+
+                    string result = maxEmployeeCode.Replace(numberPart, number.ToString("D" + numberPart.Length));
+
+                    return result;
+                }
+                else
+                {
+                    return maxEmployeeCode + "1";
+                }
             }
 
             return newEmployeeCode;

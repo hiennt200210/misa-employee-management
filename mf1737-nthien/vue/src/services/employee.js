@@ -1,5 +1,5 @@
 import axios from "axios";
-import { employeeUrl } from "@configs/constants";
+import { employeeUrl } from "@constants/constants";
 
 /**
  * Lấy danh sách nhân viên theo kết quả tìm kiếm, sắp xếp, phân trang.
@@ -11,7 +11,7 @@ import { employeeUrl } from "@configs/constants";
  *
  * CreatedBy: hiennt200210 (26/09/2023)
  */
-const getEmployeesByFilter = async function (limit, offset, orders, search) {
+async function getEmployeesByFilter(limit, offset, orders, search) {
     // Tạo request URL
     let url = `${employeeUrl}/pagination?limit=${limit}&offset=${offset}`;
 
@@ -29,7 +29,7 @@ const getEmployeesByFilter = async function (limit, offset, orders, search) {
     const response = await axios.get(url);
 
     return response;
-};
+}
 
 /**
  * Lấy danh sách tất cả nhân viên.
@@ -37,10 +37,10 @@ const getEmployeesByFilter = async function (limit, offset, orders, search) {
  *
  * CreatedBy: hiennt200210 (26/09/2023)
  */
-const getAllEmployees = async function () {
+async function getAllEmployees() {
     const response = await axios.get(employeeUrl);
     return response;
-};
+}
 
 /**
  * Lấy dữ liệu của một nhân viên theo ID.
@@ -49,11 +49,11 @@ const getAllEmployees = async function () {
  *
  * CreatedBy: hiennt200210 (26/09/2023)
  */
-const getEmployeeById = async function (id) {
+async function getEmployeeById(id) {
     const url = `${employeeUrl}/${id}`;
     const response = await axios.get(url);
     return response;
-};
+}
 
 /**
  * Lấy mã nhân viên mới (tự động tăng).
@@ -61,11 +61,11 @@ const getEmployeeById = async function (id) {
  *
  * CreatedBy: hiennt200210 (26/09/2023)
  */
-const generateEmployeeCode = async function () {
+async function generateEmployeeCode() {
     const url = `${employeeUrl}/newEmployeeCode`;
     const response = await axios.get(url);
     return response;
-};
+}
 
 /**
  * Thêm mới một nhân viên.
@@ -74,10 +74,10 @@ const generateEmployeeCode = async function () {
  *
  * CreatedBy: hiennt200210 (26/09/2023)
  */
-const createEmployee = async function (employee) {
+async function createEmployee(employee) {
     const response = await axios.post(employeeUrl, employee);
     return response;
-};
+}
 
 /**
  * Cập nhật thông tin của một nhân viên.
@@ -87,11 +87,11 @@ const createEmployee = async function (employee) {
  *
  * CreatedBy: hiennt200210 (26/09/2023)
  */
-const updateEmployee = async function (id, employee) {
+async function updateEmployee(id, employee) {
     const url = `${employeeUrl}/${id}`;
     const response = await axios.put(url, employee);
     return response;
-};
+}
 
 /**
  * Xoá một nhân viên.
@@ -100,11 +100,11 @@ const updateEmployee = async function (id, employee) {
  *
  * CreatedBy: hiennt200210 (26/09/2023)
  */
-const deleteEmployee = async function (id) {
+async function deleteEmployee(id) {
     const url = `${employeeUrl}/${id}`;
     const response = await axios.delete(url);
     return response;
-};
+}
 
 /**
  * Xoá nhiều nhân viên.
@@ -113,7 +113,7 @@ const deleteEmployee = async function (id) {
  *
  * CreatedBy: hiennt200210 (26/09/2023)
  */
-const deleteEmployees = async function (ids) {
+async function deleteEmployees(ids) {
     // Tạo request URL
     let url = `${employeeUrl}?`;
 
@@ -125,7 +125,7 @@ const deleteEmployees = async function (ids) {
     const response = await axios.delete(url);
 
     return response;
-};
+}
 
 /**
  * Xuất khẩu file Excel danh sách nhân viên theo kết quả tìm kiếm, sắp xếp.
@@ -135,7 +135,7 @@ const deleteEmployees = async function (ids) {
  *
  * CreatedBy: hiennt200210 (04/10/2023)
  */
-const exportEmployeesToExcel = async function (orders, search) {
+async function exportEmployeesToExcel(orders, search) {
     // Tạo request URL
     let url = `${employeeUrl}/export?`;
 
@@ -167,7 +167,7 @@ const exportEmployeesToExcel = async function (orders, search) {
     // Xoá thẻ "a" HTML khi không cần dùng nữa
     document.body.removeChild(link);
     URL.revokeObjectURL(href);
-};
+}
 
 export {
     getEmployeesByFilter,

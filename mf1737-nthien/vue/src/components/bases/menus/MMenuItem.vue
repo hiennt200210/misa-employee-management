@@ -31,5 +31,5 @@ export default {
 </script>
 
 <style scoped>
-@import url(./menu-item.css);
+@import url(menu-item.css);
 </style>

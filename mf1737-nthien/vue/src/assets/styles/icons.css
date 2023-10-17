@@ -100,63 +100,50 @@
     background-position: -592px -144px;
 }
 
-/* Menu's Icons */
-.icon-tongquan {
+.icon-overview {
     background-position: -30px -1628px;
 }
 
-.icon-tienmat {
+.icon-cash {
     background-position: -73px -1628px;
 }
 
-.icon-tiengui {
+.icon-deposits {
     background-position: -117px -1628px;
 }
 
-.icon-muahang {
+.icon-purchase {
     background-position: -161px -1628px;
 }
 
-.icon-banhang {
+.icon-sales {
     background-position: -204px -1628px;
 }
 
-.icon-quanlyhoadon {
+.icon-manage-invoices {
     background-position: -249px -1628px;
 }
 
-.icon-kho {
+.icon-warehouse {
     background-position: -291px -1628px;
 }
 
-.icon-congcudungcu {
+.icon-tools {
     background-position: -336px -1628px;
 }
 
-.icon-taisancodinh {
+.icon-fixed-assets {
     background-position: -378px -1628px;
 }
 
-.icon-thue {
+.icon-tax {
     background-position: -423px -1628px;
 }
 
-.icon-giathanh {
+.icon-prices {
     background-position: -467px -1628px;
 }
 
-.icon-tonghop {
+.icon-summarization {
     background-position: -510px -1628px;
-}
-
-.icon-ngansach {
-    background-position: -378px -1660px;
-}
-
-.icon-baocao {
-    background-position: -547px -1628px;
-}
-
-.icon-phantichtaichinh {
-    background-position: -204px -1661px;
 }

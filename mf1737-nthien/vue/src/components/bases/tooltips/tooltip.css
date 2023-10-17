@@ -3,7 +3,7 @@
 
     /* Position */
     position: absolute;
-    z-index: 99;
+    z-index: 999;
 
     /* Size and display */
     max-width: 250px;

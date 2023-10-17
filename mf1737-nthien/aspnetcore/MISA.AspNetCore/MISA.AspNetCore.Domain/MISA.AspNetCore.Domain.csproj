@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\Employee.Designer.cs">
+    <Compile Update="Resources\EmployeeResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Employee.resx</DependentUpon>
+      <DependentUpon>EmployeeResource.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Errors.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -20,9 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Employee.resx">
+    <EmbeddedResource Update="Resources\EmployeeResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Employee.Designer.cs</LastGenOutput>
+      <LastGenOutput>EmployeeResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Errors.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

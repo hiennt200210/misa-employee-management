@@ -158,6 +158,13 @@ select {
     color: var(--primary-color);
 }
 
+.error-message {
+    width: 100%;
+    margin-top: 8px;
+    color: var(--danger-color);
+    white-space: wrap;
+}
+
 #check-icon {
     font-size: 22px;
 }

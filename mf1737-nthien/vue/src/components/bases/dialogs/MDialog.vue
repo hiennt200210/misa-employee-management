@@ -9,6 +9,7 @@
                 <MButton
                     :type="$enums.Button.TitleBar"
                     icon="close"
+                    :tooltip="$resx.Close"
                     @clickButton="onClickCloseButton"
                 />
             </div>
@@ -21,9 +22,9 @@
                 <!-- Nội dung thông báo -->
                 <div class="notification">
                     <ul v-if="content.length > 1">
-                        <li v-for="item in content">{{ `${item}.` }}</li>
+                        <li v-for="item in content">{{ `${item}` }}</li>
                     </ul>
-                    <p v-else>{{ `${content[0]}.` }}</p>
+                    <p v-else>{{ `${content[0]}` }}</p>
                 </div>
             </div>
 

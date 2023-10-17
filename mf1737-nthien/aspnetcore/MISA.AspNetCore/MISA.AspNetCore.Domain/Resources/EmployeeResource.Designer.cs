@@ -22,14 +22,14 @@ namespace MISA.AspNetCore.Domain.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Employee {
+    public class EmployeeResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Employee() {
+        internal EmployeeResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace MISA.AspNetCore.Domain.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MISA.AspNetCore.Domain.Resources.Employee", typeof(Employee).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MISA.AspNetCore.Domain.Resources.EmployeeResource", typeof(EmployeeResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

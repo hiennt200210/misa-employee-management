@@ -62,6 +62,7 @@
                         :type="$enums.Button.Icon"
                         icon="excel-file"
                         :tooltip="$resx.Export"
+                        :disabled="employees.length === 0"
                         @clickButton="onClickExportButton"
                     />
 
@@ -70,6 +71,7 @@
                         :type="$enums.Button.Icon"
                         icon="refresh"
                         :tooltip="$resx.Reload"
+                        :disabled="employees.length === 0"
                         @clickButton="onClickReloadButton"
                     />
                 </template>
@@ -229,7 +231,7 @@ import {
     deleteEmployees,
     exportEmployeesToExcel,
 } from "@services/employee";
-import { formatGender, formatDate, formatNumber } from "@helpers/helpers";
+import { formatGender, formatDate, formatNumber } from "@utils/format";
 import EmployeeForm from "@views/employee/employee-form/EmployeeForm.vue";
 import MButton from "@components/bases/buttons/MButton.vue";
 import MCheckbox from "@components/bases/checkbox/MCheckbox.vue";
@@ -620,12 +622,21 @@ export default {
                 (item) => item.isSelected
             );
 
+            let dialogContent;
+            if (selectedEmployees.length === 1) {
+                dialogContent = [
+                    `${this.$resx.ConfirmDeleteEmployee} ${selectedEmployees[0].employeeCode} ${this.$resx.ConfirmDeleteEmployee1}`,
+                ];
+            } else {
+                dialogContent = [
+                    `${this.$resx.DeleteEmployee1} ${selectedEmployees.length} ${this.$resx.DeleteEmployee2}`,
+                ];
+            }
+
             this.onShowDialog({
                 type: this.$enums.Dialog.Warning,
                 title: this.$resx.DeleteEmployee,
-                content: [
-                    `${this.$resx.DeleteEmployee1} ${selectedEmployees.length} ${this.$resx.DeleteEmployee2}`,
-                ],
+                content: dialogContent,
                 buttons: {
                     secondary: this.$resx.Cancel,
                     primary: this.$resx.Delete,
@@ -693,7 +704,8 @@ export default {
          * Xử lý khi thay đổi số lượng bản ghi/trang.
          * CreatedBy: hiennt200210 (01/09/2023)
          */
-        onChangeLimit() {
+        onChangeLimit(e) {
+            this.limit = e.target.value;
             this.loadData(
                 this.limit,
                 this.offset,
@@ -729,6 +741,8 @@ export default {
          * CreatedBy: hiennt200210 (01/09/2023)
          */
         onClickNextButton() {
+            console.log(this.limit);
+            console.log(this.offset);
             if (this.offset + this.limit >= this.total - 1) {
                 this.nextDisabled = true;
                 this.prevDisabled = false;

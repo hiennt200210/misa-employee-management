@@ -12,9 +12,6 @@
     cursor: pointer;
 }
 
-.m-checkbox:focus {
-}
-
 .m-checkbox:checked {
     position: relative;
     height: 20px;

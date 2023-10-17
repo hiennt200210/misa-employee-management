@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MISA.AspNetCore.Domain;
 using MISA.AspNetCore.Domain.Entities.Base;
+using MISA.AspNetCore.Domain.Resources;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
@@ -56,7 +57,7 @@ namespace MISA.AspNetCore.Application
 
             using (var package = new ExcelPackage())
             {
-                var worksheet = package.Workbook.Worksheets.Add(Domain.Resources.Employee.EmployeesUpperCase);
+                var worksheet = package.Workbook.Worksheets.Add(Domain.Resources.EmployeeResource.EmployeesUpperCase);
 
                 // Thiết lập độ rộng cột
                 var columnWidths = new double[] { 5, 20, 30, 15, 20, 25, 25, 20, 30 };
@@ -78,7 +79,7 @@ namespace MISA.AspNetCore.Application
                 var headerRow = worksheet.Cells["A1:I1"];
                 worksheet.Row(1).Height = 25;
                 headerRow.Merge = true;
-                headerRow.Value = Domain.Resources.Employee.EmployeesUpperCase;
+                headerRow.Value = Domain.Resources.EmployeeResource.EmployeesUpperCase;
                 headerRow.Style.Font.Size = 16;
                 headerRow.Style.Font.Bold = true;
                 headerRow.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -159,15 +160,15 @@ namespace MISA.AspNetCore.Application
 
             if (employee.Gender == Gender.Male)
             {
-                genderFormat = Domain.Resources.Employee.Male;
+                genderFormat = Domain.Resources.EmployeeResource.Male;
             }
             else if (employee.Gender == Gender.Female)
             {
-                genderFormat = Domain.Resources.Employee.Female;
+                genderFormat = Domain.Resources.EmployeeResource.Female;
             }
             else if (employee.Gender == Gender.Other)
             {
-                genderFormat = Domain.Resources.Employee.Other;
+                genderFormat = Domain.Resources.EmployeeResource.Other;
             }
             else
             {
@@ -305,7 +306,7 @@ namespace MISA.AspNetCore.Application
                 errors.Add(new string(Domain.Resources.Errors.EmployeeCodeExceedMaxLength));
             }
 
-            if (string.IsNullOrEmpty(employee.EmployeeCode))
+            if (string.IsNullOrEmpty(employee.EmployeeCode) || employee.EmployeeCode.Trim() == "")
             {
                 errors.Add(new string(Domain.Resources.Errors.EmployeeCodeCannotBeEmpty));
             }
@@ -360,9 +361,14 @@ namespace MISA.AspNetCore.Application
                 errors.Add(new string(Domain.Resources.Errors.IdentityNumberExceedMaxLength));
             }
 
-            if (employee.IdentityDate != null && employee.IdentityDate > DateTime.Now || employee.IdentityDate < employee.DateOfBirth)
+            if (employee.IdentityDate != null && employee.IdentityDate > DateTime.Now)
             {
                 errors.Add(new string(Domain.Resources.Errors.IdentityDateInvalid));
+            }
+
+            if (employee.IdentityDate != null && employee.IdentityDate < employee.DateOfBirth)
+            {
+                errors.Add(new string(Domain.Resources.Errors.IdentityDateCannotBiggerThanDateOfBirth));
             }
 
             if (employee.IdentityPlace != null && employee.IdentityPlace.Length > 255)
@@ -518,9 +524,14 @@ namespace MISA.AspNetCore.Application
                 errors.Add(new string(Domain.Resources.Errors.IdentityNumberExceedMaxLength));
             }
 
-            if (newEmployee.IdentityDate > DateTime.Now || newEmployee.IdentityDate < newEmployee.DateOfBirth)
+            if (newEmployee.IdentityDate != null && newEmployee.IdentityDate > DateTime.Now)
             {
                 errors.Add(new string(Domain.Resources.Errors.IdentityDateInvalid));
+            }
+
+            if (newEmployee.IdentityDate != null && newEmployee.IdentityDate < newEmployee.DateOfBirth)
+            {
+                errors.Add(new string(Domain.Resources.Errors.IdentityDateCannotBiggerThanDateOfBirth));
             }
 
             if (newEmployee.IdentityPlace != null && newEmployee.IdentityPlace.Length > 255)
@@ -605,7 +616,7 @@ namespace MISA.AspNetCore.Application
             }
 
             // Kiểm tra trùng mã nhân viên
-            if (employee.EmployeeCode != null)
+            if (employee.EmployeeCode != null && employee.EmployeeCode.Trim() != "")
             {
                 await _employeeValidate.CheckDuplicateEmployeeCodeAsync(employee.EmployeeCode);
             }
